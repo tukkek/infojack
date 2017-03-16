@@ -1,4 +1,4 @@
-**This repository is currently maintained only for planning and design work. There are no versions of the game available for play or forking at the moment. If you want to be notified when initial versiosns start rolling in subscribe to https://github.com/tukkek/infojack/commits/master.atom **
+**This repository is currently maintained only for planning and design work. There are no versions of the game available for play or forking at the moment. If you want to be notified when initial versiosns start rolling in subscribe to [the commit feed](https://github.com/tukkek/infojack/commits/master.atom).**
 
 # infojack
 
