@@ -1,0 +1,48 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="infojack-radio.html">
+
+<dom-module id="infojack-topmenu">
+  <template>
+    <style>
+        #topmenu img{
+            height:1.5em;
+            cursor:pointer;
+            margin:0em .25em 0em .25em;
+        }
+        #topmenu {
+            position:fixed;
+            right:2em;
+            top:1em;
+            background-color:lightgrey;
+            border:.25em solid lightgrey;
+            border-radius:1em;
+        }
+    </style>
+    <div id='topmenu'>
+        <img src='../../images/note.png' on-click="open" title="Music On/Off"></img>
+    <div>
+    <infojack-radio hidden="{{hideradio}}"></infojack-radio>
+  </template>
+
+  <script>
+    class TopMenu extends Polymer.Element {
+        static get is() { return 'infojack-topmenu'; }
+      
+        static get properties() {
+            return {
+                hideradio: {
+                    type: Boolean,
+                    value: true,
+                }
+            }
+        }
+    
+        open(){
+            this.hideradio=!this.hideradio;
+        }
+    }
+
+    window.customElements.define(TopMenu.is, TopMenu);
+  </script>
+</dom-module>
+ 

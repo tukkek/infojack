@@ -1,0 +1,7 @@
+{
+  "name": "infojack",
+  "short_name": "infojack",
+  "description": "Cyberpunk roguelike",
+  "start_url": "/",
+  "display": "standalone"
+}
