@@ -11,10 +11,11 @@
     <div class='centered center panel'>
         <h1>Infojack</h1>
         <hr/>
-        <div><button on-click="showpending">Start new game</button></div>
-        <div><button on-click="showpending">Load saved game</button></div>
+        <div><button on-click="startgame">Start new game</button></div>
+        <div><button on-click="loadgame">Load saved game</button></div>
         <div><button on-click="showpending">How to play</button></div>
-        <div><button on-click="showpending">Source code</button></div>
+        <div><button on-click="showpending">Community</button></div>
+        <div><button on-click="openrepository">Source code</button></div>
         <hr/>
     </div>
   </template>
@@ -23,11 +24,33 @@
     class MainMenu extends Polymer.Element {
       static get is() { return 'infojack-mainmenu'; }
       
-      showpending(){
+      playerrorsound(message){
         sound.play(sound.ERROR);
         setTimeout(function(){
-            alert('Operation pending!');
+            alert(message);
         },100);
+      }
+      
+      showpending(){//TODO
+        this.playerrorsound('Operation pending!');
+      }
+      
+      loadgame(){
+        if(!save.load()){
+            this.playerrorsound("No save game found! Please check you're using the exact same address as before!");
+        }
+      }
+      
+      startgame(){
+        if(confirm('Are you sure you want to start a new game? Any previous progress will be lost!')){
+            save.clear();
+            save.save();
+            alert('Game started');
+        }
+      }
+      
+      openrepository(){
+        window.open('https://github.com/tukkek/infojack');
       }
     }
 

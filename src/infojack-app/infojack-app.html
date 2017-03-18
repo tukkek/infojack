@@ -13,6 +13,15 @@
   <script>
     class InfojackApp extends Polymer.Element {
       static get is() { return 'infojack-app'; }
+      
+      static get properties() {
+        return {
+            count: {
+                type: String,
+                value: 'mainmenu',
+            }
+        }
+      }
     }
 
     window.customElements.define(InfojackApp.is, InfojackApp);
