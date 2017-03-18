@@ -5,20 +5,22 @@
   <template>
     <style>
         #radio-container{
-            background-color:#164c06;
+            /*background-color:#164c06;
             border:1em solid #164c06;
+            border-radius:1em;*/
             display:inline;
-            border-radius:1em;
             position:fixed;
             right:2em;
             top:4em;
             text-align:center;
+            padding:.5em;
+            z-index:2;
         }
         #radio-control{
             margin-bottom:1em;
         }
     </style>
-    <div id='radio-container'> 
+    <div id='radio-container' class='panel'> 
         <audio 
             id="radio-player" 
             type="audio/mpeg" 

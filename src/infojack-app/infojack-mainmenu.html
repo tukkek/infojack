@@ -1,0 +1,28 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="infojack-mainmenu">
+  <template>
+    <style>
+        div{
+            text-align:center;
+        }
+        hr{width:50%;}
+    </style>
+    <div class='center panel'>
+        <h1>Infojack</h1>
+        <hr/>
+        <div><button>Start new game</button></div>
+        <div><button>Load saved game</button></div>
+        <div><button>Source code</button></div>
+        <hr/>
+    </div>
+  </template>
+
+  <script>
+    class MainMenu extends Polymer.Element {
+      static get is() { return 'infojack-mainmenu'; }
+    }
+
+    window.customElements.define(MainMenu.is, MainMenu);
+  </script>
+</dom-module>
