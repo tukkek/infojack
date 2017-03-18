@@ -1,25 +1,28 @@
 <html><head><link rel="import" href="../../bower_components/polymer/polymer-element.html">
- <link rel="import" href="./infojack-radio.html">
+<link rel="import" href="./infojack-radio.html">
+<link rel="import" href="./infojack-style.html">
 
 </head><body><dom-module id="infojack-radio">
   <template>
-    <style>
+    <style include="infojack-style">
         #radio-container{
-            background-color:#164c06;
+            /*background-color:#164c06;
             border:1em solid #164c06;
+            border-radius:1em;*/
             display:inline;
-            border-radius:1em;
             position:fixed;
             right:2em;
             top:4em;
             text-align:center;
+            padding:.5em;
+            z-index:2;
         }
         #radio-control{
             margin-bottom:1em;
         }
     </style>
-    <div id="radio-container"> 
-        <audio id="radio-player" type="audio/mpeg" src="http://ice1.somafm.com/defcon-128-mp3"></audio>
+    <div id="radio-container" class="panel"> 
+        <audio id="radio-player" type="audio/mpeg" src="http://ice1.somafm.com/defcon-128-mp3" preload="none"></audio>
         <div id="radio-control">
             <input id="radio-active" type="checkbox" on-click="play"> 
             Enable music

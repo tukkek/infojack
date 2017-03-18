@@ -1,0 +1,37 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="./infojack-style.html">
+<link rel="import" href="./infojack-controller.html">
+
+</head><body><dom-module id="infojack-mainmenu">
+  <template>
+     <style include="infojack-style">
+        div{text-align:center;}
+        hr{width:50%;}
+    </style>
+    <div class="centered center panel">
+        <h1>Infojack</h1>
+        <hr>
+        <div><button on-click="showpending">Start new game</button></div>
+        <div><button on-click="showpending">Load saved game</button></div>
+        <div><button on-click="showpending">How to play</button></div>
+        <div><button on-click="showpending">Source code</button></div>
+        <hr>
+    </div>
+  </template>
+
+  <script>
+    class MainMenu extends Polymer.Element {
+      static get is() { return 'infojack-mainmenu'; }
+      
+      showpending(){
+        sound.play(sound.ERROR);
+        setTimeout(function(){
+            alert('Operation pending!');
+        },100);
+      }
+    }
+
+    window.customElements.define(MainMenu.is, MainMenu);
+  </script>
+</dom-module>
+</body></html>
