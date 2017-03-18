@@ -6,6 +6,7 @@
   },
   "sources": [
    "images/**/*",
-   "sounds/**/*"
+   "sounds/**/*",
+   "fonts/**/*"
   ]
 }
