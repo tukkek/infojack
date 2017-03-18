@@ -1,0 +1,21 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="./infojack-topmenu.html">
+<link rel="import" href="./infojack-mainmenu.html">
+<link rel="import" href="./infojack-style.html">
+
+</head><body><dom-module id="infojack-app">
+  <style include="infojack-style"></style>
+  <template>
+    <infojack-topmenu></infojack-topmenu>
+    <infojack-mainmenu></infojack-mainmenu>
+  </template>
+
+  <script>
+    class InfojackApp extends Polymer.Element {
+      static get is() { return 'infojack-app'; }
+    }
+
+    window.customElements.define(InfojackApp.is, InfojackApp);
+  </script>
+</dom-module>
+</body></html>
