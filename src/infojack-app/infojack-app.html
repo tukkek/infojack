@@ -2,12 +2,13 @@
 <link rel="import" href="./infojack-topmenu.html">
 <link rel="import" href="./infojack-mainmenu.html">
 <link rel="import" href="./infojack-style.html">
+<link rel="import" href="./infojack-controller.html">
 
 <dom-module id="infojack-app">
   <style include='infojack-style'></style>
   <template>
     <infojack-topmenu></infojack-topmenu>
-    <infojack-mainmenu></infojack-mainmenu>
+    <infojack-mainmenu hidden="[[hide(gamestate,'mainmenu')]]"></infojack-mainmenu>
   </template>
 
   <script>
@@ -16,10 +17,26 @@
       
       static get properties() {
         return {
-            count: {
+            gamestate: {//keeps track of the current view to be show
                 type: String,
-                value: 'mainmenu',
+                value: state.MAINMENU   ,
+                observer:'changestate',
             }
+        }
+      }
+      
+      hide(gamestate,targets){
+        return targets.indexOf(gamestate)<0;
+      }
+      
+      ready(){
+        super.ready();
+        ui.register(this);
+      }
+      
+      changestate(newvalue,oldvalue){
+        if(ui['infojack-topmenu']){
+            ui['infojack-topmenu'].gamestate=newvalue;
         }
       }
     }
