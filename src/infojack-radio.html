@@ -1,0 +1,18 @@
+<template>
+    <require from="./infojack-radio.css"></require>
+    
+    <div id='radio-container' class='panel'> 
+        <audio 
+            id="radio-player" 
+            type="audio/mpeg" 
+            src='http://ice1.somafm.com/defcon-128-mp3'
+            preload="none"
+            ref='audio'
+        ></audio>
+        <div id='radio-control'>
+            <input ref='radioactive' type="checkbox" click.trigger='play()' checked.bind='active'> 
+            Enable music
+        </div>
+        <div>Audio courtesy of <a href='https://somafm.com/defcon/directstreamlinks.html'>DEF CON radio</a></div>
+    </div>
+</template> 

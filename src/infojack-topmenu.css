@@ -1,0 +1,13 @@
+#topmenu img{
+    height:1.5em;
+    cursor:pointer;
+    margin:0em .25em 0em .25em;
+}
+#topmenu {
+    position:fixed;
+    right:2em;
+    top:1em;
+    background-color:lightgrey;
+    border:.25em solid lightgrey;
+    border-radius:1em;
+}

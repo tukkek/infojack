@@ -1,0 +1,12 @@
+#radio-container{
+    display:inline;
+    position:fixed;
+    right:2em;
+    top:4em;
+    text-align:center;
+    padding:.5em;
+    z-index:2;
+}
+#radio-control{
+    margin-bottom:1em;
+} 
