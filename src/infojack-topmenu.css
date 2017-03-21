@@ -11,3 +11,7 @@
     border:.25em solid lightgrey;
     border-radius:1em;
 }
+#topmenu>*{
+    padding-left:.5em;
+    padding-right:.5em;
+}
