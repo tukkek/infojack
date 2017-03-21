@@ -8,7 +8,7 @@ export class MainMenu {
         this.sound=sound;
         this.save=save;
         
-        this.hide=false;
+        this.hide=true;
     }
   
     showpending(){

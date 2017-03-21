@@ -1,0 +1,12 @@
+#characterscreen{
+    padding-top:0em;
+}
+#charactermenu button{
+    width:25%;
+    display:block;
+}
+.characterview{
+    width:75%;
+    right:0em;
+}
+#character-close{margin-top:1.5em;}

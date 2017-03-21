@@ -1,0 +1,24 @@
+<template>
+    <require from="./character-screen.css"></require>
+    
+    <div class='large center panel' hidden.bind='hide' id='characterscreen'>
+        <h2>Character screen</h2>
+        <span id='charactermenu' ref='charactermenu'>
+            <button  
+                click.trigger='select($event)' id='character-abilities'>
+                Abilities</button>
+            <button 
+                click.trigger='select($event)' id='character-skills'>
+                Skills</button>
+            <button
+                click.trigger='select($event)' id='character-feats'>
+                Feats</button>
+            <button
+                click.trigger='close($event)' id='character-close'>
+                Close</button>
+        </span>
+        <character-abilities hidden='true' class=' characterview'></character-abilities>
+        <character-skills hidden='true' class=' characterview'></character-skills>
+        <character-feats  hidden='true' class=' characterview'></character-feats>
+    </div>
+</template> 
