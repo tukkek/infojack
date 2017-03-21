@@ -1,0 +1,43 @@
+.highlightbg:not(:hover){
+    animation: highlightbg 4s linear 0s infinite;
+}
+@keyframes highlightbg {
+  0% {background: black;}
+  65% {background: #4CAF50;}
+  70%{background:#839984;}
+  95% {background: black;}
+}
+.highlight:not(:hover){
+    animation: highlight 3s ease 0s infinite;
+    border:.2em dashed;
+}
+@keyframes highlight {  
+    0%{
+        border-color:transparent;
+        color:white;
+    }
+    33%{
+        border-top-color:#edc207;
+        border-bottom-color:#edc207;
+        color:#edc207;
+    }
+    100%{
+        border-color:transparent;
+        color:white;
+    }
+}
+.highlightunder{
+    animation: highlightunder 3s ease 0s infinite;
+    border-bottom:.4em double transparent;
+}
+@keyframes highlightunder {  
+    0%{
+        border-bottom-color:transparent;
+    }
+    33%{
+        border-bottom-color:#ba097f;
+    }
+    100%{
+        border-bottom-color:transparent;
+    }
+}
