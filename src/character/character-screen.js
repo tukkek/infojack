@@ -7,6 +7,10 @@ export class CharacterScreen {
     constructor(messaging) {
         this.hide=false;
         this.messaging=messaging;
+        this.hideabilities=true;
+        this.hideskills=true;
+        this.hidefeats=true;
+        this.hidedetails=true;
     }
     
     attached(){
@@ -19,7 +23,9 @@ export class CharacterScreen {
             if(!classes){
                 continue;
             }
-            if(button.id==id){
+            var hide=button.id==id;
+            this['hide'+id.replace('character-','')]=hide;
+            if(hide){
                 classes.add('highlightbg');
             } else {
                 classes.remove('highlightbg');
@@ -32,3 +38,4 @@ export class CharacterScreen {
         this.selectid(e.target.id);
     }
 }
+
