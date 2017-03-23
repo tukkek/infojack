@@ -1,12 +1,6 @@
-import {ShowCharacterView} from './messages';
-import {EventAggregator} from 'aurelia-event-aggregator';
-import {inject} from 'aurelia-framework';
-
-@inject(EventAggregator)
 export class CharacterScreen {
-    constructor(messaging) {
+    constructor() {
         this.hide=false;
-        this.messaging=messaging;
         this.hideabilities=true;
         this.hideskills=true;
         this.hidefeats=true;
@@ -31,7 +25,6 @@ export class CharacterScreen {
                 classes.remove('highlightbg');
             }
         }
-        this.messaging.publish(new ShowCharacterView(id));
     }
     
     select(e){

@@ -1,7 +1,9 @@
-<require from="./character-abilities"></require>
-
 <template>
-    <require from="./character-screen.css"></require>
+    <require from="./character-abilities"></require>
+    <require from="./character-skills"></require>
+    <require from="./character-feats"></require>
+    <require from="./character-details"></require>
+    <require from="./character-screen.css"></require> 
     
     <div class='large center panel' hidden.bind='hide' id='characterscreen'>
         <h2>Character screen</h2>
@@ -22,9 +24,11 @@
                 click.trigger='close($event)' id='character-close'>
                 Close</button>
         </span>
-        <character-abilities hidden.bind='hideabilities' class='characterview'></character-abilities>
-        <character-skills hidden.bind='hideskills' class='characterview'></character-skills>
-        <character-feats  hidden.bind='hidefeats' class='characterview'></character-feats>
-        <character-details hidden.bind='hidedetails' class='characterview'></character-details>
+        <span id='character-content'>
+            <character-abilities hidden.bind='hideabilities' class='characterview'></character-abilities>
+            <character-skills hidden.bind='hideskills' class='characterview'></character-skills>
+            <character-feats  hidden.bind='hidefeats' class='characterview'></character-feats>
+            <character-details hidden.bind='hidedetails' class='characterview'></character-details>
+        </span>
     </div>
 </template> 

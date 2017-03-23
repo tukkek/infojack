@@ -1,8 +1,12 @@
 #characterscreen{
     padding-top:0em;
 }
-#charactermenu button{
+#charactermenu{
+    float:left;
     width:25%;
+}
+#charactermenu button{
+    width:100%;
     display:block;
 }
 .characterview{
@@ -10,3 +14,15 @@
     right:0em;
 }
 #character-close{margin-top:1.5em;}
+#character-content{
+	float: left;
+	display: inline;
+	margin-left: 1em;
+	margin-right: 1em;
+	background-color: black;
+	border: 0.1em outset black;
+	padding: 0.5em;
+	width: 70%;
+    overflow-y:auto;
+    height:80%;
+}
