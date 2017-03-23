@@ -25,10 +25,10 @@
                 Close</button>
         </span>
         <span id='character-content'>
-            <character-abilities hidden.bind='hideabilities' class='characterview'></character-abilities>
-            <character-skills hidden.bind='hideskills' class='characterview'></character-skills>
-            <character-feats  hidden.bind='hidefeats' class='characterview'></character-feats>
-            <character-details hidden.bind='hidedetails' class='characterview'></character-details>
+            <character-abilities if.bind='showabilities' class='characterview'></character-abilities>
+            <character-skills if.bind='showskills' class='characterview'></character-skills>
+            <character-feats if.bind='showfeats' class='characterview'></character-feats>
+            <character-details if.bind='showdetails' class='characterview'></character-details>
         </span>
     </div>
 </template> 

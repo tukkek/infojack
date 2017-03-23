@@ -41,7 +41,14 @@ export class CharacterAbilities {
     }
     
     save(){
-        //TODO
+        var clone={};
+        Object.assign(clone,this);
+        delete clone.costs;
+        alert(JSON.stringify(clone));
+    }
+    
+    attached(){
+        alert('attach');
     }
     
     buy(current){

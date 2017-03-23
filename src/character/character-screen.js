@@ -1,34 +1,31 @@
 export class CharacterScreen {
     constructor() {
         this.hide=false;
-        this.hideabilities=true;
-        this.hideskills=true;
-        this.hidefeats=true;
-        this.hidedetails=true;
+        this.showabilities=true;
+        this.showskills=false;
+        this.showfeats=false;
+        this.showdetails=false;
     }
     
-    attached(){
+    /*attached(){
         this.selectid('character-abilities');
-    }
+    }*/
     
-    selectid(id){
+    select(e){
+        let id=e.target.id;
         for(let button of this.charactermenu.childNodes){
             let classes=button.classList;
             if(!classes){
                 continue;
             }
-            var hide=button.id==id;
-            this['hide'+id.replace('character-','')]=hide;
-            if(hide){
+            var show=button.id==id;
+            this['show'+button.id.replace('character-','')]=show;
+            if(show){
                 classes.add('highlightbg');
             } else {
                 classes.remove('highlightbg');
             }
         }
-    }
-    
-    select(e){
-        this.selectid(e.target.id);
     }
 }
 
