@@ -1,55 +1,48 @@
 <template> 
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
-bugabugabugabugabuga <br>
+    <require from="./character-abilities.css"></require>
+    <table id='abilities-table'>
+    <tr>
+        <td class='bold'>Strength</td>
+        <td class='ability-value'>${strength}</td>
+        <td><button class='ability-upgrade' click.trigger="upgrade('strength')">Upgrade</button></td>
+        <td>Your physical strength outside the Web.</td>
+    </tr>
+    <tr>
+        <td class='bold'>Dexterity</td>
+        <td class='ability-value'>${dexterity}</td>
+        <td><button class='ability-upgrade' click.trigger="upgrade('dexterity')">Upgrade</button></td>
+        <td>Your agility outside the Web.</td>
+    </div>
+    <tr>
+        <td class='bold'>Constitution</td>
+        <td class='ability-value'>${constitution}</td>
+        <td><button class='ability-upgrade' click.trigger="upgrade('constitution')">Upgrade</button></td>
+        <td>Your capacity for taking punishment.</td>
+    </tr>
+    <tr>
+        <td class='bold'>Intelligence</td>
+        <td class='ability-value'>${intelligence}</td>
+        <td><button class='ability-upgrade' click.trigger="upgrade('intelligence')">Upgrade</button></td>
+        <td>Your reasoning power.<br/>
+        (may replace Strength on the web)</td>
+    </tr>
+    <tr>
+        <td class='bold'>Wisdom</td>
+        <td class='ability-value'>${wisdom}</td>
+        <td><button class='ability-upgrade' click.trigger="upgrade('wisdom')">Upgrade</button></td>
+        <td>Your general awareness and willpower.<br/>
+        (may replace Dexterity on the web)</td>
+    </tr>
+    <tr>
+        <td class='bold'>Charisma</td>
+        <td class='ability-value'>${charisma}</td>
+        <td><button class='ability-upgrade' click.trigger="upgrade('charisma')">Upgrade</button></td>
+        <td>Your presence and social magnetism.<br/>
+        (may replace Charisma on the web)</td>
+    </tr>
+    </table>
+    <table id='ability-points'>
+    <tr><td class='ability-value'>${pointbuy}</td><td>Starting points</td></tr>
+    <tr><td class='ability-value'>${pointextra}</td><td>Ability points</td></tr>
+    </table>
 </template>

@@ -1,1 +1,25 @@
- 
+#abilities-table {
+    border-spacing:.75em;
+}
+#abilities-table td{
+    padding:0 .5em 0 .5em;
+}
+.ability-value{
+    background-color:white;
+    color:black;
+    text-align:center;
+}
+.ability-upgrade{
+    border:.1em solid white;
+}
+#ability-points{
+    margin-top:2em;
+    margin-left:1em;
+}
+#ability-points td{
+    margin:0 1em 0 5em;
+    padding-left:.5em;
+}
+#ability-points .ability-value{
+    padding:.25em;
+}

@@ -3,6 +3,9 @@ body{
     color:lightgray;
     font-family:Orbitron;
 }
+div,span{
+    font-family:Orbitron;
+}
 a{
     color:lightblue;
 }
@@ -40,7 +43,6 @@ button {
     padding: .3em;
     font-weight: 800;
     font-family:Orbitron;
-    width:50%;
     outline:0;
 }
 
@@ -57,4 +59,7 @@ hr{ border-color:gray;}
     left:10%!important;
     right:10%!important;
     bottom:10%!important;
+}
+.bold{
+    font-weight:bold;
 }
