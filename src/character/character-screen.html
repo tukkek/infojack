@@ -5,7 +5,7 @@
     <require from="./character-details"></require>
     <require from="./character-screen.css"></require> 
     
-    <div class='large center panel' hidden.bind='hide' id='characterscreen'>
+    <div class='large center panel' if.bind='show' id='characterscreen'>
         <h2>Character screen</h2>
         <span id='charactermenu' ref='charactermenu'>
             <button  

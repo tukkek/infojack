@@ -1,14 +1,16 @@
 import {inject} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import {Sound} from './modules/sound';
 import {Save} from './modules/save';
+import {ShowView} from './messages';
 
-@inject(Sound,Save)
+@inject(Sound,Save,EventAggregator)
 export class MainMenu {
-    constructor(sound,save) {
+    constructor(sound,save,messaging) {
         this.sound=sound;
         this.save=save;
-        
-        this.hide=true;
+        this.show=true;
+        this.messaging=messaging;
     }
   
     showpending(){
@@ -23,7 +25,8 @@ export class MainMenu {
             this.save.clear();
             this.save.save();
             alert('Game started');
-            this.hide=true;
+            this.show=false;
+            this.messaging.publish(new ShowView('CharacterScreen'));
         }
     }
     
@@ -31,8 +34,7 @@ export class MainMenu {
         if(!this.save.load()){
             this.playerrorsound("No save game found! Please check you're using the exact same address as before!");
         }
-      }
-      
+    }
       
     openrepository(){
       window.open('https://github.com/tukkek/infojack');

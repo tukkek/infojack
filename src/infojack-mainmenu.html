@@ -1,7 +1,7 @@
 <template>
     <require from="./infojack-mainmenu.css"></require>
 
-    <div class='centered center panel' id='mainmenu' hidden.bind='hide'>
+    <div class='centered center panel' id='mainmenu' if.bind='show'>
         <h1>Infojack</h1>
         <hr/>
         <div><button click.trigger="startgame()" class='highlight'>Start new game</button></div>

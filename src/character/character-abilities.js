@@ -47,9 +47,9 @@ export class CharacterAbilities {
         alert(JSON.stringify(clone));
     }
     
-    attached(){
+    /*attached(){
         alert('attach');
-    }
+    }*/
     
     buy(current){
         let next=current+1;
