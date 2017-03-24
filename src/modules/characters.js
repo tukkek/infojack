@@ -25,6 +25,8 @@ export class Character{
         this.ref=0;
         this.will=0;
         this.defence=0;
+        this.talent=0;
+        this.contacts=0;//TODO
     }
 
     //makes sure not to write new data
@@ -81,17 +83,7 @@ export class Character{
 
 export var hero=new Character();
 hero.setoccupation(occupations.adventurer);
-//alert(JSON.stringify(hero));
-for(let i=1;i<=10;i++){
-    console.log('level '+i);
-    try{
-        webcrawler.advance(hero);
-    } catch (e){
-        console.log(e);
-        break;
-    }
-    console.log(JSON.stringify(hero));
-}
+webcrawler.advance(hero); //becomes level 1
 
 export var costs={
     7:-4,

@@ -1,3 +1,5 @@
+//TODO add talents
+
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {ShowView} from '../messages';

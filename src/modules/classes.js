@@ -24,11 +24,11 @@ class Class{
     
     _advance(c,classlevel){
         c.level+=1;
-//         this.upgradestat(classlevel,'bab',c);
-//         this.upgradestat(classlevel,'fort',c);
-//         this.upgradestat(classlevel,'ref',c);
-//         this.upgradestat(classlevel,'will',c);
-//         this.upgradestat(classlevel,'defense',c);
+        this.upgradestat(classlevel,'bab',c);
+        this.upgradestat(classlevel,'fort',c);
+        this.upgradestat(classlevel,'ref',c);
+        this.upgradestat(classlevel,'will',c);
+        this.upgradestat(classlevel,'defence',c);
         this.upgradeedgedice(classlevel,c);
         this.upgradereputation(classlevel);
         if(c.level==1){
@@ -51,9 +51,9 @@ class Class{
     upgradestat(level,stat,c){
         let last=0;
         if(level>1){
-            last=c[stat][level-2];
+            last=this[stat][level-2];
         }
-        let current=c[stat][level-1];
+        let current=this[stat][level-1];
         c[stat]+=current-last;
     }
     
@@ -62,9 +62,6 @@ class Class{
             this.edgedice[level-1].split('d');
         target=[parseInt(target[0]),
             parseInt(target[1])];
-        if(level==10){
-            console.log('#edge');
-        }
         if(target[0]>c.edgedice[0]||
             (target[0]==c.edgedice[0]&&
                 target[1]>=c.edgedice[1])){
@@ -99,6 +96,21 @@ class Webcrawler extends Class{
         this.defence=[1,1,2,2,2,3,3,3,4,4];
         this.reputation=[0,1,1,2,2,3,3,4,4,5];
         this.edgedice=['1d4','1d4','2d4','2d6','2d6','3d6','3d8','3d8','4d8','4d10'];
+    }
+    
+    _advance(character,classlevel){
+        super._advance(character,classlevel);
+        let level=character.level;
+        if(level==1||level==3||level==6||level==9){
+            character.talent+=1;
+        }else if(level==4||level==7){
+            character.ranks+=1;
+        }else if(level==5||level==8){
+            character.contacts+=1;
+        }else if(level==10){
+            character.wealth+=5;
+            //TODO +5 reputation to law and hackers
+        }
     }
 }
 
