@@ -26,7 +26,7 @@ export class MainMenu {
             return;
         }
         this.save.clear();
-        this.close('CharacterScreen'));
+        this.close('CharacterScreen');
     }
     
     loadgame(){

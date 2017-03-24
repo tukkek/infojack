@@ -1,4 +1,4 @@
-import {hero} from './hero';
+import {hero} from './characters';
 
 export class Save{
     constructor(){
