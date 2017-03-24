@@ -11,6 +11,7 @@ export class MainMenu {
         this.save=save;
         this.show=true;
         this.messaging=messaging;
+        this.hassave=save.checkload()!=false;
     }
   
     showpending(){
@@ -21,19 +22,24 @@ export class MainMenu {
     }
     
     startgame(){
-        if(confirm('Are you sure you want to start a new game? Any previous progress will be lost!')){
-            this.save.clear();
-            this.save.save();
-            alert('Game started');
-            this.show=false;
-            this.messaging.publish(new ShowView('CharacterScreen'));
+        if(this.hassave&&!confirm('Are you sure you want to start a new game? Any previous progress will be lost!')){
+            return;
         }
+        this.save.clear();
+        this.close('CharacterScreen'));
     }
     
     loadgame(){
-        if(!this.save.load()){
-            this.playerrorsound("No save game found! Please check you're using the exact same address as before!");
+        if(!this.hassave){
+            this.sound.play(this.sound.ERROR);
         }
+        this.save.load();
+        this.close('CharacterScreen');//TODO open map
+    }
+    
+    close(open){
+        this.show=false;
+        this.messaging.publish(new ShowView(open));
     }
       
     openrepository(){

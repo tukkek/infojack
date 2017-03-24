@@ -1,28 +1,36 @@
+import {hero,costs} from '../modules/hero';
+import {Save} from '../modules/save';
+import {inject} from 'aurelia-framework';
+
 /* TODO add difficulty modes */
+@inject(hero,costs,Save)
 export class CharacterAbilities {
-    constructor() {
-        this.strength=7;
-        this.dexterity=7;
-        this.constitution=7;
-        this.intelligence=7;
-        this.wisdom=7;
-        this.charisma=7;
-        this.pointbuy=15+4*6;
-        this.pointextra=3;
-        this.costs={
-            7:-4,
-            8:-2,
-            9:-1,
-            10:0,
-            11:1,
-            12:2,
-            13:3,
-            14:5,
-            15:7,
-            16:10,
-            17:13,
-            18:17,
-        }
+    constructor(hero,costs,save) {
+        this.hero=hero;
+        this.costs=costs;
+        this.save=save;
+        this.strength=-1;
+    }
+    
+    attached(){
+        this.strength=this.hero.strength;
+        this.dexterity=this.hero.dexterity;
+        this.constitution=this.hero.constitution;
+        this.intelligence=this.hero.intelligence;
+        this.wisdom=this.hero.wisdom;
+        this.charisma=this.hero.charisma;
+        this.pointbuy=this.hero.pointbuy;
+        this.pointextra=this.hero.pointextra;
+    }
+    
+    detached(){
+        let clone={};
+        Object.assign(clone,this);
+        delete clone.costs;
+        delete clone.hero;
+        delete clone.save;
+        this.hero.assign(clone);
+        this.save.save();
     }
 
     upgrade(ability){
@@ -33,23 +41,10 @@ export class CharacterAbilities {
         if(this.pointextra>0){
             this.pointextra-=1;
             this[ability]+=1;        
-            this.save();
         }else if(this.buy(current)){
             this[ability]+=1;        
-            this.save();
         }
     }
-    
-    save(){
-        var clone={};
-        Object.assign(clone,this);
-        delete clone.costs;
-        alert(JSON.stringify(clone));
-    }
-    
-    /*attached(){
-        alert('attach');
-    }*/
     
     buy(current){
         let next=current+1;

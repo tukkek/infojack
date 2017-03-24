@@ -4,10 +4,10 @@
     <div class='centered center panel' id='mainmenu' if.bind='show'>
         <h1>Infojack</h1>
         <hr/>
-        <div><button click.trigger="startgame()" class='highlight'>Start new game</button></div>
-        <div><button click.trigger="loadgame()">Load saved game</button></div>
+        <div><button click.trigger="startgame()" class="${hassave ? '' : 'highlight'}">Start new game</button></div>
+        <div><button click.trigger="loadgame()" class="${hassave ? 'highlight' : ''}">Load saved game</button></div>
         <div><button click.trigger="showpending()">How to play</button></div>
-        <div><button class='highlightbg' click.trigger="openrepository()">Source code</button></div>
+        <div><button click.trigger="openrepository()">Source code</button></div>
         <hr/>
     </div>    
 </template> 

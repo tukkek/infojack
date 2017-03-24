@@ -10,6 +10,7 @@ export class CharacterScreen {
         this.showskills=false;
         this.showfeats=false;
         this.showdetails=false;
+        
         let me=this;
         messaging.subscribe(ShowView,function(show){
             if(show.view=='CharacterScreen'){
@@ -17,10 +18,6 @@ export class CharacterScreen {
             }
         });
     }
-    
-    /*attached(){
-        this.selectid('character-abilities');
-    }*/
     
     select(e){
         let id=e.target.id;
@@ -37,6 +34,10 @@ export class CharacterScreen {
                 classes.remove('highlightbg');
             }
         }
+    }
+    
+    close(){
+        this.show=false;
     }
 }
 
