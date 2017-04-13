@@ -1,3 +1,4 @@
-div{text-align:center;}
-hr{width:50%;} 
+#mainmenu div,#mainmenu{text-align:center;}
+#mainmenu hr{width:50%;} 
 #mainmenu{z-index:-1;}
+#mainmenu button{width:50%;}
