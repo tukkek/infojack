@@ -2,6 +2,7 @@
 
 import {occupations} from './occupations';
 import {webcrawler} from './classes';
+import {skills} from './skills';
 
 export class Character{
     constructor(){
@@ -27,6 +28,9 @@ export class Character{
         this.defence=0;
         this.talent=0;
         this.contacts=0;//TODO
+        for(let s of skills.values()){
+            this[s.name.replace(' ','').toLowerCase()]=0;
+        }
     }
 
     //makes sure not to write new data
@@ -78,6 +82,14 @@ export class Character{
             ability-=1;
         }
         return (ability-10)/2;
+    }
+    
+    getskill(name){
+        return this[name.replace(' ','').toLowerCase()];
+    }
+    
+    setskill(name,value){
+        this[name.replace(' ','').toLowerCase()]=value;
     }
 }
 

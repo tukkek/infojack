@@ -1,7 +1,7 @@
-#abilities-table {
+.stats-table {
     border-spacing:.75em;
 }
-#abilities-table td{
+.abilities-table td{
     padding:0 .5em 0 .5em;
 }
 .ability-value{
@@ -22,4 +22,7 @@
 }
 #ability-points .ability-value{
     padding:.25em;
+}
+.yellow{
+    color:khaki;
 }

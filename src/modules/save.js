@@ -2,7 +2,7 @@ import {hero} from './characters';
 
 export class Save{
     constructor(){
-        this.dodebug=true;
+        this.dodebug=false;
     }
     
     checkload(){

@@ -1,5 +1,5 @@
 /*TODO 
- * for advanced classes, have edge dice as part of _advance
+ * for advanced classes, have edge dice as part of levelup
  */
 
 import {checkskills} from './skills';
@@ -7,6 +7,7 @@ import {rpg} from './rpg';
 
 class Class{
     constructor(){
+        //default
     }
     
     advance(character){
@@ -18,11 +19,11 @@ class Class{
         if(level>10) {
             throw 'Cannot advance past level 10!';
         }
-        this._advance(character,level);
+        this.levelup(character,level);
         character.classes[this.name]=level;
     }
     
-    _advance(c,classlevel){
+    levelup(c,classlevel){
         c.level+=1;
         this.upgradestat(classlevel,'bab',c);
         this.upgradestat(classlevel,'fort',c);
@@ -31,11 +32,11 @@ class Class{
         this.upgradestat(classlevel,'defence',c);
         this.upgradeedgedice(classlevel,c);
         this.upgradereputation(classlevel);
+        c.ranks+=Math.max(1,this.ranks+c.getmodifier(c.intelligence));
         if(c.level==1){
             c.hp=this.hd;
-            c.ranks=Math.max(1,this.ranks+
-                c.getmodifier(c.intelligence));
-            c.edge=c.edgedice[0];
+            c.edge+=c.edgedice[0];
+            c.ranks=c.ranks*4;
             this.addskills(c);
         }else{
             c.hp+=rpg.d(1,this.hd);
@@ -98,8 +99,8 @@ class Webcrawler extends Class{
         this.edgedice=['1d4','1d4','2d4','2d6','2d6','3d6','3d8','3d8','4d8','4d10'];
     }
     
-    _advance(character,classlevel){
-        super._advance(character,classlevel);
+    levelup(character,classlevel){
+        super.levelup(character,classlevel);
         let level=character.level;
         if(level==1||level==3||level==6||level==9){
             character.talent+=1;
