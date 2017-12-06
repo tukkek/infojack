@@ -14,6 +14,10 @@ class Rpg{
         }
         return sum;
     }
+    
+    d20(){
+        return d(1,20);
+    }
 }
 
 export var rpg=new Rpg();
