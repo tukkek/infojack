@@ -3,12 +3,14 @@
     <require from="./character-abilities.css"></require>
     <div id='currentfeats'>
         <span class='bold'>Current feats:</span>
-        <span repeat.for="feat of hero.feats">${feat.name.toLowerCase()}; <span>
+        <span repeat.for="feat of hero.feats">${feat.name.toLowerCase()}; </span>
+        <span if.bind='hero.feats.length==0'>none.</span>
     </div>
+    <div id='featsleft' class='bold'>Feats left: <span class='ability-value'>${hero.newfeats}</div>
     <table class='abilities-table' id='featstable'>
     <tr repeat.for="[name,feat] of feats">
         <td class='bold'>${feat.name}</td>
-        <td><button class="ability-upgrade" click.trigger="add(feat)" disabled.bind="!feat.validate(hero) &signal:'update'">Add</button></td>
+        <td><button class="ability-upgrade" click.trigger="add(feat)" disabled.bind="!validate(feat) &signal:'update'">Add</button></td>
         <td>${feat.description}</td>
     </tr>
     </table>

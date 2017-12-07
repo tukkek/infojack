@@ -14,8 +14,14 @@ export class CharacterFeats {
     }
     
     add(feat){
+        if(hero.newfeats==0) return;
+        hero.newfeats-=1;
         this.hero.addfeat(feat);
         this.save.save();
         this.signals.signal('update');
+    }
+    
+    validate(feat){
+        return hero.newfeats>0&&feat.validate(hero);
     }
 }

@@ -30,6 +30,7 @@ export class Character{
         this.talent=0;
         this.contacts=0;//TODO
         this.feats=[];
+        this.newfeats=2;
         for(let s of skills.values()){
             this[s.name.replace(' ','').toLowerCase()]=0;
         }
