@@ -29,7 +29,7 @@ export class Character{
         this.defence=0;
         this.talent=0;
         this.contacts=0;//TODO
-        this.feats=new Map();
+        this.feats=[];
         for(let s of skills.values()){
             this[s.name.replace(' ','').toLowerCase()]=0;
         }
@@ -96,11 +96,12 @@ export class Character{
     
     hasfeat(f){
         f=f.name||f;
-        return this.feats.get(f.toLowerCase());
+        for(let feat of this.feats) if(feat.name==f) return feat;
+        return false;
     }
     
     addfeat(f){
-        this.feats.set(f.name.toLowerCase(),f);
+        this.feats.push(f);
     }
     
     rollskill(ranks,feat,bonus){

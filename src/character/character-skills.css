@@ -6,10 +6,6 @@
     padding: .2em;
 }
 
-#skilltable button:disabled{
-    opacity:.5;
-}
-
 .small{
     font-size:.75em;
     font-weight:normal;

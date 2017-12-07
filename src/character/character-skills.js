@@ -3,9 +3,9 @@ import {hero} from '../modules/characters';
 import {Save} from '../modules/save';
 import {inject} from 'aurelia-framework';
 
-@inject(Save)
+@inject(Save,skills,hero)
 export class CharacterSkills {
-    constructor(Save) {
+    constructor(Save,skills,hero) {
         this.save=Save;
         this.skills=skills;
         this.values={};

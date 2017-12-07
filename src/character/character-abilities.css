@@ -4,6 +4,10 @@
 .abilities-table td{
     padding:0 .5em 0 .5em;
 }
+
+.abilities-table button:disabled{
+    opacity:.5;
+}
 .ability-value{
     background-color:white;
     color:black;
