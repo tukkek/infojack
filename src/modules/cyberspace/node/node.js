@@ -1,4 +1,4 @@
-class Node{
+export class Node{
   constructor(system){
     this.id=system.nodes.length;
     system.nodes.push(this);

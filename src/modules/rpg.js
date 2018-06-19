@@ -1,10 +1,12 @@
-//TODO save RNG if possble
 class Rpg{
-    constructor(){
-    }
+    constructor(){}
     
     roll(min,max){
         return Math.floor((Math.random()*max)+min); 
+    }
+    
+    r(min,max){
+      return this.roll(min,max);
     }
     
     d(dice,sides){
@@ -13,6 +15,10 @@ class Rpg{
             sum+=this.roll(1,sides);
         }
         return sum;
+    }
+    
+    choose(list){
+      return list[this.roll(0,list.length-1)];
     }
 }
 

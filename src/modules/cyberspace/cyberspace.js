@@ -1,3 +1,5 @@
+import {System} from './system.js';
+      
 var TILESIZE=2.5;
 
 var map=false;
@@ -42,7 +44,7 @@ function placenode(node,rootx,rooty){
     placenode(node.bottom,rootx,rooty+1+node.bottom.size);
 }
 
-function draw(){
+export function draw(){
   map=document.querySelector('#map');
   placenode(system.nodes[0],0,0);
   for(let t of document.querySelectorAll('.tile')){

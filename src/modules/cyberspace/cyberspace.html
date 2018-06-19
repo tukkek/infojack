@@ -1,14 +1,15 @@
 <html>
   <head>
     <title>Infojack (cyberspace)</title>
-    <script src='node/node.js'></script>
-    <script src='system.js'></script>
-    <script src='cyberspace.js'></script>
     <link rel="stylesheet" href="cyberspace.css"/>
     <meta charset="UTF-8">
   </head>
-  <body onload='draw();'>
+  <body >
     <div id='map'></div>
     <div id='actions'></div>
   </body>
+  <script type="module">
+    import {draw} from './cyberspace.js';
+    document.body.onload=draw;
+  </script>
 </html>
