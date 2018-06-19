@@ -1,4 +1,4 @@
-import {System} from './system.js';
+import {System} from './src/modules/system.js';
       
 var TILESIZE=2.5;
 
