@@ -1,0 +1,17 @@
+#map{
+  position:absolute;
+  top:5em;
+  left:5em;
+}
+body{
+  padding:0;
+  margin:0;
+  width:100%;
+  height:100%;
+  background:black;
+}
+.tile{
+  border:.2em solid green;
+  position:absolute;
+  color:white;
+}
