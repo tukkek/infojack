@@ -1,17 +1,23 @@
 #map{
   position:absolute;
-  top:5em;
-  left:5em;
+  margin:2em;
+}
+.spacer{
+  position:absolute;
+  height:1px;
+  width:1px;
+  visibility:hidden;
 }
 body{
-  padding:0;
-  margin:0;
+  padding:0em;
+  margin:0em;
   width:100%;
   height:100%;
-  background:black;
+  background:darkgreen;
 }
 .tile{
-  border:.2em solid green;
+  border:.2em solid gray;
   position:absolute;
   color:white;
+  background:black;
 }

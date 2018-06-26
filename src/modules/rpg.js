@@ -20,6 +20,10 @@ class Rpg{
     choose(list){
       return list[this.roll(0,list.length-1)];
     }
+    
+    chancein(n){
+      return this.r(1,n)==1;
+    }
 }
 
 export var rpg=new Rpg();

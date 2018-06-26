@@ -9,16 +9,30 @@ export class System{
     this.generate();
   }
   
+  getnode(x,y){
+    for(let n of this.nodes) if(x==n.x&&y==n.y) return n;
+    return null;
+  }
+  
   generate(){
-    let root=new Node(this);
+    this.nodes.push(new Node(0,0,this));
     let size=rpg.r(3,7)+this.level;
+    let leastx=0;
+    let leasty=0;
     while(this.nodes.length<size){
       let n=rpg.choose(this.nodes);
-      let next=rpg.r(1,4);
-      if(next==1&&!n.top) n.top=new Node(this);
-      else if(next==2&&!n.right) n.right=new Node(this);
-      else if(next==3&&!n.bottom) n.bottom=new Node(this);
-      else if(next==4&&!n.left) n.left=new Node(this);
+      let x=n.x;
+      let y=n.y;
+      if(rpg.chancein(2)) x+=rpg.chancein(2)?+1:-1;
+      else y+=rpg.chancein(2)?+1:-1;
+      if(this.getnode(x,y)) continue;
+      this.nodes.push(new Node(x,y,this));
+      if(x<leastx) leastx=x;
+      if(y<leasty) leasty=y;
+    }
+    for(let n of this.nodes){ //ensure x>=0 y>=0
+      n.x-=leastx;
+      n.y-=leasty;
     }
   }
 }
