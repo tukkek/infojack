@@ -18,7 +18,8 @@ class Rpg{
     }
     
     chancein(n){
-      return this.r(1,Math.floor(n))==1;
+      n=Math.floor(n);
+      return n>=1&&this.r(1,n)==1;
     }
     
     shuffle(array){

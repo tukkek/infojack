@@ -15,7 +15,6 @@ export class Node{
     this.system=system;
     this.avatars=[];
     this.visited=false;
-    this.generate();
   }
   
   generate(){

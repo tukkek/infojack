@@ -4,6 +4,7 @@ import {rpg} from '../../rpg.js';
 export class File extends Avatar{
   constructor(system){
     super('nodes/fileunscanned.png',system);
+    this.tooltip='Data';
     this.level=system.level+rpg.randomize(4);
     this.worthless=this.level<1||rpg.chancein(system.level+1);
     this.trap=!this.worthless&&
@@ -16,7 +17,7 @@ export class File extends Avatar{
   }
   
   click(){
-    this.node.remove(this);
+    super.click();
   }
   
   scan(){

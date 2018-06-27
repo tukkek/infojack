@@ -9,8 +9,4 @@ export class Datastore extends Node{
       this.enter(new File(this.system));
     }
   }
-
-  click(){
-    this.node.remove(this);
-  }
 }

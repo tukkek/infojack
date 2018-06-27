@@ -3,6 +3,7 @@ import {Player} from './src/modules/cyberspace/avatar/player.js';
       
 var TILESIZE=2.5;
 var SPACING=1.1;
+var FADETIME=2000;
 
 var map=false;
 var system=new System(1);
@@ -12,6 +13,7 @@ var drawn=[];
 
 function clicktile(e){
   let tile=e.target;
+  if(tile.tagName=='IMG') tile=tile.parentNode;
   let node=system.nodes[tile.nodeid];
   let avatar=node==player.node&&
     node.getavatar(tile.nodex,tile.nodey);
@@ -92,10 +94,19 @@ function refresh(){
     if(!node.visited) continue;
     if(!style.border) t.classList.add('visited');
     let avatar=node.getavatar(t.nodex,t.nodey);
-    if(avatar){
-      style.backgroundImage='url("'+avatar.image+'")';
-    }else if(style.backgroundImage){
-      style.backgroundImage='';
+    if(t.image&&(!avatar||avatar!=t.avatar)){
+      t.avatar=null;
+      t.image.style.opacity=0;
+      let fade=t.image;
+      t.image=null;
+      setTimeout(function(){t.removeChild(fade);},FADETIME);
+    }
+    if(avatar&&avatar!=t.avatar){
+      t.avatar=avatar;
+      t.image=document.createElement('img');
+      t.image.src=avatar.image;
+      t.image.title=avatar.tooltip;
+      t.appendChild(t.image);
     }
   }
 }
