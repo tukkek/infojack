@@ -107,7 +107,7 @@ export class Character{
     
     rollskill(ranks,feat,bonus){
         if(feat&&hasfeat(feat)) ranks+=bonus;
-        return rpg.d20()+ranks;
+        return rpg.r(1,20)+ranks;
     }
     
     rollbluff(){

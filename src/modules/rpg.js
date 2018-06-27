@@ -1,10 +1,6 @@
 class Rpg{
     constructor(){}
     
-    roll(min,max){
-        return this.r(min,max);
-    }
-    
     r(min,max){
       return Math.floor((Math.random()*max)+min);
     }
@@ -12,13 +8,13 @@ class Rpg{
     d(dice,sides){
         let sum=0;
         for(let i=0;i<dice;i++){
-            sum+=this.roll(1,sides);
+            sum+=this.r(1,sides);
         }
         return sum;
     }
     
     choose(list){
-      return list[this.roll(0,list.length-1)];
+      return list[this.r(0,list.length-1)];
     }
     
     chancein(n){
@@ -37,10 +33,6 @@ class Rpg{
     
     randomize(amount){
       return this.r(1,amount)-this.r(1,amount);
-    }
-
-    d20(){
-        return d(1,20);
     }
 }
 
