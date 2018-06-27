@@ -1,9 +1,11 @@
-import {Node} from './node/node.js';
+import {Datastore} from './node/datastore.js';
 import {rpg} from '../rpg.js';
 
 export class System{
   constructor(level){
     this.level=level;
+    if(this.level<1) this.level=1;
+    else if(this.level>20) this.level=20;
     this.nodes=[];
     this.ice=[];
     this.generate();
@@ -15,7 +17,7 @@ export class System{
   }
   
   generate(){
-    this.nodes.push(new Node(0,0,this));
+    this.nodes.push(new Datastore(0,0,this));
     let size=rpg.r(3,7)+this.level;
     let leastx=0;
     let leasty=0;
@@ -26,7 +28,7 @@ export class System{
       if(rpg.chancein(2)) x+=rpg.chancein(2)?+1:-1;
       else y+=rpg.chancein(2)?+1:-1;
       if(this.getnode(x,y)) continue;
-      this.nodes.push(new Node(x,y,this));
+      this.nodes.push(new Datastore(x,y,this));
       if(x<leastx) leastx=x;
       if(y<leasty) leasty=y;
     }

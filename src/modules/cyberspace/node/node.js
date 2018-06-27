@@ -54,4 +54,16 @@ export class Node{
     }
     return false;
   }
+  
+  /* scan avatars randomly
+   * return false if one fails or true if all done */
+  scan(){ //TODO skill test
+    for(let a of rpg.shuffle(this.avatars.slice())){
+      if(!a.scanned){
+        if(a.scan()) a.scanned=true;
+        else return false;
+      }
+    }
+    return true;
+  }
 }

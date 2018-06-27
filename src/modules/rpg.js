@@ -22,7 +22,7 @@ class Rpg{
     }
     
     chancein(n){
-      return this.r(1,n)==1;
+      return this.r(1,Math.floor(n))==1;
     }
     
     shuffle(array){
@@ -32,6 +32,11 @@ class Rpg{
         array[i]=array[j];
         array[j]=swap;
       }
+      return array;
+    }
+    
+    randomize(amount){
+      return this.r(1,amount)-this.r(1,amount);
     }
 }
 

@@ -5,7 +5,7 @@ var TILESIZE=2.5;
 var SPACING=1.1;
 
 var map=false;
-var system=new System(10);
+var system=new System(1);
 var player=new Player('characters/tile000.png',system);
 var tiles=[];
 var drawn=[];
@@ -13,14 +13,15 @@ var drawn=[];
 function clicktile(e){
   let tile=e.target;
   let node=system.nodes[tile.nodeid];
-  let avatar=node.getavatar(tile.nodex,tile.nodey);
+  let avatar=node==player.node&&
+    node.getavatar(tile.nodex,tile.nodey);
   if(avatar){
-    window.alert(avatar);
+    avatar.click();
   }else{
     player.enter(node);
     placenode(node,true);
-    refresh();
   }
+  refresh();
 }
 
 function placetile(x,y,node){
@@ -89,8 +90,7 @@ function refresh(){
       t.classList.add('discovered');
     },1);
     if(!node.visited) continue;
-    if(!style.border) 
-      t.classList.add('visited');
+    if(!style.border) t.classList.add('visited');
     let avatar=node.getavatar(t.nodex,t.nodey);
     if(avatar){
       style.backgroundImage='url("'+avatar.image+'")';

@@ -1,0 +1,34 @@
+import {Avatar} from './avatar.js';
+import {rpg} from '../../rpg.js';
+
+export class File extends Avatar{
+  constructor(system){
+    super('nodes/fileunscanned.png',system);
+    this.level=system.level+rpg.randomize(4);
+    this.worthless=this.level<1||rpg.chancein(system.level+1);
+    this.trap=!this.worthless&&
+      rpg.chancein(60/system.level);
+    this.protected=!this.worthless&&!this.trap&&
+      rpg.chancein(21/system.level);
+    if(this.worthless) this.level=0;
+    else if(this.protected&&this.level<system.level) 
+      this.level=system.level;
+  }
+  
+  click(){
+    this.node.remove(this);
+  }
+  
+  scan(){
+    if(this.worthless){
+      //this.node.remove(this);
+    }else if(this.protected){
+      this.setimage('nodes/fileprotected.png');
+    }else if(this.trap){
+      this.setimage('nodes/filetrap.png');
+    }else{
+      this.setimage('nodes/file.png');
+    }
+    return true;
+  }
+}
