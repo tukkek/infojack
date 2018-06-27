@@ -1,18 +1,31 @@
-import {System} from './src/modules/system.js';
+import {System} from './src/modules/cyberspace/system.js';
+import {Player} from './src/modules/cyberspace/avatar/player.js';
       
 var TILESIZE=2.5;
 var SPACING=1.1;
 
 var map=false;
-var system=new System(5);
+var system=new System(10);
+var player=new Player('characters/tile000.png',system);
+var tiles=[];
+var drawn=[];
 
 function clicktile(e){
   let tile=e.target;
-  window.alert('node '+tile.nodeid+' '+tile.nodex+':'+tile.nodey);
+  let node=system.nodes[tile.nodeid];
+  let avatar=node.getavatar(tile.nodex,tile.nodey);
+  if(avatar){
+    window.alert(avatar);
+  }else{
+    player.enter(node);
+    placenode(node,true);
+    refresh();
+  }
 }
 
 function placetile(x,y,node){
   let tile=document.createElement('div');
+  tiles.push(tile);
   tile.classList.add('tile');
   tile.nodeid=node.id;
   tile.nodex=x;
@@ -26,16 +39,23 @@ function placetile(x,y,node){
   return tile;
 }
 
-function placenode(node){
-  for(let x=0;x<node.size;x++) for(let y=0;y<node.size;y++)
-    map.appendChild(placetile(x,y,node));
+function placenode(node,expand){
+  if(drawn.indexOf(node)<0){
+    drawn.push(node);
+    for(let x=0;x<node.size;x++)
+      for(let y=0;y<node.size;y++)
+        map.appendChild(placetile(x,y,node));
+  }
+  if(expand) for(let n of node.getneighbors())
+    placenode(n,false);
+  placespacer();
 }
 
 function placespacer(){
   let farx=0;
   let fary=0;
-  for(let tile of document.querySelectorAll('.tile')){
-    let bounds=tile.getBoundingClientRect();
+  for(let t of tiles){
+    let bounds=t.getBoundingClientRect();
     if(bounds.right>farx) farx=bounds.right;
     if(bounds.bottom>fary) fary=bounds.bottom;
   }
@@ -48,6 +68,34 @@ function placespacer(){
 
 export function draw(){
   map=document.querySelector('#map');
-  for(let n of system.nodes) placenode(n);
-  placespacer();
+  let entry=system.nodes[0];
+  placenode(entry,true);
+  player.enter(entry);
+  refresh();
+  for(let t of tiles){
+    if(t.nodeid==player.node.id&&
+      t.nodex==player.x&&t.nodey==player.y){
+      t.scrollIntoView();
+      break;
+    }
+  }
+}
+
+function refresh(){
+  for(let t of tiles){
+    let node=system.nodes[t.nodeid];
+    let style=t.style;
+    if(style.opacity==0) setTimeout(function(){
+      t.classList.add('discovered');
+    },1);
+    if(!node.visited) continue;
+    if(!style.border) 
+      t.classList.add('visited');
+    let avatar=node.getavatar(t.nodex,t.nodey);
+    if(avatar){
+      style.backgroundImage='url("'+avatar.image+'")';
+    }else if(style.backgroundImage){
+      style.backgroundImage='';
+    }
+  }
 }

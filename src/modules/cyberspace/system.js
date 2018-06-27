@@ -1,5 +1,5 @@
 import {Node} from './node/node.js';
-import {rpg} from './rpg.js';
+import {rpg} from '../rpg.js';
 
 export class System{
   constructor(level){

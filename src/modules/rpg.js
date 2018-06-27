@@ -2,11 +2,11 @@ class Rpg{
     constructor(){}
     
     roll(min,max){
-        return Math.floor((Math.random()*max)+min); 
+        return this.r(min,max);
     }
     
     r(min,max){
-      return this.roll(min,max);
+      return Math.floor((Math.random()*max)+min);
     }
     
     d(dice,sides){
@@ -23,6 +23,15 @@ class Rpg{
     
     chancein(n){
       return this.r(1,n)==1;
+    }
+    
+    shuffle(array){
+      for (let i=array.length-1;i>0;i--) {
+        let j=this.r(0,i+1);
+        let swap=array[i];
+        array[i]=array[j];
+        array[j]=swap;
+      }
     }
 }
 
