@@ -38,6 +38,10 @@ class Rpg{
     randomize(amount){
       return this.r(1,amount)-this.r(1,amount);
     }
+
+    d20(){
+        return d(1,20);
+    }
 }
 
 export var rpg=new Rpg();

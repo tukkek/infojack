@@ -2,6 +2,8 @@
 
 import {occupations} from './occupations';
 import {webcrawler} from './classes';
+import {skills} from './skills';
+import {rpg} from './rpg';
 
 export class Character{
     constructor(){
@@ -27,6 +29,11 @@ export class Character{
         this.defence=0;
         this.talent=0;
         this.contacts=0;//TODO
+        this.feats=[];
+        this.newfeats=2;
+        for(let s of skills.values()){
+            this[s.name.replace(' ','').toLowerCase()]=0;
+        }
     }
 
     //makes sure not to write new data
@@ -78,6 +85,81 @@ export class Character{
             ability-=1;
         }
         return (ability-10)/2;
+    }
+    
+    getskill(name){
+        return this[name.replace(' ','').toLowerCase()];
+    }
+    
+    setskill(name,value){
+        this[name.replace(' ','').toLowerCase()]=value;
+    }
+    
+    hasfeat(f){
+        f=f.name||f;
+        for(let feat of this.feats) if(feat.name==f) return feat;
+        return false;
+    }
+    
+    addfeat(f){
+        this.feats.push(f);
+    }
+    
+    rollskill(ranks,feat,bonus){
+        if(feat&&hasfeat(feat)) ranks+=bonus;
+        return rpg.d20()+ranks;
+    }
+    
+    rollbluff(){
+        return rollskill(this.bluff,false,0);
+    }
+    
+    rolldecryption(){
+        return rollskill(this.decryption,'studious',2);
+    }
+    
+    rolleletronics(){
+        return rollskill(this.eletronics,false,0);
+    }
+    
+    rollforgery(){
+        return rollskill(this.forgery,'meticulous',2);
+    }
+    
+    rollinformation(){
+        return rollskill(this.information,'trustworthy',3);
+    }
+    
+    rollhacking(){
+        return rollskill(this.hacking,false,0);
+    }
+    
+    rollperceive(){
+        return rollskill(this.perceive,false,0);
+    }
+    
+    rollmedicine(){
+        return rollskill(this.medicine,false,0);
+    }
+    
+    rollstealth(){
+        return rollskill(this.stealth,'stealthy',3);
+    }
+    
+    rollprofession(){
+        return rollskill(this.profession,fase,0);
+    }
+    
+    rollresearch(){
+        return rollskill(this.research,'studious',2);
+    }
+    
+    rollsearch(){
+        return rollskill(this.search,'meticulous',2);
+    }
+    
+    rolltechnology(){
+        return rollskill(this.technology,'educated',3);
     }
 }
 

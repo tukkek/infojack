@@ -4,6 +4,8 @@ import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {ShowView} from '../messages';
 
+var STARTINGSCREEN='CharacterScreen';
+
 @inject(EventAggregator)
 export class CharacterScreen {
     constructor(messaging) {
@@ -15,7 +17,7 @@ export class CharacterScreen {
         
         let me=this;
         messaging.subscribe(ShowView,function(show){
-            if(show.view=='CharacterScreen'){
+            if(show.view==STARTINGSCREEN){
                 me.show=true;
             }
         });

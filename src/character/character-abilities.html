@@ -1,6 +1,6 @@
 <template> 
     <require from="./character-abilities.css"></require>
-    <table id='abilities-table'>
+    <table class='abilities-table'>
     <tr>
         <td class='bold'>Strength</td>
         <td class='ability-value'>${strength}</td>
@@ -20,10 +20,10 @@
         <td>Your capacity for taking punishment.</td>
     </tr>
     <tr>
-        <td class='bold'>Intelligence</td>
+        <td class='bold underline yellow'>Intelligence</td>
         <td class='ability-value'>${intelligence}</td>
         <td><button class='ability-upgrade' click.trigger="upgrade('intelligence')">Upgrade</button></td>
-        <td>Your reasoning power.<br/>
+        <td class='yellow'>Your reasoning power.<br/>
         (may replace Strength on the web)</td>
     </tr>
     <tr>
@@ -38,7 +38,7 @@
         <td class='ability-value'>${charisma}</td>
         <td><button class='ability-upgrade' click.trigger="upgrade('charisma')">Upgrade</button></td>
         <td>Your presence and social magnetism.<br/>
-        (may replace Charisma on the web)</td>
+        (may replace Constitution on the web)</td>
     </tr>
     </table>
     <table id='ability-points'>

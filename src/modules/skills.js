@@ -5,7 +5,7 @@ class Skill{
     }
 }
 
-export var skills={};
+export var skills=new Map();
 
 for (let skill of [
     new Skill('Bluff',
@@ -16,7 +16,7 @@ for (let skill of [
         "Build and install hardware."),
     new Skill('Forgery',
         "Forge authentication credentials."),
-    new Skill('Gather information',
+    new Skill('Information',
         "Find more shopping items and missions."),
     new Skill('Hacking',
         "Act on the Web."),
@@ -35,14 +35,10 @@ for (let skill of [
     new Skill('Technology',
         "Create your own programs."),
 ]){
-    skills[skill.name]=skill;
+    skills.set(skill.name,skill);
 }
 
 export function checkskills(ss){
-    for(let s of ss){
-        if(!(s in skills)){
-            alert('Unknown skill: '+s);
-        }
-    }
+    for(let s of ss) if(!skills.get(s)) alert('Unknown skill: '+s);
     return ss;
 }
