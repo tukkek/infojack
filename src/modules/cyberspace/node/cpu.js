@@ -23,13 +23,13 @@ export class Cpu extends Node{
   
   generate(){
     while(this.avatars.length==0){
-      if(RPG.chancein(FUNCTIONS)) 
+      if(rpg.chancein(FUNCTIONS)) 
         this.enter(new Alarm(this.system));
-      if(RPG.chancein(FUNCTIONS)) 
+      if(rpg.chancein(FUNCTIONS)) 
         this.enter(new Entry(this.system));
-      if(RPG.chancein(FUNCTIONS)) 
+      if(rpg.chancein(FUNCTIONS)) 
         this.enter(new Map(this.system));
-      if(RPG.chancein(FUNCTIONS)) 
+      if(rpg.chancein(FUNCTIONS)) 
         this.enter(new Terminal(this.system));
     }
   }

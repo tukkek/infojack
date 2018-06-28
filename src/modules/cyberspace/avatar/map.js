@@ -6,8 +6,7 @@ export class Map extends Avatar{
   }
   
   click(){
-    this.system.reveal=true;
-    for(let n of this.system.nodes) n.visited=true;
+    this.system.reveal();
     this.node.remove(this);
   }
 }

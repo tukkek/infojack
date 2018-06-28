@@ -1,11 +1,15 @@
+import {rpg} from '../rpg.js';
 import {Node} from './node/node.js';
 import {Datastore} from './node/datastore.js';
 import {Cpu} from './node/cpu.js';
 import {Portal} from './node/portal.js';
-import {rpg} from '../rpg.js';
+import {Interface} from './node/interface.js';
+
+var REVEAL=true;
 
 export class System{
   constructor(level){
+    this.revealed=false; //reveal all map
     this.level=level;
     if(this.level<1) this.level=1;
     else if(this.level>20) this.level=20;
@@ -15,14 +19,12 @@ export class System{
     this.generatemap();
     this.definenodes();
     for(let n of this.nodes) n.generate();
+    if(REVEAL) this.reveal();
   }
   
   getnode(x,y){
     for(let n of this.nodes) if(x==n.x&&y==n.y) return n;
     return null;
-  }
-  
-  normalize(){
   }
   
   generatemap(){
@@ -62,6 +64,12 @@ export class System{
     return this.nodes.indexOf(rpg.choose(portals));
   }
   
+  generatenode(){
+    if(rpg.chancein(10)) return new Cpu(-1,-1,this);
+    if(rpg.chancein(4)) return new Interface(-1,-1,this);
+    return new Datastore(-1,-1,this);
+  }
+  
   definenodes(){
     this.nodes[0].setmain();
     let entrancei=-1;
@@ -75,7 +83,12 @@ export class System{
       let neighbors=this.nodes[i].getneighbors().length;
       let corridor=neighbors>1&&rpg.chancein(6-neighbors);
       if(corridor) continue;
-      this.replacenode(new Datastore(-1,-1,this),i);
+      this.replacenode(this.generatenode(),i);
     }
+  }
+  
+  reveal(){
+    this.revealed=true;
+    for(let n of this.nodes) n.visited=true;
   }
 }

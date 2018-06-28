@@ -101,7 +101,8 @@ function removeimage(tile){
 }
 
 function refresh(){
-  if(system.reveal) for(let n of system.nodes) placenode(n,false);
+  if(system.revealed) for(let n of system.nodes) 
+    placenode(n,false);
   for(let t of tiles){
     let node=system.nodes[t.nodeid];
     if(t.style.opacity==0) setTimeout(function(){
