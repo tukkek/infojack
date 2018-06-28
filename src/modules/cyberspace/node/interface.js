@@ -10,7 +10,9 @@ export class Interface extends Node{
   }
   
   generate(){
-    this.enter(new Control(this.system));
-    if(rpg.chancein(3)) this.enter(new Backdoor(this.system));
+    while(this.avatars.length==0){
+      if(rpg.chancein(4)) this.enter(new Control(this.system));
+      if(rpg.chancein(6)) this.enter(new Backdoor(this.system));
+    }
   }
 }

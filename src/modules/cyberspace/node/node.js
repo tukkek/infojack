@@ -60,8 +60,9 @@ export class Node{
   scan(){ //TODO skill test
     for(let a of rpg.shuffle(this.avatars.slice())){
       if(!a.scanned){
-        if(a.scan()) a.scanned=true;
-        else return false;
+        if(false) return false;
+        a.scan();
+        a.scanned=true;
       }
     }
     return true;

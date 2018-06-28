@@ -30,6 +30,7 @@ html, body {
   transition:border 3s ease-out;
   transition:opacity 1s ease-in-out;
   opacity:0;
+  overflow:hidden;
 }
 .discovered{opacity:1;}
 .visited{border:0.1em dashed gray;}

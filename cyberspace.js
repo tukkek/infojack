@@ -85,6 +85,7 @@ export function draw(){
 
 function addimage(tile,avatar){
   tile.avatar=avatar;
+  tile.scanned=avatar.scanned;
   let image=document.createElement('img');
   image.src=avatar.image;
   image.title=avatar.tooltip;
@@ -111,7 +112,9 @@ function refresh(){
     if(!node.visited) continue;
     if(!t.style.border) t.classList.add('visited');
     let avatar=node.getavatar(t.nodex,t.nodey);
-    if(t.image&&(!avatar||avatar!=t.avatar)) removeimage(t);
+    if(t.image&&
+      (!avatar||avatar!=t.avatar||t.scanned!=avatar.scanned)) 
+        removeimage(t);
     if(avatar&&avatar!=t.avatar) addimage(t,avatar);
   }
 }

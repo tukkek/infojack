@@ -6,6 +6,7 @@ import {Portal} from './node/portal.js';
 import {Interface} from './node/interface.js';
 
 var REVEAL=true;
+var SCAN=true;
 
 export class System{
   constructor(level){
@@ -19,7 +20,15 @@ export class System{
     this.generatemap();
     this.definenodes();
     for(let n of this.nodes) n.generate();
+    this.debug();
+  }
+  
+  debug(){
     if(REVEAL) this.reveal();
+    if(SCAN) for(let n of this.nodes) for(let a of n.avatars){
+      a.scan();
+      a.scanned=true;
+    }
   }
   
   getnode(x,y){

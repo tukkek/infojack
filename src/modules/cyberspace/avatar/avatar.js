@@ -1,4 +1,5 @@
 import {System} from '../system.js';
+import {rpg} from '../../rpg.js';
 
 export class Avatar{
   constructor(image,system){
@@ -9,8 +10,10 @@ export class Avatar{
     this.node=null;
     this.x=-1;
     this.y=-1;
-    this.scanned=false;
     this.tooltip=this.constructor.name;
+    this.scanned=false;
+    this.scandc=this.system+rpg.randomize(10);
+    if(this.scandc<1) this.scandc=1;
   }
   
   setimage(image){

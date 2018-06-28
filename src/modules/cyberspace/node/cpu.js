@@ -7,7 +7,6 @@ import {Terminal} from '../avatar/terminal.js';
 
 var FUNCTIONS=4;
 
-//TODO show core.png before scan
 export class Cpu extends Node{
   constructor(x,y,system){
     super(x,y,system)
