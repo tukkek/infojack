@@ -71,9 +71,8 @@ function placespacer(){
 
 export function draw(){
   map=document.querySelector('#map');
-  let entry=system.nodes[0];
-  placenode(entry,true);
-  player.enter(entry);
+  placenode(system.entrance,true);
+  player.enter(system.entrance);
   refresh();
   for(let t of tiles){
     if(t.nodeid==player.node.id&&

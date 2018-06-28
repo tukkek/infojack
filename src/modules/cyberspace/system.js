@@ -1,6 +1,7 @@
 import {Node} from './node/node.js';
 import {Datastore} from './node/datastore.js';
 import {Cpu} from './node/cpu.js';
+import {Portal} from './node/portal.js';
 import {rpg} from '../rpg.js';
 
 export class System{
@@ -10,6 +11,7 @@ export class System{
     else if(this.level>20) this.level=20;
     this.nodes=[];
     this.ice=[];
+    this.entrance=null;
     this.generatemap();
     this.definenodes();
     for(let n of this.nodes) n.generate();
@@ -45,16 +47,35 @@ export class System{
     }
   }
   
+  replacenode(target,i){
+    let original=this.nodes[i];
+    target.id=original.id;
+    target.x=original.x;
+    target.y=original.y;
+    this.nodes[i]=target;
+  }
+  
+  findentrance(neighbors){
+    let portals=this.nodes.filter(
+      n=>n.id!=0&&n.getneighbors().length==neighbors); 
+    if(portals.length==0) return -1;
+    return this.nodes.indexOf(rpg.choose(portals));
+  }
+  
   definenodes(){
     this.nodes[0].setmain();
+    let entrancei=-1;
+    for(let neighbors=1;entrancei==-1;neighbors++){
+      entrancei=this.findentrance(neighbors);
+    }
+    this.entrance=new Portal(-1,-1,this);
+    this.replacenode(this.entrance,entrancei);
     for(let i=1;i<this.nodes.length;i++){
-      let n=this.nodes[i];
-      let neighbors=n.getneighbors().length;
+      if(i==entrancei) continue;
+      let neighbors=this.nodes[i].getneighbors().length;
       let corridor=neighbors>1&&rpg.chancein(6-neighbors);
       if(corridor) continue;
-      let type=new Datastore(n.x,n.y,this);
-      type.id=n.id;
-      this.nodes[i]=type;
+      this.replacenode(new Datastore(-1,-1,this),i);
     }
   }
 }

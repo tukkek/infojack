@@ -12,6 +12,7 @@ export class Node{
     this.y=y;
     this.id=system.nodes.length;
     this.size=SIZE;
+    this.priority=0;
     this.system=system;
     this.avatars=[];
     this.visited=false;

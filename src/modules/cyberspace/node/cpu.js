@@ -7,7 +7,13 @@ import {Terminal} from '../avatar/terminal.js';
 
 var FUNCTIONS=4;
 
+//TODO show core.png before scan
 export class Cpu extends Node{
+  constructor(x,y,system){
+    super(x,y,system)
+    this.priority=2;
+  }
+  
   setmain(){
     this.enter(new Alarm(this.system));
     this.enter(new Entry(this.system));
