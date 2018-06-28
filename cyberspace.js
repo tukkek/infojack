@@ -6,7 +6,7 @@ var SPACING=1.1;
 var FADETIME=2000;
 
 var map=false;
-var system=new System(1);
+var system=new System(20);
 var player=new Player('characters/tile000.png',system);
 var tiles=[];
 var drawn=[];
@@ -84,29 +84,34 @@ export function draw(){
   }
 }
 
+function addimage(tile,avatar){
+  tile.avatar=avatar;
+  let image=document.createElement('img');
+  image.src=avatar.image;
+  image.title=avatar.tooltip;
+  tile.appendChild(image);
+  tile.image=image;
+}
+
+function removeimage(tile){
+  tile.avatar=null;
+  tile.image.style.opacity=0;
+  let fade=tile.image;
+  tile.image=null;
+  setTimeout(function(){tile.removeChild(fade);},FADETIME);
+}
+
 function refresh(){
+  if(system.reveal) for(let n of system.nodes) placenode(n,false);
   for(let t of tiles){
     let node=system.nodes[t.nodeid];
-    let style=t.style;
-    if(style.opacity==0) setTimeout(function(){
+    if(t.style.opacity==0) setTimeout(function(){
       t.classList.add('discovered');
     },1);
     if(!node.visited) continue;
-    if(!style.border) t.classList.add('visited');
+    if(!t.style.border) t.classList.add('visited');
     let avatar=node.getavatar(t.nodex,t.nodey);
-    if(t.image&&(!avatar||avatar!=t.avatar)){
-      t.avatar=null;
-      t.image.style.opacity=0;
-      let fade=t.image;
-      t.image=null;
-      setTimeout(function(){t.removeChild(fade);},FADETIME);
-    }
-    if(avatar&&avatar!=t.avatar){
-      t.avatar=avatar;
-      t.image=document.createElement('img');
-      t.image.src=avatar.image;
-      t.image.title=avatar.tooltip;
-      t.appendChild(t.image);
-    }
+    if(t.image&&(!avatar||avatar!=t.avatar)) removeimage(t);
+    if(avatar&&avatar!=t.avatar) addimage(t,avatar);
   }
 }

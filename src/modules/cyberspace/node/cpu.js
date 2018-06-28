@@ -9,22 +9,22 @@ var FUNCTIONS=4;
 
 export class Cpu extends Node{
   setmain(){
-    this.enter(new Alarm(this));
-    this.enter(new Entry(this));
-    this.enter(new Map(this));
-    this.enter(new Terminal(this));
+    this.enter(new Alarm(this.system));
+    this.enter(new Entry(this.system));
+    this.enter(new Map(this.system));
+    this.enter(new Terminal(this.system));
   }
   
   generate(){
     while(this.avatars.length==0){
       if(RPG.chancein(FUNCTIONS)) 
-        this.enter(new Alarm(this));
+        this.enter(new Alarm(this.system));
       if(RPG.chancein(FUNCTIONS)) 
-        this.enter(new Entry(this));
+        this.enter(new Entry(this.system));
       if(RPG.chancein(FUNCTIONS)) 
-        this.enter(new Map(this));
+        this.enter(new Map(this.system));
       if(RPG.chancein(FUNCTIONS)) 
-        this.enter(new Terminal(this));
+        this.enter(new Terminal(this.system));
     }
   }
 }

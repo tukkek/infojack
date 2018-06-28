@@ -1,6 +1,10 @@
+import {System} from '../system.js';
+
 export class Avatar{
   constructor(image,system){
     this.setimage(image);
+    if(!(system instanceof System))
+      throw 'system type: '+system.constructor.name;
     this.system=system;
     this.node=null;
     this.x=-1;
