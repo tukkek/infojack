@@ -1,5 +1,5 @@
-import {feats} from '../modules/feats';
-import {hero} from '../modules/characters';
+import {feats} from '../modules/character/feat';
+import {hero} from '../modules/character/character';
 import {Save} from '../modules/save';
 import {inject} from 'aurelia-framework';
 import {BindingSignaler} from 'aurelia-templating-resources';

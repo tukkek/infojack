@@ -1,9 +1,9 @@
 //TODO convert primary BAB elsewhere
 
-import {occupations} from './occupations';
-import {webcrawler} from './classes';
-import {skills} from './skills';
-import {rpg} from './rpg';
+import {occupations} from './occupation';
+import {webcrawler} from './class';
+import {skills} from './skill';
+import {rpg} from '../rpg';
 
 export class Character{
     constructor(){

@@ -2,8 +2,8 @@
  * for advanced classes, have edge dice as part of levelup
  */
 
-import {checkskills} from './skills';
-import {rpg} from './rpg';
+import {checkskills} from './skill';
+import {rpg} from '../rpg';
 
 class Class{
     constructor(){

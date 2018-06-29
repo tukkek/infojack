@@ -1,4 +1,4 @@
-import {skills,checkskills} from './skills';
+import {skills,checkskills} from './skill';
 
 //TODO feats
 class Occupation{

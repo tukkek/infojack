@@ -1,6 +1,6 @@
 //TODO needs to boost Character#ranks with int
 
-import {hero,costs} from '../modules/characters';
+import {hero,costs} from '../modules/character/character';
 import {Save} from '../modules/save';
 import {inject} from 'aurelia-framework';
 
