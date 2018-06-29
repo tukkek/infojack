@@ -5,7 +5,7 @@ import {Cpu} from './node/cpu';
 import {Portal} from './node/portal';
 import {Interface} from './node/interface';
 
-var REVEAL=true;
+var REVEAL=false;
 var SCAN=false;
 
 export class System{

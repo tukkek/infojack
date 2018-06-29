@@ -4,7 +4,7 @@ import {Sound} from './modules/sound';
 import {save} from './modules/save';
 import {ShowView} from './messages';
 
-var DEBUGVIEW=false&&'Cyberspace';
+var DEBUGVIEW=false;
 
 @inject(Sound,EventAggregator)
 export class MainMenu {

@@ -15,8 +15,6 @@ export class CharacterScreen {
         this.showskills=false;
         this.showfeats=false;
         this.showdetails=false;
-        this.showabilities=false; //TODO
-        this.showdetails=true; //TODO
         this.messaging=messaging;
         
         let me=this;

@@ -9,6 +9,7 @@ import {ShowView} from './messages';
 var TILESIZE=2.5;
 var SPACING=1.1;
 var FADETIME=2000;
+var LEVEL=20;
 
 @inject(Sound,EventAggregator)
 export class Cyberspace{
@@ -27,7 +28,7 @@ export class Cyberspace{
     this.showconsole=true;
     this.console=document.querySelector('#console');
     this.console.innerHTML='';
-    this.system=new System(20);
+    this.system=new System(LEVEL);
     this.player=
       new Player('characters/tile000.png',this.system);
     this.tiles=[];
