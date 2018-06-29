@@ -4,3 +4,4 @@ node_modules
 scripts/*
 nohup.out
 doc/
+src/environment.js
