@@ -1,9 +1,9 @@
-import {rpg} from '../../rpg.js';
-import {Node} from './node.js';
-import {Alarm} from '../avatar/alarm.js';
-import {Entry} from '../avatar/entry.js';
-import {Map} from '../avatar/map.js';
-import {Terminal} from '../avatar/terminal.js';
+import {rpg} from '../../rpg';
+import {Node} from './node';
+import {Alarm} from '../avatar/alarm';
+import {Entry} from '../avatar/entry';
+import {Map} from '../avatar/map';
+import {Terminal} from '../avatar/terminal';
 
 var FUNCTIONS=4;
 

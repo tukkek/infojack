@@ -1,5 +1,5 @@
-import {Avatar} from './avatar.js';
-import {rpg} from '../../rpg.js';
+import {Avatar} from './avatar';
+import {rpg} from '../../rpg';
 
 export class File extends Avatar{
   constructor(system){

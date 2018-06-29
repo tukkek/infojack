@@ -1,6 +1,6 @@
-import {Node} from './node.js';
-import {File} from '../avatar/file.js';
-import {rpg} from '../../rpg.js';
+import {Node} from './node';
+import {File} from '../avatar/file';
+import {rpg} from '../../rpg';
 
 export class Datastore extends Node{
   constructor(x,y,system){

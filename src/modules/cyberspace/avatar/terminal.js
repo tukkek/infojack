@@ -1,4 +1,4 @@
-import {Avatar} from './avatar.js';
+import {Avatar} from './avatar';
 
 export class Terminal extends Avatar{
   constructor(system){

@@ -4,6 +4,8 @@ import {Sound} from './modules/sound';
 import {Save} from './modules/save';
 import {ShowView} from './messages';
 
+var DEBUGVIEW='Cyberspace';
+
 @inject(Sound,Save,EventAggregator)
 export class MainMenu {
     constructor(sound,save,messaging) {
@@ -12,6 +14,10 @@ export class MainMenu {
         this.show=true;
         this.messaging=messaging;
         this.hassave=save.checkload()!=false;
+        if(DEBUGVIEW){
+          let me=this;
+          setTimeout(function(){me.close(DEBUGVIEW);},1);
+        }
     }
   
     showpending(){
@@ -22,7 +28,8 @@ export class MainMenu {
     }
     
     startgame(){
-        if(this.hassave&&!confirm('Are you sure you want to start a new game? Any previous progress will be lost!')){
+        let prompt='Are you sure you want to start a new game? Any previous progress will be lost!';
+        if(this.hassave&&!confirm(prompt)){
             return;
         }
         this.save.clear();

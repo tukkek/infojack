@@ -1,4 +1,4 @@
-import {rpg} from '../../rpg.js';
+import {rpg} from '../../rpg';
 
 var SIZE=4;
 var TILES=[];

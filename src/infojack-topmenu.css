@@ -10,6 +10,7 @@
     background-color:lightgrey;
     border:.25em solid lightgrey;
     border-radius:1em;
+    z-index:2;
 }
 #topmenu>*{
     padding-left:.5em;

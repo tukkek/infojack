@@ -1,5 +1,5 @@
-import {System} from '../system.js';
-import {rpg} from '../../rpg.js';
+import {System} from '../system';
+import {rpg} from '../../rpg';
 
 export class Avatar{
   constructor(image,system){

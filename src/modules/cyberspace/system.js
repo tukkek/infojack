@@ -1,12 +1,12 @@
-import {rpg} from '../rpg.js';
-import {Node} from './node/node.js';
-import {Datastore} from './node/datastore.js';
-import {Cpu} from './node/cpu.js';
-import {Portal} from './node/portal.js';
-import {Interface} from './node/interface.js';
+import {rpg} from '../rpg';
+import {Node} from './node/node';
+import {Datastore} from './node/datastore';
+import {Cpu} from './node/cpu';
+import {Portal} from './node/portal';
+import {Interface} from './node/interface';
 
 var REVEAL=true;
-var SCAN=true;
+var SCAN=false;
 
 export class System{
   constructor(level){

@@ -1,5 +1,5 @@
-import {Node} from './node.js';
-import {Gateway} from '../avatar/gateway.js';
+import {Node} from './node';
+import {Gateway} from '../avatar/gateway';
 
 //TODO make it part of the normal generation to hop to other systems
 //TODO at first can even have it as "stairs down"

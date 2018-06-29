@@ -1,7 +1,7 @@
-import {Node} from './node.js';
-import {Backdoor} from '../avatar/backdoor.js';
-import {Control} from '../avatar/control.js';
-import {rpg} from '../../rpg.js';
+import {Node} from './node';
+import {Backdoor} from '../avatar/backdoor';
+import {Control} from '../avatar/control';
+import {rpg} from '../../rpg';
 
 export class Interface extends Node{
   constructor(x,y,system){
