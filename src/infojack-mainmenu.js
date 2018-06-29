@@ -46,6 +46,7 @@ export class MainMenu {
     
     close(open){
         this.show=false;
+        open='Cyberspace';
         this.messaging.publish(new ShowView(open));
     }
       
