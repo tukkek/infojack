@@ -11,10 +11,8 @@ class Class{
     }
     
     advance(character){
-        let level=0;
-        if(this.name in character.classes){
-            level=character.classes[this.name];
-        }
+        let level=this.name in character.classes?
+          character.classes[this.name]:0;
         level+=1;
         if(level>10) {
             throw 'Cannot advance past level 10!';
@@ -25,21 +23,22 @@ class Class{
     
     levelup(c,classlevel){
         c.level+=1;
-        this.upgradestat(classlevel,'bab',c);
-        this.upgradestat(classlevel,'fort',c);
-        this.upgradestat(classlevel,'ref',c);
-        this.upgradestat(classlevel,'will',c);
-        this.upgradestat(classlevel,'defence',c);
+        for(let stat of ['bab','fort','ref','will','defence'])
+          this.upgradestat(classlevel,stat,c);
         this.upgradeedgedice(classlevel,c);
         this.upgradereputation(classlevel);
-        c.ranks+=Math.max(1,this.ranks+c.getmodifier(c.intelligence));
+        c.ranks+=Math.max(
+          1,this.ranks+c.getmodifier(c.intelligence));
         if(c.level==1){
-            c.hp=this.hd;
+            c.maxhp=this.hd;
+            c.hp=c.maxhp;
             c.edge+=c.edgedice[0];
-            c.ranks=c.ranks*4;
+            c.ranks=(c.ranks+c.getmodifier(c.intelligence))*4;
             this.addskills(c);
         }else{
-            c.hp+=rpg.d(1,this.hd);
+            let hp=rpg.d(1,this.hd);
+            c.maxhp+=hp;
+            c.hp+=hp;
         }
     }
     
@@ -49,13 +48,10 @@ class Class{
         }
     }
     
-    upgradestat(level,stat,c){
-        let last=0;
-        if(level>1){
-            last=this[stat][level-2];
-        }
+    upgradestat(level,stat,character){
+        let last=level>1?this[stat][level-2]:0;
         let current=this[stat][level-1];
-        c[stat]+=current-last;
+        character[stat]+=current-last;
     }
     
     upgradeedgedice(level,c){

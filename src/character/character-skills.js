@@ -7,9 +7,13 @@ var CROSSCLASS=false; //disable (only 1 skill is CC...)
 export class CharacterSkills {
     constructor() {
         this.skills=skills;
+    }
+    
+    bind(){
         this.hero=hero;
-        this.values={};
-        for(let s of skills.values()) this.values[s.name]=hero.getskill(s.name);
+        this.ranks={};
+        for(let s of skills.values()) 
+          this.ranks[s.name]=hero.getranks(s.name);
     }
     
     iscrossclass(skill){
@@ -21,15 +25,19 @@ export class CharacterSkills {
     }
     
     upgrade(skill){
-        if(!this.canupgrade(this.values[skill],skill)) return;
+        if(!this.canupgrade(this.ranks[skill],skill)) return;
         let cost=this.buy(skill);
         hero.ranks-=cost;
-        this.values[skill]+=1;
-        hero.setskill(skill,this.values[skill]);
+        this.ranks[skill]+=1;
+        hero.setranks(skill,this.ranks[skill]);
     }
     
     canupgrade(value,skill){
         let cost=this.buy(skill);
         return hero.ranks>=cost && value<3+hero.level;
+    }
+    
+    getability(skill){
+      return skill.ability.substring(0,3).toUpperCase();
     }
 }

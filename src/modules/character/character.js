@@ -24,6 +24,8 @@ export var costs={
 
 export class Character{
     constructor(){
+        this.hp=0;
+        this.maxhp=0;
         this.strength=7;
         this.dexterity=7;
         this.constitution=7;
@@ -44,6 +46,7 @@ export class Character{
         this.ref=0;
         this.will=0;
         this.defence=0;
+        this.init=0;
         this.talent=0;
         this.contacts=0;//TODO
         this.feats=[];
@@ -77,7 +80,7 @@ export class Character{
     
     //TODO use
     connect(){
-        let avatar={};
+        let avatar=new Character();
         Object.assign(avatar,this);
         if('Webcrawler' in this.classes){
             this.enhancecrawler(avatar);
@@ -104,18 +107,19 @@ export class Character{
         return (ability-10)/2;
     }
     
-    getskill(name){
+    getranks(name){
         return this[name.replace(' ','').toLowerCase()];
     }
     
-    setskill(name,value){
+    setranks(name,value){
         this[name.replace(' ','').toLowerCase()]=value;
     }
     
     hasfeat(f){
         f=f.name||f;
-        for(let feat of this.feats) if(feat.name==f)
-          return feat;
+        for(let feat of this.feats)
+          if(feat.name.toLowerCase()==f.toLowerCase())
+            return feat;
         return false;
     }
     
@@ -123,61 +127,101 @@ export class Character{
         this.feats.push(f);
     }
     
-    rollskill(ranks,feat,bonus){
-        if(feat&&hasfeat(feat)) ranks+=bonus;
-        return rpg.r(1,20)+ranks;
+    getskill(ranks,ability,feat,featbonus){
+      console.log(1,ranks);
+        if(feat&&this.hasfeat(feat)) ranks+=featbonus;
+      console.log(2,ranks);
+      ranks=ranks+this.getmodifier(ability);
+      console.log(3,ranks);
+        return ranks;
     }
     
-    rollbluff(){
-        return rollskill(this.bluff,false,0);
+    getbluff(){
+        return this.getskill(this.bluff,this.charisma,false,0);
     }
     
-    rolldecryption(){
-        return rollskill(this.decryption,'studious',2);
+    getconcentration(){
+        return this.getskill(
+          this.concentration,this.constitution,false,0);
     }
     
-    rolleletronics(){
-        return rollskill(this.eletronics,false,0);
+    getdecryption(){
+        return this.getskill(
+          this.decryption,this.intelligence,'studious',2);
     }
     
-    rollforgery(){
-        return rollskill(this.forgery,'meticulous',2);
+    getelectronics(){
+        return this.getskill(
+          this.electronics,this.intelligence,false,0);
     }
     
-    rollinformation(){
-        return rollskill(this.information,'trustworthy',3);
+    getforgery(){
+        return this.getskill(
+          this.forgery,this.intelligence,'meticulous',2);
     }
     
-    rollhacking(){
-        return rollskill(this.hacking,false,0);
+    getinformation(){
+        return this.getskill(
+          this.information,this.charisma,'trustworthy',3);
     }
     
-    rollperceive(){
-        return rollskill(this.perceive,false,0);
+    gethacking(){
+        return this.getskill(
+          this.hacking,this.intelligence,false,0);
     }
     
-    rollmedicine(){
-        return rollskill(this.medicine,false,0);
+    getperceive(){
+        return this.getskill(this.perceive,this.wisdom,false,0);
     }
     
-    rollstealth(){
-        return rollskill(this.stealth,'stealthy',3);
+    getmedicine(){
+        return this.getskill(this.medicine,this.wisdom,false,0);
     }
     
-    rollprofession(){
-        return rollskill(this.profession,false,0);
+    getstealth(){
+        return this.getskill(
+          this.stealth,this.dexterity,'stealthy',3);
     }
     
-    rollresearch(){
-        return rollskill(this.research,'studious',2);
+    getprofession(){
+        return this.getskill(this.profession,this.wisdom,false,0);
     }
     
-    rollsearch(){
-        return rollskill(this.search,'meticulous',2);
+    getresearch(){
+        return this.getskill(
+          this.research,this.intelligence,'studious',2);
     }
     
-    rolltechnology(){
-        return rollskill(this.technology,'educated',3);
+    getsearch(){
+        return this.getskill(
+          this.search,this.intelligence,'meticulous',2);
+    }
+    
+    gettechnology(){
+        return this.getskill(
+          this.technology,this.intelligence,'educated',3);
+    }
+    
+    getfortitude(){
+      return this.fort+this.getmodifier(this.constitution);
+    }
+    
+    getreflexes(){
+      return this.ref+this.getmodifier(this.dexterity);
+    }
+    
+    getwill(){
+      return this.will+this.getmodifier(this.wisdom);
+    }
+    
+    getinitiative(){
+      let init=this.init+this.getmodifier(this.dexterity);
+      if(this.hasfeat('improved initiative')) init+=4;
+      return init;
+    }
+    
+    getdefence(){
+      return 10+this.defence+this.getmodifier(this.dexterity);
     }
 }
 

@@ -8,9 +8,9 @@
     <table class='abilities-table' id='skilltable'>
     <tr repeat.for="[name,skill] of skills">
         <td class='bold'>${name}</td>
-        <td class='ability-value' >${values[name]}</td>
-        <td><button class="ability-upgrade ${iscrossclass(name)?'crossskill':''}" click.trigger="upgrade(name)" disabled.bind='!canupgrade(values[name],name)'>Upgrade</button></td>
-        <td>${skill.description}</td>
+        <td class='ability-value' >${ranks[name]}</td>
+        <td><button class="ability-upgrade ${iscrossclass(name)?'crossskill':''}" click.trigger="upgrade(name)" disabled.bind='!canupgrade(ranks[name],name)'>Upgrade</button></td>
+        <td>${skill.description} (${getability(skill)}).</td>
     </tr>
     </table>
 </template> 

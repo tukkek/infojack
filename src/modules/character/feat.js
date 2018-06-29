@@ -45,8 +45,16 @@ class Trustworthy extends Feat{
     }
 }
 
+class ImprovedInitiative extends Feat{
+   constructor(){
+        super('Improved initiative',
+              '+4 to initiative rolls');
+    }
+}
+
 for(let feat of [
     new Educated(),
+    new ImprovedInitiative(),
     new Meticulous(),
     new Stealthy(),
     new Stealthy(),

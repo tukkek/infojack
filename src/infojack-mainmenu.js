@@ -36,11 +36,13 @@ export class MainMenu {
     }
     
     loadgame(){
-        if(!this.hassave){
-            this.sound.play(this.sound.ERROR);
+        if(this.hassave){
+          save.load();
+          this.close('CharacterScreen');//TODO open map
+        }else{
+          this.sound.play(this.sound.ERROR);
+          alert('No save found!');
         }
-        save.load();
-        this.close('CharacterScreen');//TODO open map
     }
     
     close(open){

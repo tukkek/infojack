@@ -36,7 +36,7 @@ export class CharacterAbilities {
         }else if(this.buy(current)){
             this[ability]=raised;
         }else return;
-        if(ability=='intelligence'&&raised>=12&&raised%2==0){
+        if(ability=='intelligence'&&raised%2==0){
             hero.ranks+=hero.level==1?4:1;
         }
     }

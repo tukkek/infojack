@@ -1,1 +1,16 @@
- 
+.detail{
+  display:inline-block;
+  margin-right:.5em;
+}
+.detail span{
+  padding:.1em .5em .1em .5em;
+  background-color:white;
+  color:black;
+  text-align:center;
+  margin-left:.5em;
+} 
+.details-title{
+  font-weight:bold;
+  margin-top:.5em;
+  margin-bottom:.5em;
+}

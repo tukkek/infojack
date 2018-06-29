@@ -1,6 +1,7 @@
 class Skill{
-    constructor(name,description){
+    constructor(name,ability,description){
         this.name=name;
+        this.ability=ability; //used only as a label
         this.description=description;
     }
 }
@@ -8,32 +9,34 @@ class Skill{
 export var skills=new Map();
 
 for (let skill of [
-    new Skill('Bluff',
-        "Convince ICE you're not an intruder."),
-    new Skill('Decryption',
-        "Break into protected data."),
-    new Skill('Electronics',
-        "Build and install hardware."),
-    new Skill('Forgery',
-        "Forge authentication credentials."),
-    new Skill('Information',
-        "Find more shopping items and missions."),
-    new Skill('Hacking',
-        "Act on the Web."),
-    new Skill('Perceive',
-        "Detect ICE and files on the Web."),
-    new Skill('Medicine',
-        "Treat your injuries."),
-    new Skill('Stealth',
-        "Avoid being detected on the Web."),
-    new Skill('Profession',
-        "Earn more money."),
-    new Skill('Research',
-        "Do perimeter checks on Frames."),
-    new Skill('Search',
-        "Locate files in datastores."),
-    new Skill('Technology',
-        "Create your own programs."),
+    new Skill('Bluff','Charisma',
+        "Convince ICE you're not an intruder"),
+    new Skill('Concentration','Constitution',
+        "Focus your mind while in danger"),
+    new Skill('Decryption','Intelligence',
+        "Break into protected data"),
+    new Skill('Electronics','Intelligence',
+        "Build and install hardware"),
+    new Skill('Forgery','Intelligence',
+        "Forge authentication credentials"),
+    new Skill('Hacking','Intelligence',
+        "Act on the Web"),
+    new Skill('Information','Charisma',
+        "Find more shopping items and missions"),
+    new Skill('Medicine','Wisdom',
+        "Treat your injuries"),
+    new Skill('Perceive','Wisdom',
+        "Detect ICE and files on the Web"),
+    new Skill('Profession','Wisdom',
+        "Earn more money"),
+    new Skill('Research','Intelligence',
+        "Do perimeter checks on Frames"),
+    new Skill('Search','Intelligence',
+        "Locate files in datastores"),
+    new Skill('Stealth','Dexterity',
+        "Avoid being detected on the Web"),
+    new Skill('Technology','Intelligence',
+        "Create your own programs"),
 ]){
     skills.set(skill.name,skill);
 }
