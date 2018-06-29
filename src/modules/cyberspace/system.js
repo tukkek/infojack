@@ -14,6 +14,7 @@ export class System{
     this.level=level;
     if(this.level<1) this.level=1;
     else if(this.level>20) this.level=20;
+    this.alert=0;
     this.nodes=[];
     this.ice=[];
     this.entrance=null;
@@ -99,5 +100,13 @@ export class System{
   reveal(){
     this.revealed=true;
     for(let n of this.nodes) n.visited=true;
+  }
+  
+  raisealert(){
+    if(this.alert<2) this.alert+=1;
+  }
+  
+  cancelalert(){
+    if(this.alert>0) this.alert-=1;
   }
 }

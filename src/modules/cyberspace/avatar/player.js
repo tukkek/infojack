@@ -1,4 +1,5 @@
 import {Avatar} from './avatar';
+import {console} from '../console';
 
 export class Player extends Avatar{
   constructor(image,system){

@@ -1,6 +1,6 @@
 import {hero} from './character/character';
 
-var DEBUG=true;
+var DEBUG=false;
 
 class Save{
     constructor(){}

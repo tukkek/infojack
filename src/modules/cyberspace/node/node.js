@@ -42,7 +42,7 @@ export class Node{
   
   /* return true if found free spot */
   enter(avatar){
-    if(avatar.node==this) return true;
+    if(avatar.node==this) return false;
     rpg.shuffle(TILES);
     for(let xy of TILES) if(!this.getavatar(xy[0],xy[1])){
       if(avatar.node) avatar.node.remove(avatar);

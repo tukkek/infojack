@@ -1,5 +1,6 @@
 import {System} from './modules/cyberspace/system';
 import {Player} from './modules/cyberspace/avatar/player';
+import {console} from './modules/cyberspace/console';
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {Sound} from './modules/sound';
@@ -23,6 +24,9 @@ export class Cyberspace{
     //TODO clean previous run
     this.map=document.querySelector('#cyberspace');
     this.map.innerHTML='';
+    this.showconsole=true;
+    this.console=document.querySelector('#console');
+    this.console.innerHTML='';
     this.system=new System(20);
     this.player=
       new Player('characters/tile000.png',this.system);
@@ -90,7 +94,8 @@ export class Cyberspace{
   }
 
   draw(){
-    this.showconsole=true;
+    console.system=this.system;
+    console.print('You enter the system...');
     this.placenode(this.system.entrance,true);
     this.player.enter(this.system.entrance);
     this.refresh();
@@ -121,7 +126,23 @@ export class Cyberspace{
     setTimeout(function(){tile.removeChild(fade);},FADETIME);
   }
 
+  printmessages(){
+    for(let m=console.pop();m;m=console.pop()){
+      let color=false;
+      if(m.alert==0) color='white';
+      else if(m.alert==1) color='yellow';
+      else if(m.alert==2) color='red';
+      else throw 'Unknown alert level';
+      let div=document.createElement('div');
+      div.style.color=color;
+      div.appendChild(document.createTextNode(m.text));
+      this.console.appendChild(div);
+    }
+    this.console.scrollTop=this.console.scrollHeight;
+  }
+  
   refresh(){
+    this.printmessages();
     if(this.system.revealed) for(let n of this.system.nodes) 
       this.placenode(n,false);
     for(let t of this.tiles){
