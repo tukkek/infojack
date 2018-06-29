@@ -1,4 +1,5 @@
 import {Avatar} from './avatar';
+import {rpg} from '../../rpg';
 
 var OUTCOMES=2;
 
