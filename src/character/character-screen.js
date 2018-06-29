@@ -14,6 +14,7 @@ export class CharacterScreen {
         this.showskills=false;
         this.showfeats=false;
         this.showdetails=false;
+        this.messaging=messaging;
         
         let me=this;
         messaging.subscribe(ShowView,function(show){
@@ -42,6 +43,7 @@ export class CharacterScreen {
     
     close(){
         this.show=false;
+        this.messaging.publish(new ShowView('Cyberspace'));
     }
 }
 

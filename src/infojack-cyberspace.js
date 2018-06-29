@@ -12,6 +12,7 @@ var FADETIME=2000;
 @inject(Sound,EventAggregator)
 export class Cyberspace{
   constructor(sound,messaging){
+    this.showconsole=false;
     let me=this;
     messaging.subscribe(ShowView,function(show){
         if(show.view=='Cyberspace') me.init();
@@ -89,6 +90,7 @@ export class Cyberspace{
   }
 
   draw(){
+    this.showconsole=true;
     this.placenode(this.system.entrance,true);
     this.player.enter(this.system.entrance);
     this.refresh();

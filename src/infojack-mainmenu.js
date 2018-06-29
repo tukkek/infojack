@@ -4,7 +4,7 @@ import {Sound} from './modules/sound';
 import {Save} from './modules/save';
 import {ShowView} from './messages';
 
-var DEBUGVIEW='Cyberspace';
+var DEBUGVIEW=false&&'Cyberspace';
 
 @inject(Sound,Save,EventAggregator)
 export class MainMenu {
@@ -46,8 +46,6 @@ export class MainMenu {
     
     close(open){
         this.show=false;
-        open='Cyberspace';
-        alert(open);
         this.messaging.publish(new ShowView(open));
     }
       
