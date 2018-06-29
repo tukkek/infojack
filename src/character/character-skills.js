@@ -1,17 +1,14 @@
 import {skills} from '../modules/character/skill';
 import {hero} from '../modules/character/character';
-import {Save} from '../modules/save';
 import {inject} from 'aurelia-framework';
 
 var CROSSCLASS=false; //disable (only 1 skill is CC...)
 
-@inject(Save,skills,hero)
 export class CharacterSkills {
-    constructor(Save,skills,hero) {
-        this.save=Save;
+    constructor() {
         this.skills=skills;
-        this.values={};
         this.hero=hero;
+        this.values={};
         for(let s of skills.values()) this.values[s.name]=hero.getskill(s.name);
     }
     
@@ -29,7 +26,6 @@ export class CharacterSkills {
         hero.ranks-=cost;
         this.values[skill]+=1;
         hero.setskill(skill,this.values[skill]);
-        this.save.save();
     }
     
     canupgrade(value,skill){

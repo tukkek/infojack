@@ -5,6 +5,23 @@ import {webcrawler} from './class';
 import {skills} from './skill';
 import {rpg} from '../rpg';
 
+export var FULL=false; //use physical abilities?
+var POINTS=Math.round((15+4*6)/(FULL?1:2));
+export var costs={
+    7:-4,
+    8:-2,
+    9:-1,
+    10:0,
+    11:1,
+    12:2,
+    13:3,
+    14:5,
+    15:7,
+    16:10,
+    17:13,
+    18:17,
+}
+
 export class Character{
     constructor(){
         this.strength=7;
@@ -13,7 +30,7 @@ export class Character{
         this.intelligence=7;
         this.wisdom=7;
         this.charisma=7;
-        this.pointbuy=15+4*6;
+        this.pointbuy=POINTS;
         this.pointextra=0;
         this.wealth=0;
         this.classskills=[];
@@ -36,7 +53,7 @@ export class Character{
         }
     }
 
-    //makes sure not to write new data
+    /* makes sure not to write new data */
     assign(data){
         for(let key in data){
             if(key in this){
@@ -97,7 +114,8 @@ export class Character{
     
     hasfeat(f){
         f=f.name||f;
-        for(let feat of this.feats) if(feat.name==f) return feat;
+        for(let feat of this.feats) if(feat.name==f)
+          return feat;
         return false;
     }
     
@@ -147,7 +165,7 @@ export class Character{
     }
     
     rollprofession(){
-        return rollskill(this.profession,fase,0);
+        return rollskill(this.profession,false,0);
     }
     
     rollresearch(){
@@ -166,18 +184,3 @@ export class Character{
 export var hero=new Character();
 hero.setoccupation(occupations.adventurer);
 webcrawler.advance(hero); //becomes level 1
-
-export var costs={
-    7:-4,
-    8:-2,
-    9:-1,
-    10:0,
-    11:1,
-    12:2,
-    13:3,
-    14:5,
-    15:7,
-    16:10,
-    17:13,
-    18:17,
-}

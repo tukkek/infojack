@@ -3,6 +3,7 @@
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {ShowView} from '../messages';
+import {save} from '../modules/save';
 
 var STARTINGSCREEN='CharacterScreen';
 
@@ -42,6 +43,7 @@ export class CharacterScreen {
     }
     
     close(){
+        save.save();
         this.show=false;
         this.messaging.publish(new ShowView('Cyberspace'));
     }

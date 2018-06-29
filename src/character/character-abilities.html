@@ -4,19 +4,19 @@
     <tr>
         <td class='bold'>Strength</td>
         <td class='ability-value'>${strength}</td>
-        <td><button class='ability-upgrade' click.trigger="upgrade('strength')">Upgrade</button></td>
+        <td><button class='ability-upgrade' click.trigger="upgrade('strength')" disabled.bind='!full'>Upgrade</button></td>
         <td>Your physical strength outside the Web.</td>
     </tr>
     <tr>
         <td class='bold'>Dexterity</td>
         <td class='ability-value'>${dexterity}</td>
-        <td><button class='ability-upgrade' click.trigger="upgrade('dexterity')">Upgrade</button></td>
+        <td><button class='ability-upgrade' click.trigger="upgrade('dexterity')" disabled.bind='!full'>Upgrade</button></td>
         <td>Your agility outside the Web.</td>
     </div>
     <tr>
         <td class='bold'>Constitution</td>
         <td class='ability-value'>${constitution}</td>
-        <td><button class='ability-upgrade' click.trigger="upgrade('constitution')">Upgrade</button></td>
+        <td><button class='ability-upgrade' click.trigger="upgrade('constitution')" disabled.bind='!full'>Upgrade</button></td>
         <td>Your capacity for taking punishment.</td>
     </tr>
     <tr>

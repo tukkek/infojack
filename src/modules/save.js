@@ -1,9 +1,9 @@
-import {hero} from './characters';
+import {hero} from './character/character';
 
-export class Save{
-    constructor(){
-        this.dodebug=false;
-    }
+var DEBUG=true;
+
+class Save{
+    constructor(){}
     
     checkload(){
         return localStorage.getItem('infojack-save');
@@ -42,10 +42,10 @@ export class Save{
     } 
     
     debug(){
-        if(!this.dodebug)return;
+        if(!DEBUG) return;
         let data=this.checkload();
-        if(data){
-            alert(data);
-        }
+        if(data) alert(data);
     }
 }
+
+export var save=new Save();

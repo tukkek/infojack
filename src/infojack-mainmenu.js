@@ -1,16 +1,15 @@
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {Sound} from './modules/sound';
-import {Save} from './modules/save';
+import {save} from './modules/save';
 import {ShowView} from './messages';
 
 var DEBUGVIEW=false&&'Cyberspace';
 
-@inject(Sound,Save,EventAggregator)
+@inject(Sound,EventAggregator)
 export class MainMenu {
-    constructor(sound,save,messaging) {
+    constructor(sound,messaging) {
         this.sound=sound;
-        this.save=save;
         this.show=true;
         this.messaging=messaging;
         this.hassave=save.checkload()!=false;
@@ -32,7 +31,7 @@ export class MainMenu {
         if(this.hassave&&!confirm(prompt)){
             return;
         }
-        this.save.clear();
+        save.clear();
         this.close('CharacterScreen');
     }
     
@@ -40,7 +39,7 @@ export class MainMenu {
         if(!this.hassave){
             this.sound.play(this.sound.ERROR);
         }
-        this.save.load();
+        save.load();
         this.close('CharacterScreen');//TODO open map
     }
     
