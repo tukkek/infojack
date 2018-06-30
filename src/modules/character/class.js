@@ -1,18 +1,22 @@
-/*TODO 
- * for advanced classes, have edge dice as part of levelup
+/* TODO 
+ * - for advanced classes, have edge dice as part of levelup
+ * - Webcrawler talents (use hero.feats)
+ *  - Hackmastery (+2 to all damage inflicted)
+ *  - Phreakmastery (safe connections, +1 against traces)
+ *  - Power of belief (+1 to bluff, decryption, stealth and search rolls)
+ *  - The web is alive (add your Will to Perception rolls, requires level 3 and Power of belief)
+ *  - Specialized equipment (+1 to hacking rolls, +5 speed, safe disconnections, requires hacking 4, electronics 4 and technology 4)
  */
 
 import {checkskills} from './skill';
 import {rpg} from '../rpg';
 
 class Class{
-    constructor(){
-        //default
-    }
+    constructor(){}
     
     advance(character){
-        let level=this.name in character.classes?
-          character.classes[this.name]:0;
+        let level=character.classes[this.name];
+        if(!level) level=0;
         level+=1;
         if(level>10) {
             throw 'Cannot advance past level 10!';
@@ -33,12 +37,14 @@ class Class{
             c.maxhp=this.hd;
             c.hp=c.maxhp;
             c.edge+=c.edgedice[0];
-            c.ranks=(c.ranks+c.getmodifier(c.intelligence))*4;
+            c.ranks*=4;
             this.addskills(c);
         }else{
             let hp=rpg.d(1,this.hd);
             c.maxhp+=hp;
             c.hp+=hp;
+            if(c.level%3==0) c.newfeats+=1;
+            if(c.level%4==0) c.pointextra+=1;
         }
     }
     
@@ -112,3 +118,5 @@ class Webcrawler extends Class{
 }
 
 export var webcrawler=new Webcrawler();
+
+export var classes=[webcrawler,];

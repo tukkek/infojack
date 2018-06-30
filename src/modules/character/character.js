@@ -26,6 +26,7 @@ export var costs={
 
 export class Character{
     constructor(){
+        this.name='Player1';
         this.hp=0;
         this.maxhp=0;
         this.strength=7;
@@ -49,7 +50,7 @@ export class Character{
         this.will=0;
         this.defence=0;
         this.init=0;
-        this.talent=0;
+        this.talent=0;//TODO
         this.contacts=0;//TODO
         this.feats=[];
         this.newfeats=2;
@@ -84,7 +85,7 @@ export class Character{
     connect(){
         let avatar=new Character();
         Object.assign(avatar,this);
-        if('Webcrawler' in this.classes){
+        if(this.classes['Webcrawler']){
             this.enhancecrawler(avatar);
         }
         return avatar;
@@ -130,11 +131,8 @@ export class Character{
     }
     
     getskill(ranks,ability,feat,featbonus){
-      console.log(1,ranks);
         if(feat&&this.hasfeat(feat)) ranks+=featbonus;
-      console.log(2,ranks);
-      ranks=ranks+this.getmodifier(ability);
-      console.log(3,ranks);
+        ranks=ranks+this.getmodifier(ability);
         return ranks;
     }
     

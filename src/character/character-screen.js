@@ -1,5 +1,3 @@
-//TODO add talents
-
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {ShowView} from '../messages';
@@ -9,9 +7,11 @@ import {save} from '../modules/save';
 export class CharacterScreen {
     constructor(messaging) {
         this.show=false;
-        this.showabilities=true;
+        this.showgeneral=true;
+        this.showabilities=false;
         this.showskills=false;
         this.showfeats=false;
+        this.showtalents=false;
         this.showdetails=false;
         this.messaging=messaging;
         

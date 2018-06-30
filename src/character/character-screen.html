@@ -1,7 +1,9 @@
 <template>
+    <require from="./character-general"></require>
     <require from="./character-abilities"></require>
     <require from="./character-skills"></require>
     <require from="./character-feats"></require>
+    <require from="./character-talents"></require>
     <require from="./character-details"></require>
     <require from="./character-screen.css"></require> 
     
@@ -9,7 +11,10 @@
         <h2>Character screen</h2>
         <span id='charactermenu' ref='charactermenu'>
             <button  
-                click.trigger='select($event)' id='character-abilities' class='highlightbg'>
+                click.trigger='select($event)' id='character-general' class='highlightbg'>
+                General</button>
+            <button  
+                click.trigger='select($event)' id='character-abilities'>
                 Abilities</button>
             <button 
                 click.trigger='select($event)' id='character-skills'>
@@ -18,6 +23,9 @@
                 click.trigger='select($event)' id='character-feats'>
                 Feats</button>
             <button
+                click.trigger='select($event)' id='character-talents'>
+                Talents</button>
+            <button
                 click.trigger='select($event)' id='character-details'>
                 Details</button>
             <button
@@ -25,9 +33,11 @@
                 Save</button>
         </span>
         <span id='character-content'>
+            <character-general if.bind='showgeneral' class='characterview'></character-general>
             <character-abilities if.bind='showabilities' class='characterview'></character-abilities>
             <character-skills if.bind='showskills' class='characterview'></character-skills>
             <character-feats if.bind='showfeats' class='characterview'></character-feats>
+            <character-talents if.bind='showtalents' class='characterview'></character-talents>
             <character-details if.bind='showdetails' class='characterview'></character-details>
         </span>
     </div>

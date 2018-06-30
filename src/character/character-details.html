@@ -1,13 +1,23 @@
 <template>
     <require from="./character-details.css"></require>
-    <div class='details-title'>Hit points</div>
-    <span class='detail'>
-      Current HP<span>${avatar.hp}</span>
-    </span>
-    <span class='detail'>
-      Max HP<span>${avatar.maxhp}</span>
-    </span>
+    <div class='details-title'>Level</div>
+      <span class='detail'>
+        Character level <span>${avatar.level}</span>
+      </span>
+      <span class='detail' 
+        repeat.for='class of classes'>
+          ${class.name} 
+          <span>${avatar.classes[class.name]}</span>
+      </span>
     <div class='details-title'>Combat</div>
+    <div>
+      <span class='detail'>
+        Current HP<span>${avatar.hp}</span>
+      </span>
+      <span class='detail'>
+        Max HP<span>${avatar.maxhp}</span>
+      </span>
+    </div>
     <span class='detail'>
       Base attack bonus<span>${sign(avatar.bab)}</span>
     </span>
@@ -39,6 +49,17 @@
       ${name} <span>${getskill(skill)}</span>
     </span>
     <div class='details-title'>Other</div>
-    <span class='detail'>Edge dice<span>${avatar.edge}</span>
+    <span class='detail'>
+      Edge<span>${avatar.edge}</span>
+    </span>
+    <span class='detail'>
+      Edge dice
+      <span>${avatar.edgedice[0]}d${avatar.edgedice[1]}</span>
+    </span>
+    <span class='detail'>
+      Talents<span>${avatar.talent}</span>
+    </span>
+    <span class='detail'>
+      Contacts<span>${avatar.contacts}</span>
     </span>
 </template> 
