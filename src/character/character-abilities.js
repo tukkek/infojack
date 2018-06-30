@@ -19,11 +19,10 @@ export class CharacterAbilities {
         this.pointextra=hero.pointextra;
     }
     
-    detached(){
+    save(){
         let clone={};
         Object.assign(clone,this);
-        delete clone.costs;
-        delete clone.hero;
+        delete clone.full;
         hero.assign(clone);
     }
 
@@ -40,6 +39,7 @@ export class CharacterAbilities {
         if(ability=='intelligence'&&raised%2==0){
             hero.ranks+=hero.level==1?4:1;
         }
+        this.save();
     }
     
     buy(current){
