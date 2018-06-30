@@ -1,13 +1,14 @@
 //TODO needs to boost Character#ranks with int
 
-import {hero,costs,FULL} from '../modules/character/character';
+import {hero,costs} from '../modules/character/character';
+import environment from '../environment';
 
 /* TODO add difficulty modes */
 export class CharacterAbilities {
     constructor() {}
     
     attached(){
-        this.full=FULL;
+        this.full=environment.fullattributes;
         this.strength=hero.strength;
         this.dexterity=hero.dexterity;
         this.constitution=hero.constitution;

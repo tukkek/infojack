@@ -1,9 +1,8 @@
-import {hero,FULL} from '../modules/character/character';
+import {hero} from '../modules/character/character';
 import {skills} from '../modules/character/skill';
 
 export class CharacterDetails {
     constructor() {
-      this.FULL=true;
       this.abilities=['Strength','Dexterity','Constitution','Intelligence','Wisdom','Charisma'];
       this.saves=['Fortitude','Reflexes','Will'];
       this.skills=skills;

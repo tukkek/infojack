@@ -1,17 +1,17 @@
 import {rpg} from '../../rpg';
+import environment from '../../../environment';
 
-var SIZE=4;
 var TILES=[];
 
-for(let x=0;x<SIZE;x++) for(let y=0;y<SIZE;y++)
-  TILES.push([x,y]);
+for(let x=0;x<environment.nodesize;x++) 
+  for(let y=0;y<environment.nodesize;y++)
+    TILES.push([x,y]);
 
 export class Node{
   constructor(x,y,system){
     this.x=x;
     this.y=y;
     this.id=system.nodes.length;
-    this.size=SIZE;
     this.priority=0;
     this.system=system;
     this.avatars=[];

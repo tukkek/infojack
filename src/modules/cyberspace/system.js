@@ -4,9 +4,7 @@ import {Datastore} from './node/datastore';
 import {Cpu} from './node/cpu';
 import {Portal} from './node/portal';
 import {Interface} from './node/interface';
-
-var REVEAL=false;
-var SCAN=false;
+import environment from '../../environment';
 
 export class System{
   constructor(level){
@@ -25,11 +23,12 @@ export class System{
   }
   
   debug(){
-    if(REVEAL) this.reveal();
-    if(SCAN) for(let n of this.nodes) for(let a of n.avatars){
-      a.scan();
-      a.scanned=true;
-    }
+    if(environment.revealmap) this.reveal();
+    if(environment.scannodes)
+      for(let n of this.nodes) for(let a of n.avatars){
+        a.scan();
+        a.scanned=true;
+      }
   }
   
   getnode(x,y){

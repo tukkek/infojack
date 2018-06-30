@@ -3,8 +3,7 @@ import {EventAggregator} from 'aurelia-event-aggregator';
 import {Sound} from './modules/sound';
 import {save} from './modules/save';
 import {ShowView} from './messages';
-
-var DEBUGVIEW=false;
+import environment from './environment';
 
 @inject(Sound,EventAggregator)
 export class MainMenu {
@@ -13,9 +12,11 @@ export class MainMenu {
         this.show=true;
         this.messaging=messaging;
         this.hassave=save.checkload()!=false;
-        if(DEBUGVIEW){
+        if(environment.view){
           let me=this;
-          setTimeout(function(){me.close(DEBUGVIEW);},1);
+          setTimeout(function(){
+            me.close(environment.view);}
+          ,1);
         }
     }
   
@@ -38,7 +39,7 @@ export class MainMenu {
     loadgame(){
         if(this.hassave){
           save.load();
-          this.close('CharacterScreen');//TODO open map
+          this.close('CharacterScreen');
         }else{
           this.sound.play(this.sound.ERROR);
           alert('No save found!');

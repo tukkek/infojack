@@ -1,8 +1,7 @@
 import {skills} from '../modules/character/skill';
 import {hero} from '../modules/character/character';
 import {inject} from 'aurelia-framework';
-
-var CROSSCLASS=false; //disable (only 1 skill is CC...)
+import environment from '../environment';
 
 export class CharacterSkills {
     constructor() {
@@ -17,7 +16,8 @@ export class CharacterSkills {
     }
     
     iscrossclass(skill){
-        return CROSSCLASS&&!hero.classskills.includes(skill);
+        return environment.ccskills&&
+          !hero.classskills.includes(skill);
     }
     
     buy(skill){

@@ -8,6 +8,7 @@ class Skill{
 
 export var skills=new Map();
 
+//TODO Concentration wasnt on the first draft, check class skills
 for (let skill of [
     new Skill('Bluff','Charisma',
         "Convince ICE you're not an intruder"),

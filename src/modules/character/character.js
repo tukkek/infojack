@@ -4,9 +4,11 @@ import {occupations} from './occupation';
 import {webcrawler} from './class';
 import {skills} from './skill';
 import {rpg} from '../rpg';
+import environment from '../../environment';
 
-export var FULL=false; //use physical abilities?
-var POINTS=Math.round((15+4*6)/(FULL?1:2));
+var ABILITYPOINTS=
+  Math.round((15+4*6)/(environment.fullattributes?1:2));
+
 export var costs={
     7:-4,
     8:-2,
@@ -32,7 +34,7 @@ export class Character{
         this.intelligence=7;
         this.wisdom=7;
         this.charisma=7;
-        this.pointbuy=POINTS;
+        this.pointbuy=ABILITYPOINTS;
         this.pointextra=0;
         this.wealth=0;
         this.classskills=[];

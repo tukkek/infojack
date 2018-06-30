@@ -1,6 +1,5 @@
 import {hero} from './character/character';
-
-var DEBUG=false;
+import environment from '../environment';
 
 class Save{
     constructor(){}
@@ -42,7 +41,7 @@ class Save{
     } 
     
     debug(){
-        if(!DEBUG) return;
+        if(!environment.printsave) return;
         let data=this.checkload();
         if(data) alert(data);
     }

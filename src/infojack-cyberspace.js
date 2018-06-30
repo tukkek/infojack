@@ -5,11 +5,12 @@ import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {Sound} from './modules/sound';
 import {ShowView} from './messages';
+import environment from './environment';
+import {hero} from './modules/character/character';
 
 var TILESIZE=2.5;
 var SPACING=1.1;
 var FADETIME=2000;
-var LEVEL=20;
 
 @inject(Sound,EventAggregator)
 export class Cyberspace{
@@ -28,7 +29,8 @@ export class Cyberspace{
     this.showconsole=true;
     this.console=document.querySelector('#console');
     this.console.innerHTML='';
-    this.system=new System(LEVEL);
+    this.system=
+      new System(environment.systemlevel||hero.level);
     this.player=
       new Player('characters/tile000.png',this.system);
     this.tiles=[];
@@ -62,8 +64,10 @@ export class Cyberspace{
     let style=tile.style;
     style.width=TILESIZE+'em';
     style.height=TILESIZE+'em';
-    style.left=(((node.x*SPACING)*node.size+x)*TILESIZE)+'em';
-    style.top=(((node.y*SPACING)*node.size+y)*TILESIZE)+'em';
+    style.left=(node.x*SPACING*environment.nodesize+x)
+      *TILESIZE+'em';
+    style.top=(node.y*SPACING*environment.nodesize+y)
+      *TILESIZE+'em';
     return tile;
   }
 
@@ -85,8 +89,8 @@ export class Cyberspace{
   placenode(node,expand){
     if(this.drawn.indexOf(node)<0){
       this.drawn.push(node);
-      for(let x=0;x<node.size;x++)
-        for(let y=0;y<node.size;y++)
+      for(let x=0;x<environment.nodesize;x++)
+        for(let y=0;y<environment.nodesize;y++)
           this.map.appendChild(this.placetile(x,y,node));
     }
     if(expand) for(let n of node.getneighbors())
