@@ -58,6 +58,7 @@ let watch = function(refreshCb, onChangeCb) {
       const files = Object.keys(project.build.copyFiles);
       gulp.watch(files, refreshCb).on('change', onChangeCb);
     }
+    gulp.watch('aurelia_project/environments/*.js', refreshCb).on('change', onChangeCb);
   };
 };
 
