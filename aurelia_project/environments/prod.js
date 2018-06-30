@@ -1,7 +1,7 @@
 export default {
   /* environment */
   debug: false,
-  testing: false
+  testing: false,
   /* game options */
   nodesize:4, //grid size for each node
   fullattributes:false, //no sense in having physical now
