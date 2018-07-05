@@ -1,18 +1,12 @@
 /* TODO 
  * - for advanced classes, have edge dice as part of levelup
- * - Webcrawler talents (use hero.feats)
- *  - Hackmastery (+2 to all damage inflicted)
- *  - Phreakmastery (safe connections, +1 against traces)
- *  - Power of belief (+1 to bluff, decryption, stealth and search rolls)
- *  - The web is alive (add your Will to Perception rolls, requires level 3 and Power of belief)
- *  - Specialized equipment (+1 to hacking rolls, +5 speed, safe disconnections, requires hacking 4, electronics 4 and technology 4)
  */
 
-import {Talent} from './feat';
-import {checkskills} from './skill';
-import {rpg} from '../rpg';
+import {checkskills} from '../skill';
+import {rpg} from '../../rpg';
+import {webcrawler} from './webcrawler';
 
-class Class{
+export class Class{
     constructor(){this.talents=new Map();}
     
     advance(character){
@@ -84,44 +78,10 @@ class Class{
             //TODO boost
         }
     }
-}
-
-class Webcrawler extends Class{
-    constructor(){
-        super();
-        this.name='Webcrawler';
-        this.skills=checkskills(['Hacking', 'Electronics', 'Decryption', /*'Disable device',*/ 'Forgery', 'Technology', 'Profession', 'Research', 'Technology', 'Search']);
-        this.hd=4;
-        this.ranks=7;
-        this.bab=[0,1,1,2,2,3,3,4,4,5];
-        this.fort=[0,0,1,1,1,2,2,2,3,3];
-        this.ref=[1,2,2,2,3,3,4,4,4,5];
-        this.will=[1,2,2,2,3,3,4,4,4,5];
-        this.defence=[1,1,2,2,2,3,3,3,4,4];
-        this.reputation=[0,1,1,2,2,3,3,4,4,5];
-        this.edgedice=['1d4','1d4','2d4','2d6','2d6','3d6','3d8','3d8','4d8','4d10'];
-        for(let t of [new Talent('Test','dummy'),])
-          this.talents.set(t.name,t);
-    }
     
-    levelup(character,classlevel){
-        super.levelup(character,classlevel);
-        let level=character.level;
-        if(level==1||level==3||level==6||level==9){
-            character.talent+=1;
-        }else if(level==4||level==7){
-            character.ranks+=1;
-        }else if(level==5||level==8){
-            character.contacts+=1;
-        }else if(level==10){
-            character.wealth+=5;
-            //TODO +5 reputation to law and hackers
-        }
+    check(skills){
+      return checkskills(skills);
     }
 }
 
-export var webcrawler=new Webcrawler();
-export var classes=[webcrawler,];
-export var classmap=new Map();
-
-for(let c of classes) classmap.set(c.name,c);
+Class.classes=new Map();

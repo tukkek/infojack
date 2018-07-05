@@ -1,7 +1,7 @@
 //TODO convert primary BAB elsewhere
 
 import {occupations} from './occupation';
-import {webcrawler} from './class';
+import {webcrawler} from './class/webcrawler';
 import {skills} from './skill';
 import {rpg} from '../rpg';
 import environment from '../../environment';
@@ -50,7 +50,9 @@ export class Character{
         this.will=0;
         this.defence=0;
         this.init=0;
-        this.talent=0;//TODO
+        this.talent=0;
+        if(environment.extratalents)
+          this.talent+=environment.extratalents;
         this.contacts=0;//TODO
         this.feats=[];
         this.newfeats=2;
@@ -137,7 +139,7 @@ export class Character{
     }
     
     getbluff(){
-        return this.getskill(this.bluff,this.charisma,false,0);
+      return this.getskill(this.bluff,this.charisma,'power of belief',1);
     }
     
     getconcentration(){
@@ -146,8 +148,10 @@ export class Character{
     }
     
     getdecryption(){
-        return this.getskill(
-          this.decryption,this.intelligence,'studious',2);
+      let decryption=this.getskill(
+        this.decryption,this.intelligence,'studious',2);
+      if(this.hasfeat('power of belief')) decryption+=1;
+      return decryption;
     }
     
     getelectronics(){
@@ -167,7 +171,8 @@ export class Character{
     
     gethacking(){
         return this.getskill(
-          this.hacking,this.intelligence,false,0);
+          this.hacking,this.intelligence,
+          'specialized equipment',1);
     }
     
     getperceive(){
@@ -179,12 +184,15 @@ export class Character{
     }
     
     getstealth(){
-        return this.getskill(
-          this.stealth,this.dexterity,'stealthy',3);
+      let stealth=this.getskill(
+        this.stealth,this.dexterity,'stealthy',3);
+      if(this.hasfeat('power of belief')) stealth+=1;
+      return stealth;
     }
     
     getprofession(){
-        return this.getskill(this.profession,this.wisdom,false,0);
+      return this.getskill(
+        this.profession,this.wisdom,false,0);
     }
     
     getresearch(){
@@ -193,8 +201,10 @@ export class Character{
     }
     
     getsearch(){
-        return this.getskill(
-          this.search,this.intelligence,'meticulous',2);
+      let search=this.getskill(
+        this.search,this.intelligence,'meticulous',2);
+      if(this.hasfeat('power of belief')) search+=1;
+      return search;
     }
     
     gettechnology(){

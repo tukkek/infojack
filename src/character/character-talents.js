@@ -1,6 +1,6 @@
 import {useView} from 'aurelia-framework';
 import {hero} from '../modules/character/character';
-import {classmap} from '../modules/character/class';
+import {Class} from '../modules/character/class/class';
 import {inject} from 'aurelia-framework';
 import {BindingSignaler} from 'aurelia-templating-resources';
 
@@ -16,7 +16,7 @@ export class CharacterTalents {
       this.points=hero.talent;
       this.talents=new Map();
       for(let c in hero.classes)
-        for(let [name,talent] of classmap.get(c).talents)
+        for(let [name,talent] of Class.classes.get(c).talents)
           this.talents.set(name,talent);
     }
 
