@@ -1,7 +1,17 @@
 <template>
     <require from="./character-general.css"></require>
-    <div class='details-title'>
-      Name: <input type='text' value.bind='hero.name'></input>
+    <div id='character-general'>
+      <div class='details-title'>
+        <div>Name:</div>
+        <input type='text' value.bind='hero.name' 
+          ref='name'></input>
+      </div>
+      <div class='details-title'>
+        <div>Avatar:</div>
+        <img repeat.for='i of avatars' 
+          src='./images/characters/${i}.png'
+          class.bind='i==avatar?"selected":""'
+          onclick.call='select(i)'></img>
+      </div>
     </div>
-    <div class='details-title'>Avatar:</div>
 </template> 

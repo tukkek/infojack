@@ -32,7 +32,7 @@ export class Cyberspace{
     this.system=
       new System(environment.systemlevel||hero.level);
     this.player=
-      new Player('characters/tile000.png',this.system);
+      new Player(hero,this.system);
     this.tiles=[];
     this.drawn=[];
     this.draw();

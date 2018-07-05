@@ -25,8 +25,9 @@ export var costs={
 }
 
 export class Character{
-    constructor(){
-        this.name='Player1';
+    constructor(name){
+        this.name=name;
+        this.image=rpg.r(0,environment.playeravatars-1);
         this.hp=0;
         this.maxhp=0;
         this.strength=7;
@@ -243,6 +244,6 @@ export class Character{
     }
 }
 
-export var hero=new Character();
+export var hero=new Character('Player1');
 hero.setoccupation(occupations.adventurer);
 webcrawler.advance(hero); //becomes level 1

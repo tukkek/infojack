@@ -2,9 +2,11 @@ import {Avatar} from './avatar';
 import {console} from '../console';
 
 export class Player extends Avatar{
-  constructor(image,system){
-    super(image,system);
+  constructor(hero,system){
+    super('characters/'+hero.image+'.png',system);
     this.scanned=true;
+    this.tooltip=hero.name;
+    system.hero=this;
   }
   
   enter(node){

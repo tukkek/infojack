@@ -19,6 +19,7 @@ export class System{
     this.generatemap();
     this.definenodes();
     for(let n of this.nodes) n.generate();
+    this.player=false; //set by Player
     this.debug();
   }
   

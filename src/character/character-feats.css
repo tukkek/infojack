@@ -1,9 +1,12 @@
 #currentfeats,#featsleft{
-    padding: .5em;
+    padding:.5em;
 } 
 
 #featsleft span{
-    padding: .2em;
+    padding:.2em;
+    padding-left:.75em;
+    padding-right:.75em;
+    margin-left:.5em;
 }
 
 #featstable{

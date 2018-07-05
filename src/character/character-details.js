@@ -1,11 +1,13 @@
 import {hero} from '../modules/character/character';
 import {skills} from '../modules/character/skill';
+import {Class} from '../modules/character/class/class';
 
 export class CharacterDetails {
     constructor() {
       this.abilities=['Strength','Dexterity','Constitution','Intelligence','Wisdom','Charisma'];
       this.saves=['Fortitude','Reflexes','Will'];
       this.skills=skills;
+      this.classes=Class.classes;
     }
 
     bind(){

@@ -2,7 +2,7 @@ class Rpg{
     constructor(){}
     
     r(min,max){
-      return Math.floor((Math.random()*max)+min);
+      return Math.floor((Math.random()*(max+1))+min);
     }
     
     d(dice,sides){

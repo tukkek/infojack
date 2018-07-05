@@ -70,3 +70,13 @@ hr{ border-color:gray;}
 .bold{
     font-weight:bold;
 }
+input{
+  background-color:black;
+  border:none;
+  border-bottom:.1px solid white;
+  color:white;
+  padding-right:3em;
+  height:2em;
+  font:oblique small-caps 1.5em monospace;
+  text-indent:.75em;
+}
