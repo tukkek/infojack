@@ -7,8 +7,8 @@ export default {
   fullattributes:false, //no sense in having physical now
   ccskills:false, //only 1 is cross-class, so disable for now
   /* debug flags (false=disabled) */
-  revealmap:false,
-  scannodes:false,
+  revealmap:true,
+  scannodes:true,
   printsave:false, 
   systemlevel:false, //override system level (1-20)
   view:false, //starting view name

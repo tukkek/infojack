@@ -223,6 +223,14 @@ export class Character{
     getdefence(){
       return 10+this.defence+this.getmodifier(this.dexterity);
     }
+    
+    getmelee(){
+      return this.bab+this.getmodifier(this.strength);
+    }
+    
+    getranged(){
+      return this.bab+this.getmodifier(this.dexterity);
+    }
 }
 
 export var hero=new Character();

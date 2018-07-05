@@ -1,9 +1,10 @@
 export var feats=new Map();
 
-class Feat{
+export class Feat{
     constructor(name,description){
         this.name=name;
         this.description=description;
+        this.talent=false;
     }
     
     validate(character){
@@ -13,6 +14,13 @@ class Feat{
     apply(character){
         character.addfeat(this);
     }
+}
+
+export class Talent extends Feat{
+  constructor(name,description){
+    super(name,description);
+    this.talent=true;
+  }
 }
 
 class Educated extends Feat{

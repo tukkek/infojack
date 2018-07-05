@@ -2,15 +2,11 @@
     font-weight: bold;
     padding: .5em;
 }
-#ranksleft span{
-    padding: .2em;
-}
+#ranksleft span{padding:.2em;}
 
 .small{
     font-size:.75em;
     font-weight:normal;
 }
-
-.crossskill{
-    color:#B22222;
-}
+.crossskill{color:#B22222;}
+.skill-hacking{color:khaki;}

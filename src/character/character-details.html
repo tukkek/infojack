@@ -18,9 +18,19 @@
         Max HP<span>${avatar.maxhp}</span>
       </span>
     </div>
-    <span class='detail'>
-      Base attack bonus<span>${sign(avatar.bab)}</span>
-    </span>
+    <div>
+      <span class='detail'>
+        Base attack bonus<span>${sign(avatar.bab)}</span>
+      </span>
+      <span class='detail'>
+        Mêlée attack bonus
+        <span>${sign(avatar.getmelee())}</span>
+      </span>
+      <span class='detail'>
+        Ranged attack bonus
+        <span>${sign(avatar.getranged())}</span>
+      </span>
+    <div>
     <span class='detail'>Defence
       <span>${avatar.getdefence()}</span>
     </span>
@@ -31,7 +41,7 @@
     <span repeat.for="save of saves" class='detail'>
       ${save} <span>${getsave(save)}</span>
     </span>
-    <div class='details-title'>Ability modifiers</div>
+    <div class='details-title'>Ability modifiers (Web)</div>
     <div>
       <span repeat.for="i of 3" class='detail'>
         ${abilities[i]}

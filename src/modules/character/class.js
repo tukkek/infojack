@@ -8,11 +8,12 @@
  *  - Specialized equipment (+1 to hacking rolls, +5 speed, safe disconnections, requires hacking 4, electronics 4 and technology 4)
  */
 
+import {Talent} from './feat';
 import {checkskills} from './skill';
 import {rpg} from '../rpg';
 
 class Class{
-    constructor(){}
+    constructor(){this.talents=new Map();}
     
     advance(character){
         let level=character.classes[this.name];
@@ -99,6 +100,8 @@ class Webcrawler extends Class{
         this.defence=[1,1,2,2,2,3,3,3,4,4];
         this.reputation=[0,1,1,2,2,3,3,4,4,5];
         this.edgedice=['1d4','1d4','2d4','2d6','2d6','3d6','3d8','3d8','4d8','4d10'];
+        for(let t of [new Talent('Test','dummy'),])
+          this.talents.set(t.name,t);
     }
     
     levelup(character,classlevel){
@@ -118,5 +121,7 @@ class Webcrawler extends Class{
 }
 
 export var webcrawler=new Webcrawler();
-
 export var classes=[webcrawler,];
+export var classmap=new Map();
+
+for(let c of classes) classmap.set(c.name,c);

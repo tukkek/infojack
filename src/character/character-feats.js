@@ -7,18 +7,28 @@ import {BindingSignaler} from 'aurelia-templating-resources';
 export class CharacterFeats {
     constructor(BindingSignaler) {
         this.signals=BindingSignaler;
-        this.feats=feats;
-        this.hero=hero;
+        this.viewname='Feats';
     }
     
+    bind(){this.points=hero.newfeats;}
+
     add(feat){
         if(hero.newfeats==0) return;
+        this.points-=1;
         hero.newfeats-=1;
         hero.addfeat(feat);
         this.signals.signal('update');
     }
     
     validate(feat){
-        return hero.newfeats>0&&feat.validate(hero);
+        return this.points>0&&feat.validate(hero);
     }
+    
+    getcurrent(){
+      let current=[];
+      for(let f of hero.feats) if(!f.talent) current.push(f);
+      return current;
+    }
+    
+    getall(){return feats;}
 }

@@ -6,9 +6,9 @@
         <span class='small'>(skills in red cost 2 points to upgrade)</span>
     </div>
     <table class='abilities-table' id='skilltable'>
-    <tr repeat.for="[name,skill] of skills">
+    <tr repeat.for="[name,skill] of skills" class='skill-${name.toLowerCase()}'>
         <td class='bold'>${name}</td>
-        <td class='ability-value' >${ranks[name]}</td>
+        <td class='ability-value'>${ranks[name]}</td>
         <td><button class="ability-upgrade ${iscrossclass(name)?'crossskill':''}" click.trigger="upgrade(name)" disabled.bind='!canupgrade(ranks[name],name)'>Upgrade</button></td>
         <td>${skill.description} (${getability(skill)}).</td>
     </tr>
