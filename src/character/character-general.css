@@ -1,18 +1,20 @@
 #character-general img{
   width:3.5em;
   border:.3em dashed transparent;
+  border-radius:1em;
   transition:border .5s ease-in-out;
   transition:background-color .5s ease-in-out;
   cursor:pointer;
   background-color:transparent;
 }
 
-#character-general input{
-  width:20em;
-}
-
 #character-general img.selected{
   border-color:#edc207 !important;
+  border-radius:0em;
+}
+
+#character-general input{
+  width:20em;
 }
 
 #character-general img:hover:not(.selected){

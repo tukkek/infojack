@@ -26,40 +26,41 @@ export var costs={
 
 export class Character{
     constructor(name){
-        this.name=name;
-        this.image=rpg.r(0,environment.playeravatars-1);
-        this.hp=0;
-        this.maxhp=0;
-        this.strength=7;
-        this.dexterity=7;
-        this.constitution=7;
-        this.intelligence=7;
-        this.wisdom=7;
-        this.charisma=7;
-        this.pointbuy=ABILITYPOINTS;
-        this.pointextra=0;
-        this.wealth=5; //average of 2d4 to prevent scumming
-        this.classskills=[];
-        this.classes={};//holds levels
-        this.level=0;
-        this.ranks=0;
-        this.bab=0;//hold only primary BAB
-        this.edgedice=[0,0];//0d1
-        this.edge=0;//current edge
-        this.fort=0;
-        this.ref=0;
-        this.will=0;
-        this.defence=0;
-        this.init=0;
-        this.talent=0;
-        if(environment.extratalents)
-          this.talent+=environment.extratalents;
-        this.contacts=0;//TODO
-        this.feats=[];
-        this.newfeats=2;
-        for(let s of skills.values()){
-            this[s.name.replace(' ','').toLowerCase()]=0;
-        }
+      this.name=name;
+      this.image=rpg.r(0,environment.playeravatars-1);
+      this.hp=0;
+      this.maxhp=0;
+      this.strength=7;
+      this.dexterity=7;
+      this.constitution=7;
+      this.intelligence=7;
+      this.wisdom=7;
+      this.charisma=7;
+      this.pointbuy=ABILITYPOINTS;
+      this.pointextra=0;
+      this.wealth=5; //average of 2d4 to prevent scumming
+      this.classskills=[];
+      this.classes={};//holds levels
+      this.level=0;
+      this.ranks=0;
+      this.bab=0;//hold only primary BAB
+      this.edgedice=[0,0];//0d1
+      this.edge=0;//current edge
+      this.fort=0;
+      this.ref=0;
+      this.will=0;
+      this.defence=0;
+      this.init=0;
+      this.speed=30;
+      this.talent=0;
+      if(environment.extratalents)
+        this.talent+=environment.extratalents;
+      this.contacts=0;//TODO
+      this.feats=[];
+      this.newfeats=2;
+      for(let s of skills.values()){
+        this[s.name.replace(' ','').toLowerCase()]=0;
+      }
     }
 
     /* makes sure not to write new data */

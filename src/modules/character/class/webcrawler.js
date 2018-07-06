@@ -26,6 +26,11 @@ class SpecializedEquipment extends Talent{
       &&character.electronics>=4
       &&character.technology>=4;
   }
+  
+  apply(character){
+    super.apply(character);
+    character.speed+=5;
+  }
 }
 
 class Webcrawler extends Class{
@@ -49,8 +54,8 @@ class Webcrawler extends Class{
             'Safe connections, +1 against traces'),
           new Talent('Power of belief',
             '+1 to bluff, decryption, search and stealth'),
-          new TheWebIsAlive(),
           new SpecializedEquipment(),
+          new TheWebIsAlive(),
           ];
         for(let t of talents)
           this.talents.set(t.name,t);

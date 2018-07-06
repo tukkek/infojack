@@ -9,7 +9,7 @@
           ${name} 
           <span>${avatar.classes[name]}</span>
       </span>
-    <div class='details-title'>Combat</div>
+    <div class='details-title'>Combat (Web)</div>
     <div>
       <span class='detail'>
         Current HP<span>${avatar.hp}</span>
@@ -37,6 +37,9 @@
     <span class='detail'>
       Initiative <span>${sign(avatar.getinitiative())}</span>
     </span>
+    <span class='detail'>
+      Speed <span>${avatar.speed} ft.</span>
+    </span>
     <div class='details-title'>Saving throws (Web)</div>
     <span repeat.for="save of saves" class='detail'>
       ${save} <span>${getsave(save)}</span>
@@ -54,7 +57,7 @@
         <span>${getmodifier(abilities[i+3])}</span>
       </span>
     </div>
-    <div class='details-title'>Skill modifiers</div>
+    <div class='details-title'>Skill modifiers (Web)</div>
     <span repeat.for="[name,skill] of skills" class='detail'>
       ${name} <span>${getskill(skill)}</span>
     </span>
