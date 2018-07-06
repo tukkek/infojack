@@ -38,7 +38,7 @@ export class Character{
         this.charisma=7;
         this.pointbuy=ABILITYPOINTS;
         this.pointextra=0;
-        this.wealth=0;
+        this.wealth=5; //average of 2d4 to prevent scumming
         this.classskills=[];
         this.classes={};//holds levels
         this.level=0;
@@ -242,8 +242,56 @@ export class Character{
     getranged(){
       return this.bab+this.getmodifier(this.dexterity);
     }
+    
+    price(purchasedc){
+      let price=purchasedc>=15?1:0;
+      let difference=purchasedc-this.wealth;
+      if(difference<1) return price;
+      if(difference<=10) return price+1;
+      price+=difference-10;
+      return price>12?12:price; 
+    }
+    
+    /*TODO gather information takes 1 hour per purchasedc
+     * use this to find items of interest (1 store per type of buy: programs, deck, cyber) and create as many options until the total purchasedc is equal or bigger than 16 in a day (or 24h with manual sleeping/tired routines). Each gather information roll returns the maximum purchasedc of the found object (or manybe result-10).
+     * */
+    buy(purchasedc){
+      if(10+this.wealth<purchasedc) return false;
+      this.wealth-=this.price(purchasedc);
+      if(this.wealth<0) this.wealth=0;
+      return true;
+    }
+    
+    /*-3 for selling, -3 for illegal*/
+    sell(purchasedc){
+      let price=this.price(purchasedc-6);
+      this.wealth+=price;
+      return price;
+    }
+    
+    /* As per level-up rules, in Infojack may be used to
+     * represent mission payment values or similar. TODO */
+    upgradewealth(){
+      let taketen=10+this.getprofession();
+      if(taketen<this.wealth) return 0;
+      let wealth=1;
+      taketen-=this.wealth;
+      while(taketen>=5){
+        wealth+=1;
+        taketen-=5;
+      }
+      return wealth;
+    }
 }
 
 export var hero=new Character('Player1');
 hero.setoccupation(occupations.adventurer);
 webcrawler.advance(hero); //becomes level 1
+
+//TODO actually buy these programs once they're ready
+console.log('Initial wealth: '+hero.wealth);
+console.log('Purchase blade: '+hero.price(9));
+console.log('Purchase cloak: '+hero.price(9));
+console.log('Purchase flicker: '+hero.price(14));
+hero.buy(9);hero.buy(9);hero.buy(14);
+console.log('Final wealth: '+hero.wealth);

@@ -16,37 +16,42 @@ export class Class{
         if(level>10) {
             throw 'Cannot advance past level 10!';
         }
+        character.level+=1;
         this.levelup(character,level);
         character.classes[this.name]=level;
     }
     
-    levelup(c,classlevel){
-        c.level+=1;
-        for(let stat of ['bab','fort','ref','will','defence'])
-          this.upgradestat(classlevel,stat,c);
-        this.upgradeedgedice(classlevel,c);
-        this.upgradereputation(classlevel);
-        c.ranks+=Math.max(
-          1,this.ranks+c.getmodifier(c.intelligence));
-        if(c.level==1){
-            c.maxhp=this.hd;
-            c.hp=c.maxhp;
-            c.edge+=c.edgedice[0];
-            c.ranks*=4;
-            this.addskills(c);
-        }else{
-            let hp=rpg.d(1,this.hd);
-            c.maxhp+=hp;
-            c.hp+=hp;
-            if(c.level%3==0) c.newfeats+=1;
-            if(c.level%4==0) c.pointextra+=1;
-        }
+    upgradehp(character){
+      if(character.level==1){
+          character.maxhp=this.hd;
+          character.hp=character.maxhp;
+      }else{
+          let hp=Math.round((1+this.hd)/2);
+          character.maxhp+=hp;
+          character.hp+=hp;
+      }
     }
     
-    addskills(c){
-        for(let s of this.skills){
-            c.addclassskill(s);
-        }
+    upgraderanks(character,classlevel){
+      let ranks=this.ranks+
+        character.getmodifier(character.intelligence);
+      character.ranks+=Math.max(1,ranks);
+      if(character.level==1) character.ranks*=4;
+      if(classlevel==1) for(let s of this.skills)
+        character.addclassskill(s);
+    }
+    
+    levelup(character,classlevel){
+      for(let stat of ['bab','fort','ref','will','defence'])
+        this.upgradestat(classlevel,stat,character);
+      this.upgradeedgedice(classlevel,character);
+      this.upgradereputation(character,classlevel);
+      this.upgradehp(character);
+      this.upgraderanks(character,classlevel);
+      if(character.level%3==0) character.newfeats+=1;
+      if(character.level%4==0) character.pointextra+=1;
+      //TODO may want to do this through external means to make it explicit to the player (as mission payment rates for example):
+      if(character.level>1) character.upgradewealth(); 
     }
     
     upgradestat(level,stat,character){
@@ -55,20 +60,19 @@ export class Class{
         character[stat]+=current-last;
     }
     
-    upgradeedgedice(level,c){
-        let target=
-            this.edgedice[level-1].split('d');
-        target=[parseInt(target[0]),
-            parseInt(target[1])];
-        if(target[0]>c.edgedice[0]||
-            (target[0]==c.edgedice[0]&&
-                target[1]>=c.edgedice[1])){
-            c.edgedice[0]=target[0];
-            c.edgedice[1]=target[1];
-        }
+    upgradeedgedice(level,character){
+        let target=this.edgedice[level-1].split('d');
+        target=[parseInt(target[0]),parseInt(target[1])];
+        if(target[0]>character.edgedice[0]||
+          (target[0]==character.edgedice[0]&&
+            target[1]>=character.edgedice[1]))
+              character.edgedice[0]=target[0];
+              character.edgedice[1]=target[1];
+        if(character.level==1) 
+          character.edge+=character.edgedice[0];
     }
     
-    upgradereputation(level){
+    upgradereputation(character,level){
         if(level==1){
             if(this.reputation[0]>0){
                 //TODO boost

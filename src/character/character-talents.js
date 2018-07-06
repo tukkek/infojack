@@ -21,7 +21,7 @@ export class CharacterTalents {
     }
 
     add(talent){
-        if(hero.newfeats==0) return;
+        if(this.points==0) return;
         this.points-=1;
         hero.talent-=1;
         hero.addfeat(talent);

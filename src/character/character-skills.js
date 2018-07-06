@@ -30,6 +30,8 @@ export class CharacterSkills {
         hero.ranks-=cost;
         this.ranks[skill]+=1;
         hero.setranks(skill,this.ranks[skill]);
+        if(skill=='Profession'&&hero.level==1
+          &&this.ranks[skill]==1) hero.wealth+=1;
     }
     
     canupgrade(value,skill){

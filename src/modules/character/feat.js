@@ -60,6 +60,15 @@ class ImprovedInitiative extends Feat{
     }
 }
 
+class Windfall extends Feat{
+   constructor(){
+        super('Windfall',
+          '+3 wealth (may be taken multiple times)');
+    }
+    validate(character){return true;}
+    apply(character){character.wealth+=3;}
+}
+
 for(let feat of [
     new Educated(),
     new ImprovedInitiative(),
@@ -68,4 +77,5 @@ for(let feat of [
     new Stealthy(),
     new Studious(),
     new Trustworthy(),
+    new Windfall(),
 ]) feats.set(feat.name.toLowerCase(),feat);

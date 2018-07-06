@@ -13,10 +13,10 @@ export class CharacterFeats {
     bind(){this.points=hero.newfeats;}
 
     add(feat){
-        if(hero.newfeats==0) return;
+        if(this.points==0) return;
         this.points-=1;
         hero.newfeats-=1;
-        hero.addfeat(feat);
+        feat.apply(hero);
         this.signals.signal('update');
     }
     

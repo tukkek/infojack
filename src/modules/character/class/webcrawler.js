@@ -17,7 +17,7 @@ class TheWebIsAlive extends Talent{
 class SpecializedEquipment extends Talent{
   constructor(){
     super('Specialized equipment',
-      '+1 to hacking rolls, +5 speed, safe disconnections (requires hacking 4, electronics 4 and technology 4)');
+      '+1 to hacking rolls, +5 speed, safe disconnections (requires 4 in hacking, electronics and technology)');
   }
   
   validate(character){
