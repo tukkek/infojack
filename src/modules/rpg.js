@@ -24,7 +24,7 @@ class Rpg{
     
     shuffle(array){
       for (let i=array.length-1;i>0;i--) {
-        let j=this.r(0,i+1);
+        let j=this.r(0,i);
         let swap=array[i];
         array[i]=array[j];
         array[j]=swap;

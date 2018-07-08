@@ -24,20 +24,19 @@ export class Cyberspace{
   
   init(){
     //TODO clean previous run
+    this.showconsole=true;
     this.map=document.querySelector('#cyberspace');
     this.map.innerHTML='';
-    this.showconsole=true;
     this.console=document.querySelector('#console');
     this.console.innerHTML='';
     this.system=
       new System(environment.systemlevel||hero.level);
-    this.player=
-      new Player(hero,this.system);
+    this.player=new Player(this.system);
     this.tiles=[];
     this.drawn=[];
     this.draw();
   }
-
+  
   clicktile(tile){
     if(tile.tagName=='IMG') tile=tile.parentNode;
     let node=this.system.nodes[tile.nodeid];
@@ -75,9 +74,8 @@ export class Cyberspace{
     let farx=0;
     let fary=0;
     for(let t of this.tiles){
-      let bounds=t.getBoundingClientRect();
-      if(bounds.right>farx) farx=bounds.right;
-      if(bounds.bottom>fary) fary=bounds.bottom;
+      if(t.offsetLeft>farx) farx=t.offsetLeft;
+      if(t.offsetTop>fary) fary=t.offsetTop;
     }
     let spacer=document.createElement('div');
     spacer.classList.add('spacer');
@@ -95,7 +93,8 @@ export class Cyberspace{
     }
     if(expand) for(let n of node.getneighbors())
       this.placenode(n,false);
-    this.placespacer();
+    let me=this;
+    setTimeout(function(){me.placespacer();},500);
   }
 
   draw(){
@@ -104,13 +103,16 @@ export class Cyberspace{
     this.placenode(this.system.entrance,true);
     this.player.enter(this.system.entrance);
     this.refresh();
-    for(let t of this.tiles){
+    this.scroll();
+  }
+  
+  scroll(){
+    for(let t of this.tiles) 
       if(t.nodeid==this.player.node.id&&
         t.nodex==this.player.x&&t.nodey==this.player.y){
-        t.scrollIntoView();
-        break;
+          setTimeout(function(){t.scrollIntoView();},250);
+          return;
       }
-    }
   }
 
   addimage(tile,avatar){

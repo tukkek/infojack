@@ -1,5 +1,6 @@
 import {System} from '../system';
 import {rpg} from '../../rpg';
+import {console} from '../console';
 
 export class Avatar{
   constructor(image,system){
@@ -16,19 +17,19 @@ export class Avatar{
     if(this.scandc<1) this.scandc=1;
   }
   
-  setimage(image){
-    this.image='./images/'+image;
-  }
+  setimage(image){this.image='./images/'+image;}
   
   enter(node){
+    let source=this.node;
+    if(node==source) return false;
+    if(source&&source.getneighbors().indexOf(node)<0){
+      console.print("Can only access adjacent nodes...");
+      return false;
+    }
     return node.enter(this);
   }
   
-  click(){
-    alert('clicky!');
-  }
+  click(){alert('Unimplemented.');}
   
-  scan(){
-    return true;
-  }
+  scan(){return true;}
 }

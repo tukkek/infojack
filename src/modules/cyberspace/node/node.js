@@ -40,10 +40,11 @@ export class Node{
     this.avatars.splice(this.avatars.indexOf(avatar),1);
   }
   
-  /* return true if found free spot */
+  /* return true if found free spot
+   * should only be called by Avatar#enter() */
   enter(avatar){
-    if(avatar.node==this) return false;
     rpg.shuffle(TILES);
+    console.log('#nodetiles '+JSON.stringify(TILES));
     for(let xy of TILES) if(!this.getavatar(xy[0],xy[1])){
       if(avatar.node) avatar.node.remove(avatar);
       avatar.x=xy[0];
@@ -58,7 +59,9 @@ export class Node{
   /* scan avatars randomly
    * return false if one fails or true if all done */
   scan(){ //TODO skill test
-    for(let a of rpg.shuffle(this.avatars.slice())){
+    let avatars=rpg.shuffle(this.avatars.slice());
+    for(let a of avatars){
+      if(!a) alert(JSON.stringify(avatars));
       if(!a.scanned){
         if(false) return false;
         a.scan();

@@ -85,7 +85,6 @@ export class Character{
         }
     }
     
-    //TODO use
     connect(){
         let avatar=new Character();
         Object.assign(avatar,this);

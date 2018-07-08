@@ -10,9 +10,11 @@
             ref='audio'
         ></audio>
         <div id='radio-control'>
-            <input ref='radioactive' type="checkbox" click.trigger='play()' checked.bind='active'> 
-            Enable music
+            <input ref='radioactive' type="checkbox" click.trigger='play()' checked.bind='active' id='radio-checkbox'> 
+            <label for='radio-checkbox'>
+              Enable music
+            </label>
         </div>
-        <div>Audio courtesy of <a href='https://somafm.com/defcon/directstreamlinks.html'>DEF CON radio</a></div>
+        <div>Audio courtesy of <a href='https://somafm.com/defcon/index.html' target='_blank'>DEF CON radio</a></div>
     </div>
 </template> 

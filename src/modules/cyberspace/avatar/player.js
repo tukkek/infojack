@@ -1,12 +1,14 @@
 import {Avatar} from './avatar';
 import {console} from '../console';
+import {hero as offlinehero} from '../../character/character';
 
 export class Player extends Avatar{
-  constructor(hero,system){
-    super('characters/'+hero.image+'.png',system);
+  constructor(system){
+    super('characters/'+offlinehero.image+'.png',system);
+    this.hero=offlinehero.connect();
     this.scanned=true;
-    this.tooltip=hero.name;
-    system.hero=this;
+    this.tooltip=this.hero.name;
+    system.player=this;
   }
   
   enter(node){
