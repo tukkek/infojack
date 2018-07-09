@@ -13,7 +13,7 @@
     width:75%;
     right:0em;
 }
-#character-close{margin-top:1.5em;}
+div.separator{height:.5em;}
 #character-content{
 	float: left;
 	display: inline;

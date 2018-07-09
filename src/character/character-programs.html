@@ -1,0 +1,39 @@
+<template>
+  <require from="./character-programs.css"></require>
+  <require from="./character-abilities.css"></require>
+  <div id='programs-screen'>
+    <div class='statistics'>
+      <span><span class='detail'>${name} wealth
+        <span>${wealth}¥</span></span></span>
+      <span><span class='detail'>${name} technology
+        <span>${technology}</span></span></span>
+    </div>
+    <span class='title'>Buy and create programs</span>
+    <span class='instructions'>
+      (hover mouse over buttons for more information)</span>
+    <table id='programs-table'>
+      <tr repeat.for='[name,p] of programs'>
+        <td class='name'>${name}</td>
+        <td>
+          <button class='ability-upgrade'
+            disabled.bind='!canbuy(p) &signal:"update"'
+            click.trigger='buy(p)'
+            title.bind='getpurchaselabel(p)'
+            textContent.bind=
+              'has(p)?"Owned":"Buy" &signal:"update"'>
+          </button>
+        </td>
+        <td>
+          <button class='ability-upgrade'
+            disabled.bind='!cancreate(p) &signal:"update"'
+            click.trigger='create(p)'
+            title.bind='getprogramminglabel(p)'
+            textContent.bind=
+              'has(p)?"Owned":"Create" &signal:"update"'>
+          </button>
+        </td>
+        <td>${p.describe()}.</td>
+      </tr>
+    </table>
+  </div>
+</template> 

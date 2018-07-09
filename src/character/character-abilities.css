@@ -18,6 +18,9 @@
 .ability-upgrade{
     border:.1em solid white;
 }
+.ability-upgrade:hover:not(:disabled){
+    border:.1em solid black!important;
+}
 #ability-points{
     margin-top:2em;
     margin-left:1em;

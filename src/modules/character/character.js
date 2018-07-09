@@ -285,6 +285,13 @@ export class Character{
     }
     return wealth;
   }
+  
+  possess(){
+    let letter=this.name[this.name.length-1].toLowerCase();
+    let name=this.name+"'";
+    if(letter!='s') name+='s';
+    return name;
+  }
 }
 
 export function sign(n){return n>=0?'+'+n:n;}

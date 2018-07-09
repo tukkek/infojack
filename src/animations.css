@@ -7,7 +7,7 @@
   70%{background:#839984;}
   95% {background: black;}
 }
-.highlight:not(:hover){
+.highlight{
     animation: highlight 3s ease 0s infinite;
     border:.2em dashed;
 }

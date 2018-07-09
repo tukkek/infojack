@@ -1,7 +1,7 @@
 import {deck} from '../modules/deck';
 import {hero,sign} from '../modules/character/character';
-
-var GRADES=['Ø','I','II','III','IV'];
+import {grades} from '../modules/grade';
+import '../modules/program/armor'; //TODO
 
 //TODO move to a city shop screen instead of character
 export class CharacterDeck {
@@ -12,8 +12,7 @@ export class CharacterDeck {
     refresh(){
       this.memory=deck.memory;
       this.storage=deck.storage;
-      this.name=hero.name;
-      this.name+=this.name[this.name.lenght-1]=='s'?"'":"'s";
+      this.name=hero.possess();
       this.wealth=hero.wealth;
       this.electronics=sign(hero.getelectronics());
       this.deckgrade=deck.deckgrade;
@@ -26,7 +25,7 @@ export class CharacterDeck {
       this.canupgradestealth=deck.upgradestealth(false);
     }
     
-    grade(i){return GRADES[i];}
+    grade(i){return grades[i];}
     
     upgradedeck(){
       debugger;

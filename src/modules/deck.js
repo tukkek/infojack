@@ -11,23 +11,29 @@ class Deck{
     this.memorygrade=0;
     this.storagegrade=0;
     this.stealthgrade=0;
+    this.loaded=[];
+    this.programs=[];
+    this.memoryused=0;
+    this.storageused=0;
   }
   
-  upgrade(checkgrade,currentgrade,purchasedc,installdc,apply){
-    if(currentgrade==4)
-      return 'Already at maximum grade.';
-    let upgrade=currentgrade+1;
-    if(checkgrade&&upgrade>this.deckgrade) 
-      return 'Requires a deck upgrade.';
-    purchasedc+=2*(upgrade-1);
-    if(hero.wealth<purchasedc-10) 
-      return 'Requires '+(purchasedc-10)+'¥.';
-    installdc+=1*(upgrade-1);
-    if(hero.getelectronics()<installdc-10) 
-      return 'Requires electronics '+sign(installdc-10)+'.';
-    if(apply&&!hero.buy(purchasedc))
-      return 'Unexpected not buy error.';
-    return OK;
+  upgrade(checkgrade,currentgrade,purchasedc,installdc,
+    apply){
+      if(currentgrade==4)
+        return 'Already at maximum grade.';
+      let upgrade=currentgrade+1;
+      if(checkgrade&&upgrade>this.deckgrade) 
+        return 'Requires a deck upgrade.';
+      purchasedc+=2*(upgrade-1);
+      if(hero.wealth<purchasedc-10) 
+        return 'Requires '+(purchasedc-10)+'¥.';
+      installdc+=1*(upgrade-1);
+      if(hero.getelectronics()<installdc-10) 
+        return 'Requires electronics '+sign(installdc-10)
+          +'.';
+      if(apply&&!hero.buy(purchasedc))
+        return 'Unexpected not buy error.';
+      return OK;
   }
   
   upgradedeck(apply){

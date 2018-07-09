@@ -1,6 +1,7 @@
 import {hero} from './character/character';
 import environment from '../environment';
 import {deck} from './deck';
+import {PROGRAMS} from './program/program';
 
 class Save{
   constructor(){}
@@ -15,12 +16,37 @@ class Save{
     if(data) alert(data);
   }
 
+  saveprograms(programs){
+    return programs.map(p=>p.name);
+  }
+  
   save(){
     let data={};
     data.hero=hero;
-    data.deck=deck;
+    data.deck=Object.assign(deck);
+    data.deck.loaded=this.saveprograms(data.deck.loaded);
+    data.deck.programs=this.saveprograms(data.deck.programs);
     localStorage.setItem('infojack-save',
       JSON.stringify(data));
+    this.debug();
+  }
+
+  loadprograms(deck){
+    let programs=[];
+    let loaded=[];
+    for(let name of deck.programs){
+      let p=PROGRAMS.get(name);
+      programs.push(p);
+      if(deck.loaded.indexOf(name)>=0) loaded.push(p);
+    }
+    deck.programs=programs;
+    deck.loaded=loaded;
+  }
+  
+  populate(data){
+    hero.assign(data.hero);
+    deck.assign(data.deck);
+    this.loadprograms(deck);
     this.debug();
   }
   
@@ -31,12 +57,6 @@ class Save{
     this.populate(data);
     this.initialize();
     return true;
-  }
-
-  populate(data){
-    hero.assign(data.hero);
-    deck.assign(data.deck);
-    this.debug();
   }
 
   initialize(){}
