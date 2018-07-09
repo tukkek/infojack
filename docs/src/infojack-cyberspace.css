@@ -1,12 +1,21 @@
+#cyberspace-container{
+  top:20%;
+  position:absolute;
+  height:80%;
+  width:100%;
+  max-height:80%;
+  max-width:100%;
+  overflow:auto;
+}
 #cyberspace{
   position:absolute;
   margin:2em;
-  margin-top:10em;
 }
 #cyberspace .spacer{
   position:absolute;
-  height:1px;
-  width:1px;
+  height:5em;
+  width:5em;
+  background:white;
   visibility:hidden;
 }
 #cyberspace .tile{
@@ -39,9 +48,9 @@
 }
 #console{
   width:100%;
+  height:20%;
   background:black;
   height:8em;
-  position:fixed;
   z-index:1;
   border-bottom:1px solid gray;
   overflow:auto;

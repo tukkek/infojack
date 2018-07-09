@@ -8,5 +8,13 @@
     z-index:2;
 }
 #radio-control{
-    margin-bottom:1em;
-} 
+  margin-bottom:1em;
+  vertical-align:middle;
+}
+#radio-control input{
+  position:relative;
+  vertical-align: middle;
+}
+#radio-label{
+  vertical-align:middle;
+}
