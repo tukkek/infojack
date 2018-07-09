@@ -1,0 +1,9 @@
+#deck-screen div{margin-bottom:0.5em;}
+#deck-screen .detail{font-weight:bold;}
+#deck-screen button{
+  margin-left:.5em;
+  margin-right:.5em;
+}
+#deck-screen .grade{
+  text-align:center;
+}

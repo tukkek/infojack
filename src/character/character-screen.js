@@ -13,6 +13,7 @@ export class CharacterScreen {
         this.showfeats=false;
         this.showtalents=false;
         this.showdetails=false;
+        this.showdeck=false;
         this.messaging=messaging;
         
         let me=this;

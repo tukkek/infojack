@@ -1,4 +1,4 @@
-import {hero} from '../modules/character/character';
+import {hero,sign} from '../modules/character/character';
 import {skills} from '../modules/character/skill';
 import {Class} from '../modules/character/class/class';
 
@@ -14,23 +14,19 @@ export class CharacterDetails {
       this.avatar=hero.connect();
     }
     
-    sign(n){
-      return n>=0?'+'+n:n;
-    }
-    
     getmodifier(ability){
       ability=ability.toLowerCase();
       ability=this.avatar.getmodifier(this.avatar[ability]);
-      return this.sign(ability);
+      return sign(ability);
     }
     
     getsave(save){
       save=save.toLowerCase();
-      return this.sign(this.avatar['get'+save]());
+      return sign(this.avatar['get'+save]());
     }
     
     getskill(skill){
       skill=skill.name.replace(' ','').toLowerCase()
-      return this.sign(this.avatar['get'+skill]());
+      return sign(this.avatar['get'+skill]());
     }
 }

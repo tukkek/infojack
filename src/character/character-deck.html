@@ -1,0 +1,57 @@
+<template>
+  <require from="./character-deck.css"></require>
+  <require from="./character-details.css"></require>
+  <require from="./character-abilities.css"></require>
+  <div id='deck-screen'>
+    <div><span class='detail'>Deck program memory
+        <span>${memory}</span></span></div>
+    <div><span class='detail'>Deck file storage
+      <span>${storage}</span></span></div>
+    <div><span class='detail'>${name} wealth
+      <span>${wealth}</span></span></div>
+    <div><span class='detail'>${name} electronics
+      <span>${electronics}</span></span></div>
+    <table>
+      <tr>
+        <td>Cyberdeck</td>
+        <td class='grade'>${grade(deckgrade)}</td>
+        <td>
+          <button disabled.bind='canupgradedeck'
+            click.trigger='upgradedeck()'
+            class='ability-upgrade'>Upgrade</button>
+        </td>
+        <td>${canupgradedeck}<td>
+      <tr>
+      <tr>
+        <td>Memory</td>
+        <td class='grade'>${grade(memorygrade)}</td>
+        <td>
+          <button disabled.bind='canupgradememory'
+            click.trigger='upgradememory()'
+            class='ability-upgrade'>Upgrade</button>
+        </td>
+        <td>${canupgradememory}<td>
+      <tr>
+      <tr>
+        <td>Storage</td>
+        <td class='grade'>${grade(storagegrade)}</td>
+        <td>
+          <button disabled.bind='canupgradestorage'
+            click.trigger='upgradestorage()'
+            class='ability-upgrade'>Upgrade</button>
+        </td>
+        <td>${canupgradestorage}<td>
+      <tr>
+      <tr>
+        <td>Stealth</td>
+        <td class='grade'>${grade(stealthgrade)}</td>
+        <td>
+          <button disabled.bind='canupgradestealth'
+            click.trigger='upgradestealth()'
+            class='ability-upgrade'>Upgrade</button>
+        </td>
+        <td>${canupgradestealth}<td>
+      <tr>
+    </table>
+  </div>
+</template> 

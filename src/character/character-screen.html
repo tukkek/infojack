@@ -5,6 +5,7 @@
     <require from="./character-feats"></require>
     <require from="./character-talents"></require>
     <require from="./character-details"></require>
+    <require from="./character-deck"></require>
     <require from="./character-screen.css"></require> 
     
     <div class='large center panel' if.bind='show' id='characterscreen'>
@@ -29,6 +30,9 @@
                 click.trigger='select($event)' id='character-details'>
                 Details</button>
             <button
+                click.trigger='select($event)' id='character-deck'>
+                Deck</button>
+            <button
                 click.trigger='close($event)' id='character-close'>
                 Save</button>
         </span>
@@ -39,6 +43,7 @@
             <character-feats if.bind='showfeats' class='characterview'></character-feats>
             <character-talents if.bind='showtalents' class='characterview'></character-talents>
             <character-details if.bind='showdetails' class='characterview'></character-details>
+            <character-deck if.bind='showdeck' class='characterview'></character-deck>
         </span>
     </div>
 </template> 

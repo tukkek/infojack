@@ -63,13 +63,12 @@ export class Character{
       }
     }
 
-    /* makes sure not to write new data */
     assign(data){
-        for(let key in data){
-            if(key in this){
-                this[key]=data[key];
-            }
+      for(let key in data){
+        if(key in this){
+          this[key]=data[key];
         }
+      }
     }
     
     setoccupation(occupation){
@@ -284,14 +283,17 @@ export class Character{
     }
 }
 
+export function sign(n){return n>=0?'+'+n:n;}
+
 export var hero=new Character('Player1');
 hero.setoccupation(occupations.adventurer);
 webcrawler.advance(hero); //becomes level 1
 
 //TODO actually buy these programs once they're ready
 console.log('Initial wealth: '+hero.wealth);
+console.log('Purchase deck: '+hero.price(10));
+console.log('Purchase flicker: '+hero.price(14));
 console.log('Purchase blade: '+hero.price(9));
 console.log('Purchase cloak: '+hero.price(9));
-console.log('Purchase flicker: '+hero.price(14));
-hero.buy(9);hero.buy(9);hero.buy(14);
+hero.buy(10);hero.buy(9);hero.buy(9);hero.buy(14);//TODO CHECK
 console.log('Final wealth: '+hero.wealth);

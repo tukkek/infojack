@@ -7,7 +7,7 @@
 .abilities-table td{
     padding:0 .5em 0 .5em;
 }
-.abilities-table button:disabled{
+.abilities-table button:disabled,.ability-upgrade:disabled{
     opacity:.5;
 }
 .ability-value{
