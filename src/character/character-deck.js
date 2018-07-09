@@ -14,7 +14,7 @@ export class CharacterDeck {
       this.storage=deck.storage;
       this.name=hero.name;
       this.name+=this.name[this.name.lenght-1]=='s'?"'":"'s";
-      this.wealth=sign(hero.wealth);
+      this.wealth=hero.wealth;
       this.electronics=sign(hero.getelectronics());
       this.deckgrade=deck.deckgrade;
       this.memorygrade=deck.memorygrade;

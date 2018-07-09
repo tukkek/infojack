@@ -8,6 +8,7 @@ export class CharacterDetails {
       this.saves=['Fortitude','Reflexes','Will'];
       this.skills=skills;
       this.classes=Class.classes;
+      this.hero=hero;
     }
 
     bind(){
@@ -29,4 +30,6 @@ export class CharacterDetails {
       skill=skill.name.replace(' ','').toLowerCase()
       return sign(this.avatar['get'+skill]());
     }
+    
+    sign(n){return sign(n);}
 }

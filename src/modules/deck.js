@@ -21,7 +21,7 @@ class Deck{
       return 'Requires a deck upgrade.';
     purchasedc+=2*(upgrade-1);
     if(hero.wealth<purchasedc-10) 
-      return 'Requires wealth '+sign(purchasedc-10)+'.';
+      return 'Requires '+(purchasedc-10)+'¥.';
     installdc+=1*(upgrade-1);
     if(hero.getelectronics()<installdc-10) 
       return 'Requires electronics '+sign(installdc-10)+'.';
