@@ -1,4 +1,36 @@
-<template id='program-bar' class='anchored'>
+<template id='program-bar'
+  class.bind='collapsed?"anchored":"expanded"'>
     <require from="./program-bar.css"></require>
-    oi!
+    <table>
+      <tr repeat.for=
+        'p of programs &signal:"update-program-bar"'>
+          <td><img src='../../images/software/tile000.png'
+            title.bind='p.name'
+            class.bind=
+              'geticonclass(p) &signal:"update-program-bar"'
+            click.trigger='run(p)'>
+              </img></td>
+          <td show.bind='!collapsed' class='name'>
+            ${p.name}</td>
+          <td show.bind='!collapsed' class='description'>
+            ${p.describe()}.</td>
+          <td show.bind='!collapsed' class='actions'>
+            <button show.bind=
+              '!isloaded(p) &signal:"update-program-bar"'
+              click.trigger='doload(p)'>
+                Load</button>
+            <button show.bind=
+              'isloaded(p) &signal:"update-program-bar"'
+              click.trigger='dounload(p)'>
+                Unload</button>
+          </td>
+      </tr>
+    </table>
+    <div class='details'>
+      <div>Load: ${load}/${totalload}</div>
+      <button click.trigger='toggle()'
+        id='program-bar-toggle'
+        textContent.bind='collapsed?"Expand":"Collapse"'>
+        </button>
+    </div>
 </template> 

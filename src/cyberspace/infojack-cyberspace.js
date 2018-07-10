@@ -12,10 +12,13 @@ var TILESIZE=2.5;
 var SPACING=1.1;
 var FADETIME=2000;
 
+var current=false;
+
 @inject(Sound,EventAggregator)
 export class Cyberspace{
   constructor(sound,messaging){
     this.showconsole=false;
+    current=this;
     let me=this;
     messaging.subscribe(ShowView,function(show){
         if(show.view=='Cyberspace') me.init();
@@ -167,3 +170,5 @@ export class Cyberspace{
     }
   }
 }
+
+export function refresh(){current.refresh();}

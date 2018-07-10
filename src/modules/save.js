@@ -23,7 +23,7 @@ class Save{
   save(){
     let data={};
     data.hero=hero;
-    data.deck=Object.assign(deck);
+    data.deck=Object.assign({},deck);
     data.deck.loaded=this.saveprograms(data.deck.loaded);
     data.deck.programs=this.saveprograms(data.deck.programs);
     localStorage.setItem('infojack-save',

@@ -1,0 +1,47 @@
+#program-bar{
+  height:100%;
+  z-index:1;
+  opacity:1;
+  position:absolute;
+  background-color:black;
+  border-top:1px solid gray;
+  border-right:1px solid gray;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  overflow:auto;
+}
+.anchored{width:6%;}
+.expanded{
+  width:auto;
+  min-width:6%;
+}
+#program-bar table{
+  flex:1;
+  display:block;
+}
+#program-bar table td{
+  text-align:center;
+  width:5em;
+}
+#program-bar table .name{
+  min-width:7em;
+}
+#program-bar table .description{
+  min-width:12em;
+}
+#program-bar .actions button:not(:hover){
+  border:.1em solid white;
+}
+#program-bar img{
+  height:3.5em;
+  cursor:pointer;
+}
+img.loaded{border:.2em solid red;}
+#program-bar .details{
+  text-align:center;
+  width:100%;
+}
+#program-bar .details>*{
+  width:95%;
+}

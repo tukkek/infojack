@@ -7,7 +7,7 @@
   overflow:auto;
 }
 #console div{
-  padding:.5em;
+  padding:.25em;
 }
 #cyberspace-lower{
   position:absolute;
@@ -15,25 +15,12 @@
   width:100%;
   height:80%;
 }
-#program-bar{
-  height:100%;
-  z-index:1;
-  opacity:1;
-  position:absolute;
-  background-color:black;
-  border-top:1px solid gray;
-  border-right:1px solid gray;
-}
-.anchored{
-  width:5%;
-}
-.expanded{width:20%;}
 #cyberspace-container{
   top:2%;
-  left:5%;
+  left:7%;
   position:absolute;
   height:98%;
-  width:95%;
+  width:93%;
   overflow:auto;
   display:hidden;
 }

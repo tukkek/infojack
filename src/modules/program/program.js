@@ -15,6 +15,7 @@ export class Program{
     this.duration=0; //0=instantaneous SESSION=permanent
     this.basename=name;
     this.name=name;
+    this.grade=grade;
     if(grade){
       this.name+=' '+grades[grade];
       if(grade>1) this.upgrade(grade-1);
@@ -24,12 +25,12 @@ export class Program{
   
   conflict(program){return this.basename==program.basename;}
   
-  load(player){
+  load(system){
     for(let program of deck.loaded) 
       if(this.conflict(program)){
         console.print(
           'You cannot load '+this.name+' while '+
-            program.name+' is loaded.');
+            program.name+' is loaded...');
         return false;
       }
     if(deck.memoryused+this.size>deck.memory){
@@ -39,13 +40,10 @@ export class Program{
     }
     deck.memoryused+=this.size;
     deck.loaded.push(this);
-    //TODO ap cost
-    //TODO duration callback or check
-    //TODO skill roll
     return true;
   }
   
-  unload(player){
+  unload(system){
     let i=deck.loaded.indexOf(this);
     if(i<0) return false;
     deck.memoryused-=this.size;
@@ -53,7 +51,7 @@ export class Program{
     return true;
   }
   
-  run(){}
+  run(system){return false;}
   
   upgrade(ntimes){
     this.hackingdc+=ntimes;
@@ -63,4 +61,10 @@ export class Program{
   }
   
   describe(){return this.name;}
+  
+  compare(program){
+    if(this.basename==program.basename)
+      return this.grade-program.grade;
+    return this.basename.localeCompare(program.basename);
+  }
 }

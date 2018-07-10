@@ -6,6 +6,8 @@ import {Portal} from './node/portal';
 import {Interface} from './node/interface';
 import environment from '../../environment';
 
+var active=false;
+
 export class System{
   constructor(level){
     this.revealed=false; //reveal all map
@@ -20,6 +22,7 @@ export class System{
     this.definenodes();
     for(let n of this.nodes) n.generate();
     this.player=false; //set by Player
+    active=this;
     this.debug();
   }
   
@@ -110,3 +113,6 @@ export class System{
     if(this.alert>0) this.alert-=1;
   }
 }
+
+//TODO manually set active
+export function getactive(){return active;}

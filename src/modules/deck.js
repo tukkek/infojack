@@ -76,6 +76,11 @@ class Deck{
       }
     }
   }
+  
+  sort(){
+    this.programs.sort((a,b)=>a.compare(b));
+    this.loaded.sort((a,b)=>a.compare(b));
+  }
 }
 
 export var deck=new Deck();
