@@ -1,11 +1,13 @@
 <template>
     <require from="./infojack-cyberspace.css"></require>
+    <require from="./program-bar"></require>
     <div show.bind='showconsole' id='console'></div>
     <div show.bind='showconsole' id='cyberspace-lower'>
       <div id='cyberspace-container'>
         <div id='cyberspace'></div>
       </div>
-      <div id='program-bar' class='anchored'></div>
+      <program-bar id='program-bar' class='anchored'>
+      </program-bar>
     </div>
   </body>
 </template>

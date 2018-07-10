@@ -1,12 +1,12 @@
-import {System} from './modules/cyberspace/system';
-import {Player} from './modules/cyberspace/avatar/player';
-import {console} from './modules/cyberspace/console';
+import {System} from '../modules/cyberspace/system';
+import {Player} from '../modules/cyberspace/avatar/player';
+import {console} from '../modules/cyberspace/console';
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {Sound} from './modules/sound';
-import {ShowView} from './messages';
-import environment from './environment';
-import {hero} from './modules/character/character';
+import {Sound} from '../modules/sound';
+import {ShowView} from '../messages';
+import environment from '../environment';
+import {hero} from '../modules/character/character';
 
 var TILESIZE=2.5;
 var SPACING=1.1;
