@@ -1,14 +1,15 @@
 body{
-    background-color: #161616;
-    color:lightgray;
-    font-family:Orbitron;
-    padding:0em;
-    margin:0em;
-    width:100%;
-    height:100%;
-    background:linear-gradient(to bottom right, black,darkgreen);
-    background-repeat:no-repeat;
-    background-attachment:fixed;
+  background-color:#161616;
+  color:lightgray;
+  font-family:Orbitron;
+  padding:0em;
+  margin:0em;
+  width:100%;
+  height:100%;
+  background:linear-gradient(to bottom right, black,darkgreen);
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  overflow:hidden;
 }
 div,span{
     font-family:Orbitron;
@@ -24,9 +25,9 @@ a{
     z-index:-1;
 }
 .center{
-    margin: auto;
-    width: 50%;
-    padding: 1em;
+    margin:auto;
+    width:50%;
+    padding:1em;
     position:absolute;
     top:25%;
     left:25%;
@@ -35,31 +36,29 @@ a{
 }
 h1,h2,h3,h4,h5,h6{
     color:darkgreen;
-    text-shadow: 0.025em .025em black;
+    text-shadow:0.025em .025em black;
     font-family:Orbitron;
 }
 h1{
     font-size:4em;
 }
-button {
-    cursor: pointer;
-    background-color: black;
-    color: white;
-    border: none;
-    margin: .1em;
-    padding: .3em;
-    font-weight: 800;
-    font-family:Orbitron;
-    outline:0;
+button{
+  cursor:pointer;
+  background-color:black;
+  color:white;
+  margin:.1em;
+  padding:.3em;
+  font-weight:800;
+  font-family:Orbitron;
+  border:none;
+  outline:0;
 }
 
 button:hover:not(:disabled) {
-    background-color: #4CAF50;
-    color: white;
-    border: .2em solid black ;
-    padding:.15em;
+    background-color:#4CAF50;
+    color:white;
 }
-hr{ border-color:gray;}
+hr{border-color:gray;}
 .large{
     width:75%!important;
     top:10%!important;
@@ -67,9 +66,7 @@ hr{ border-color:gray;}
     right:10%!important;
     bottom:10%!important;
 }
-.bold{
-    font-weight:bold;
-}
+.bold{font-weight:bold;}
 input[type=text]{
   background-color:black;
   border:none;
@@ -79,4 +76,5 @@ input[type=text]{
   height:2em;
   font:oblique small-caps 1.5em monospace;
   text-indent:.75em;
+  outline:0;
 }
