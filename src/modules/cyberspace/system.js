@@ -5,6 +5,7 @@ import {Cpu} from './node/cpu';
 import {Portal} from './node/portal';
 import {Interface} from './node/interface';
 import environment from '../../environment';
+import {Scout} from './avatar/ice/scout';
 
 var active=false;
 
@@ -21,6 +22,7 @@ export class System{
     this.generatemap();
     this.definenodes();
     for(let n of this.nodes) n.generate();
+    this.generateice();
     this.player=false; //set by Player
     active=this;
     this.debug();
@@ -111,6 +113,12 @@ export class System{
   
   cancelalert(){
     if(this.alert>0) this.alert-=1;
+  }
+  
+  generateice(){
+    let s=new Scout(this);
+    this.ice.push(s);
+    s.enter(this.nodes[0]);
   }
 }
 

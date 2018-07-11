@@ -44,7 +44,6 @@ export class Node{
    * should only be called by Avatar#enter() */
   enter(avatar){
     rpg.shuffle(TILES);
-    console.log('#nodetiles '+JSON.stringify(TILES));
     for(let xy of TILES) if(!this.getavatar(xy[0],xy[1])){
       if(avatar.node) avatar.node.remove(avatar);
       avatar.x=xy[0];

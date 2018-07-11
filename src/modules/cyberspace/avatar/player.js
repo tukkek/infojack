@@ -8,6 +8,7 @@ export class Player extends Avatar{
     this.hero=offlinehero.connect();
     this.scanned=true;
     this.tooltip=this.hero.name;
+    this.target=false; //ICE target
     system.player=this;
   }
   

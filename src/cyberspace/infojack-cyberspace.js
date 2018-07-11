@@ -151,23 +151,29 @@ export class Cyberspace{
     this.console.scrollTop=this.console.scrollHeight;
   }
   
+  refreshtile(t){
+    let node=this.system.nodes[t.nodeid];
+    if(t.style.opacity==0) setTimeout(function(){
+      t.classList.add('discovered');
+    },1);
+    if(!node.visited) return;
+    if(!t.style.border) t.classList.add('visited');
+    let avatar=node.getavatar(t.nodex,t.nodey);
+    if(t.image&&(!avatar||
+      avatar!=t.avatar||t.scanned!=avatar.scanned)) 
+        this.removeimage(t);
+    if(!avatar) return;
+    if(avatar!=t.avatar) this.addimage(t,avatar);
+    if(this.player.target==t.avatar){
+      t.classList.add('target');
+    }else t.classList.remove('target');
+  }
+  
   refresh(){
     this.printmessages();
     if(this.system.revealed) for(let n of this.system.nodes) 
       this.placenode(n,false);
-    for(let t of this.tiles){
-      let node=this.system.nodes[t.nodeid];
-      if(t.style.opacity==0) setTimeout(function(){
-        t.classList.add('discovered');
-      },1);
-      if(!node.visited) continue;
-      if(!t.style.border) t.classList.add('visited');
-      let avatar=node.getavatar(t.nodex,t.nodey);
-      if(t.image&&(!avatar||
-        avatar!=t.avatar||t.scanned!=avatar.scanned)) 
-          this.removeimage(t);
-      if(avatar&&avatar!=t.avatar) this.addimage(t,avatar);
-    }
+    for(let t of this.tiles) this.refreshtile(t);
   }
 }
 

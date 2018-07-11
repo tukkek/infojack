@@ -64,3 +64,7 @@
   animation:fadein 2000ms;
   transition:opacity 2s;
 }
+#cyberspace .target{
+  border:.1em dashed yellow;
+  z-index:1;
+}
