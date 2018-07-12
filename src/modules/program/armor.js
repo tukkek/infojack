@@ -9,9 +9,9 @@ class Armor extends Program{
   }
   
   modify(bonus,player){
-    player.hero.defence+=bonus;
+    player.character.defence+=bonus;
     console.print('Your defence is now '+
-      player.hero.getdefence()+'.');
+      player.character.getdefence()+'.');
   }
   
   load(system){

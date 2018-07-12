@@ -3,6 +3,7 @@
 import {occupations} from './occupation';
 import {webcrawler} from './class/webcrawler';
 import {skills} from './skill';
+import {feats} from './feat';
 import {rpg} from '../rpg';
 import environment from '../../environment';
 
@@ -132,9 +133,7 @@ export class Character{
       return false;
   }
   
-  addfeat(f){
-      this.feats.push(f);
-  }
+  addfeat(f){this.feats.push(f);}
   
   getskill(ranks,ability,feat,featbonus){
       if(feat&&this.hasfeat(feat)) ranks+=featbonus;
@@ -291,6 +290,34 @@ export class Character{
     let name=this.name+"'";
     if(letter!='s') name+='s';
     return name;
+  }
+  
+  move(){return .5*30/this.speed;}
+  
+  learnskill(skill){
+    if(this[skill]===undefined)
+      throw 'Unknown skill '+skill;
+    while(this[skill]<this.level+3&&this.ranks>0){
+      this[skill]+=1;
+      this.ranks-=1;
+    }
+  }
+  
+  learnability(ability){
+    if(this[ability]===undefined)
+      throw 'Unknown ability '+ability;
+    while(this.pointextra>0){
+      this[ability]+=1;
+      this.pointextra-=1;
+    }
+  }
+  
+  learnfeat(name){
+    let feat=feats.get(name.toLowerCase());
+    if(!feat) throw 'Unkwnon feat: '+name;
+    if(this.newfeats==0) return false;
+    if(!feat.validate(this)) throw 'Invalid feat: '+name;
+    this.addfeat(feat);
   }
 }
 

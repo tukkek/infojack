@@ -1,15 +1,18 @@
 import {Avatar} from './avatar';
 import {console} from '../console';
-import {hero as offlinehero} from '../../character/character';
+import {hero} from '../../character/character';
 
 export class Player extends Avatar{
   constructor(system){
-    super('characters/'+offlinehero.image+'.png',system);
-    this.hero=offlinehero.connect();
+    super('characters/'+hero.image+'.png',system);
     this.scanned=true;
-    this.tooltip=this.hero.name;
+    this.tooltip=hero.name;
     this.target=false; //ICE target
     system.player=this;
+  }
+  
+  create(characterclass,level){
+    this.character=hero.connect();
   }
   
   enter(node){
@@ -18,4 +21,6 @@ export class Player extends Avatar{
     node.scan(); //TODO passive scan, roll-4
     return true;
   }
+  
+  act(){throw "Players don't act programatically!";}
 }

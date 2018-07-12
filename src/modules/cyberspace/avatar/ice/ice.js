@@ -8,9 +8,9 @@ import {refresh} from '../../../../cyberspace/infojack-cyberspace';
 export class Ice extends Avatar{
   constructor(image,system){
     super(image,system);
-    let serial=' '+rpg.r(0,9999);
-    while(serial.length<5) serial='0'+serial;
-    this.setname(this.name+serial);
+    let serial=rpg.r(0,9999)+'';
+    while(serial.length<4) serial='0'+serial;
+    this.setname(this.name+' '+serial);
   }
   
   click(){
@@ -20,12 +20,12 @@ export class Ice extends Avatar{
       console.print('Target cleared...');
     }else{
       p.target=this;
-      console.print('Targetting '+this.name+'...');
+      console.print('Targeting '+this.name+'...');
     }
     refresh();
   }
   
   scan(){/*TODO*/}
   
-  act(){throw 'Unimplemented Ice#act()';}
+  act(){throw 'Unimplemented Ice#act() for '+this.name;}
 }

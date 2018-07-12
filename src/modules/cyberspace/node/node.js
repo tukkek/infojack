@@ -1,5 +1,6 @@
 import {rpg} from '../../rpg';
 import environment from '../../../environment';
+import {console} from '../console';
 
 var TILES=[];
 
@@ -38,17 +39,30 @@ export class Node{
   
   remove(avatar){
     this.avatars.splice(this.avatars.indexOf(avatar),1);
+    let p=this.system.player;
+    if(p==avatar) p.target=false;
+    else if(p.target==avatar){
+      p.target=false;
+      console.print(avatar.name+' leaves the node...');
+    }
   }
   
-  /* return true if found free spot
-   * should only be called by Avatar#enter() */
+  /* return true if found free spot 
+   * always prefer Avatar#enter(node) */
   enter(avatar){
+    let source=avatar.node;
+    if(source==this) return false;
+    if(source&&source.getneighbors().indexOf(this)<0){
+      console.print("Can only access adjacent nodes...");
+      return false;
+    }
     rpg.shuffle(TILES);
     for(let xy of TILES) if(!this.getavatar(xy[0],xy[1])){
       if(avatar.node) avatar.node.remove(avatar);
       avatar.x=xy[0];
       avatar.y=xy[1];
       avatar.node=this;
+      avatar.ap+=avatar.character.move();
       this.avatars.push(avatar);
       return true;
     }

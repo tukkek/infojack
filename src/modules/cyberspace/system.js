@@ -6,6 +6,7 @@ import {Portal} from './node/portal';
 import {Interface} from './node/interface';
 import environment from '../../environment';
 import {Scout} from './avatar/ice/scout';
+import {console} from './console';
 
 var active=false;
 
@@ -107,18 +108,32 @@ export class System{
     for(let n of this.nodes) n.visited=true;
   }
   
-  raisealert(){
-    if(this.alert<2) this.alert+=1;
-  }
-  
-  cancelalert(){
-    if(this.alert>0) this.alert-=1;
+  raisealert(raise=+1){
+    let previous=this.alert;
+    this.alert+=raise;
+    if(this.alert>2) this.alert=2;
+    else if (this.alert<0) this.alert=0;
+    if(this.alert==previous) return;
+    if(this.alert==2)
+      console.print('The system is in red alert!');
+    else if(this.alert==1)
+      console.print('The system is in yellow alert...');
+    else console.print('The alert is cleared.');
   }
   
   generateice(){
     let s=new Scout(this);
     this.ice.push(s);
     s.enter(this.nodes[0]);
+  }
+  
+  act(){ //return false when it's the player's turn
+    let next=this.player;
+    for(let n of this.nodes) for(let a of n.avatars)
+      if(a.ap<next.ap) next=a;
+    if(next==this.player) return false;
+    next.act();
+    return true;
   }
 }
 

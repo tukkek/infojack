@@ -10,14 +10,18 @@ class Console{
     this.messages=[];
     this.system=false;
   }
+  
   print(message){
     if(!this.system) throw 'System not set';
     this.messages.push(
       new Message(message,this.system));
   }
-  pop(){
-    return this.messages.pop();
+  
+  next(){
+    return this.messages.shift();
   }
+  
+  log(...args){window.console.log(args);}
 }
 
 export var console=new Console();

@@ -1,5 +1,8 @@
 import {rpg} from '../../rpg';
 import {console} from '../console';
+import {Character} from '../../character/character';
+import {webcrawler} from '../../character/class/webcrawler';
+import {occupations} from '../../character/occupation';
 
 export class Avatar{
   constructor(image,system){
@@ -11,7 +14,23 @@ export class Avatar{
     this.scanned=false;
     this.scandc=this.system+rpg.randomize(10);
     if(this.scandc<1) this.scandc=1;
+    this.create(webcrawler,occupations.adventurer,
+      system.level);
+    //TODO check for unspent skill/feat/ability points
+    this.ap=-(rpg.r(1,20)+this.character.getinitiative())/20;
     this.setname(this.constructor.name);
+  }
+  
+  /* TODO
+   * subclasses can select class by intercepting parameter
+   * create a class#spend() method to spend abilities feats..
+   *    might add a debug check to make sure all is spent
+   * */
+  create(characterclass,occupation,level){
+    this.character=new Character();
+    this.character.setoccupation(occupation);
+    for(let i=0;i<level;i++) 
+      characterclass.advance(this.character);
   }
   
   setname(name){
@@ -20,18 +39,12 @@ export class Avatar{
   }
   
   setimage(image){this.image='./images/'+image;}
-  
-  enter(node){
-    let source=this.node;
-    if(node==source) return false;
-    if(source&&source.getneighbors().indexOf(node)<0){
-      console.print("Can only access adjacent nodes...");
-      return false;
-    }
-    return node.enter(this);
-  }
+
+  enter(node){return node.enter(this);}
   
   click(){alert('Unimplemented.');}
   
   scan(){return true;}
+  
+  act(){this.ap+=.5;}
 }

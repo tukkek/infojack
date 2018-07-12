@@ -137,7 +137,7 @@ export class Cyberspace{
   }
 
   printmessages(){
-    for(let m=console.pop();m;m=console.pop()){
+    for(let m=console.next();m;m=console.next()){
       let color=false;
       if(m.alert==0) color='white';
       else if(m.alert==1) color='yellow';
@@ -162,14 +162,14 @@ export class Cyberspace{
     if(t.image&&(!avatar||
       avatar!=t.avatar||t.scanned!=avatar.scanned)) 
         this.removeimage(t);
-    if(!avatar) return;
-    if(avatar!=t.avatar) this.addimage(t,avatar);
-    if(this.player.target==t.avatar){
+    if(avatar&&avatar!=t.avatar) this.addimage(t,avatar);
+    if(avatar&&this.player.target==t.avatar){
       t.classList.add('target');
     }else t.classList.remove('target');
   }
   
   refresh(){
+    while(this.system.act()){ /* process NPCs */ }
     this.printmessages();
     if(this.system.revealed) for(let n of this.system.nodes) 
       this.placenode(n,false);
