@@ -25,7 +25,6 @@ export class System{
     for(let n of this.nodes) n.generate();
     this.generateice();
     this.player=false; //set by Player
-    active=this;
     this.debug();
   }
   
@@ -114,11 +113,11 @@ export class System{
     if(this.alert>2) this.alert=2;
     else if (this.alert<0) this.alert=0;
     if(this.alert==previous) return;
-    if(this.alert==2)
-      console.print('The system is in red alert!');
+    if(this.alert==0)
+      console.print('The alert is cleared.');
     else if(this.alert==1)
-      console.print('The system is in yellow alert...');
-    else console.print('The alert is cleared.');
+      console.print('The system is now in yellow alert...');
+    else console.print('The system is now in red alert!');
   }
   
   generateice(){
@@ -137,5 +136,5 @@ export class System{
   }
 }
 
-//TODO manually set active
+export function setactive(s){active=s;}
 export function getactive(){return active;}

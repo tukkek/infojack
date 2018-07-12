@@ -53,7 +53,7 @@ export class Node{
     let source=avatar.node;
     if(source==this) return false;
     if(source&&source.getneighbors().indexOf(this)<0){
-      console.print("Can only access adjacent nodes...");
+      console.print("Can only move into adjacent nodes...");
       return false;
     }
     rpg.shuffle(TILES);

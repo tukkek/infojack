@@ -3,8 +3,7 @@ import {console} from '../console';
 
 export class Alarm extends Avatar{
   constructor(system){
-    super('nodes/core.png',system);
-    this.tooltip='Process';
+    super(system);
   }
   
   scan(){

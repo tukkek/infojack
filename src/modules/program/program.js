@@ -1,6 +1,7 @@
 import {deck} from '../deck';
 import {grades} from '../grade';
 import {console} from '../cyberspace/console';
+import {hero} from '../character/character';
 
 export var SESSION=Number.MAX_SAFE_INTEGER;
 export var PROGRAMS=new Map();
@@ -66,5 +67,11 @@ export class Program{
     if(this.basename==program.basename)
       return this.grade-program.grade;
     return this.basename.localeCompare(program.basename);
+  }
+  
+  buy(){
+    if(!hero.buy(this.purchasedc)) return false;
+    deck.programs.push(this);
+    return true;
   }
 }

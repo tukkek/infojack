@@ -2,8 +2,7 @@ import {Avatar} from './avatar';
 
 export class Entry extends Avatar{
   constructor(system){
-    super('nodes/core.png',system);
-    this.tooltip='Process';
+    super(system);
   }
   
   scan(){

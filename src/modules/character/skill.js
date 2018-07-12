@@ -1,3 +1,7 @@
+/*A couple skills here are cross-class but they're too few to bother enforcing the rules properly. Also the Adventurer occupation gives you 2 extra skills from a list to use as cross class. Those skill aren't there but it evens out anyway since that isn't being taken into account currently.
+ 
+Cross skills are actually implemented on character-abilities.html but disabled.*/
+
 class Skill{
     constructor(name,ability,description){
         this.name=name;
@@ -8,7 +12,6 @@ class Skill{
 
 export var skills=new Map();
 
-//TODO Concentration wasnt on the first draft, check class skills
 for (let skill of [
     new Skill('Bluff','Charisma',
         "Convince ICE you're not an intruder"),

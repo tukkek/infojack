@@ -1,4 +1,5 @@
 import {hero,sign} from './character/character'
+import '../modules/program/armor';
 
 var OK='';
 var MEMORYUPGRADE=[+10,+5,+5,+5];

@@ -3,10 +3,12 @@ import {rpg} from '../../rpg';
 
 export class File extends Avatar{
   constructor(system){
-    super('nodes/fileunscanned.png',system);
-    this.tooltip='Data';
+    super(system);
+    this.setname('Data');
+    this.setimage('nodes/fileunscanned.png');
     this.level=system.level+rpg.randomize(4);
-    this.worthless=this.level<1||rpg.chancein(system.level+1);
+    this.worthless=
+      this.level<1||rpg.chancein(system.level+1);
     this.trap=!this.worthless&&
       rpg.chancein(60/system.level);
     this.protected=!this.worthless&&!this.trap&&

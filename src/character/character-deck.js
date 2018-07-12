@@ -1,7 +1,6 @@
 import {deck} from '../modules/deck';
 import {hero,sign} from '../modules/character/character';
 import {grades} from '../modules/grade';
-import '../modules/program/armor'; //TODO
 
 //TODO move to a city shop screen instead of character
 export class CharacterDeck {

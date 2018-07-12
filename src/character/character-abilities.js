@@ -1,5 +1,3 @@
-//TODO needs to boost Character#ranks with int
-
 import {hero,costs} from '../modules/character/character';
 import environment from '../environment';
 
@@ -27,19 +25,17 @@ export class CharacterAbilities {
     }
 
     upgrade(ability){
-        let current=this[ability];
-        if(current==18) return;
-        let raised=this[ability]+1;
-        if(this.pointextra>0){
-            this.pointextra-=1;
-            this[ability]=raised;
-        }else if(this.buy(current)){
-            this[ability]=raised;
-        }else return;
-        if(ability=='intelligence'&&raised%2==0){
-            hero.ranks+=hero.level==1?4:1;
-        }
-        this.save();
+      let current=this[ability];
+      if(current==18) return;
+      let raised=this[ability]+1;
+      if(this.pointextra>0){
+        this.pointextra-=1;
+        this[ability]=raised;
+      }else if(this.buy(current)){
+        this[ability]=raised;
+      }else return;
+      this.save();
+      hero.updateranks(ability);
     }
     
     buy(current){

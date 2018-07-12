@@ -5,8 +5,8 @@ import {webcrawler} from '../../character/class/webcrawler';
 import {occupations} from '../../character/occupation';
 
 export class Avatar{
-  constructor(image,system){
-    this.setimage(image);
+  constructor(system){
+    this.setimage('nodes/process.png');
     this.system=system;
     this.node=null;
     this.x=-1;
@@ -14,18 +14,12 @@ export class Avatar{
     this.scanned=false;
     this.scandc=this.system+rpg.randomize(10);
     if(this.scandc<1) this.scandc=1;
+    this.setname('A process');
     this.create(webcrawler,occupations.adventurer,
       system.level);
-    //TODO check for unspent skill/feat/ability points
     this.ap=-(rpg.r(1,20)+this.character.getinitiative())/20;
-    this.setname(this.constructor.name);
   }
   
-  /* TODO
-   * subclasses can select class by intercepting parameter
-   * create a class#spend() method to spend abilities feats..
-   *    might add a debug check to make sure all is spent
-   * */
   create(characterclass,occupation,level){
     this.character=new Character();
     this.character.setoccupation(occupation);

@@ -5,8 +5,7 @@ var OUTCOMES=2;
 
 export class Control extends Avatar{
   constructor(system){
-    super('nodes/core.png',system);
-    this.tooltip='Process';
+    super(system);
     this.memory=rpg.chancein(OUTCOMES);
     this.privilege=rpg.chancein(OUTCOMES);
   }

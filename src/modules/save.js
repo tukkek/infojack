@@ -61,8 +61,7 @@ class Save{
 
   initialize(){}
 
-  //TODO use on game lost
-  //TODO use on game won
+  //TODO use on game lost/won
   clear(){localStorage.setItem('infojack-save','');}
 }
 

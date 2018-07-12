@@ -1,4 +1,4 @@
-import {System} from '../modules/cyberspace/system';
+import {System,setactive} from '../modules/cyberspace/system';
 import {Player} from '../modules/cyberspace/avatar/player';
 import {console} from '../modules/cyberspace/console';
 import {inject} from 'aurelia-framework';
@@ -34,6 +34,7 @@ export class Cyberspace{
     this.console.innerHTML='';
     this.system=
       new System(environment.systemlevel||hero.level);
+    setactive(this.system);
     this.player=new Player(this.system);
     this.tiles=[];
     this.drawn=[];

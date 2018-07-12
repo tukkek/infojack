@@ -4,10 +4,11 @@ import {hero} from '../../character/character';
 
 export class Player extends Avatar{
   constructor(system){
-    super('characters/'+hero.image+'.png',system);
+    super(system);
+    this.setname(hero.name);
+    this.setimage('characters/'+hero.image+'.png');
     this.scanned=true;
-    this.tooltip=hero.name;
-    this.target=false; //ICE target
+    this.target=false; //current target (ICE)
     system.player=this;
   }
   
@@ -18,7 +19,7 @@ export class Player extends Avatar{
   enter(node){
     if(!super.enter(node)) return false;
     node.visited=true;
-    node.scan(); //TODO passive scan, roll-4
+    node.scan(); //TODO passive scan using perception, roll-4
     return true;
   }
   

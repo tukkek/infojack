@@ -35,12 +35,8 @@ export class CharacterPrograms {
     }
     
     buy(program){
-      if(!hero.buy(program.purchasedc)){
-        alert('Cannot buy error!');
-        return;
-      }
-      deck.programs.push(program);
-      this.refresh();
+      if(program.buy()) this.refresh();
+      else alert('Cannot buy error!');
     }
     
     cancreate(program){

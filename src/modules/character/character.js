@@ -1,5 +1,3 @@
-//TODO convert primary BAB elsewhere
-
 import {occupations} from './occupation';
 import {webcrawler} from './class/webcrawler';
 import {skills} from './skill';
@@ -294,6 +292,11 @@ export class Character{
   
   move(){return .5*30/this.speed;}
   
+  updateranks(ability){//call after adding 1 ability point
+    if(ability=='intelligence'&&this[ability]%2==0)
+      this.ranks+=this.level==1?4:1;
+  }
+  
   learnskill(skill){
     if(this[skill]===undefined)
       throw 'Unknown skill '+skill;
@@ -304,11 +307,14 @@ export class Character{
   }
   
   learnability(ability){
+    if(this.ranks==0)
+      console.log('Learn skills after abilities!');
     if(this[ability]===undefined)
       throw 'Unknown ability '+ability;
     while(this.pointextra>0){
       this[ability]+=1;
       this.pointextra-=1;
+      this.ugpraderanks(ability);
     }
   }
   
@@ -327,11 +333,11 @@ export var hero=new Character('Player1');
 hero.setoccupation(occupations.adventurer);
 webcrawler.advance(hero); //becomes level 1
 
-//TODO actually buy these programs once they're ready
+//TODO actually buy and verify success once they're ready
 console.log('Initial wealth: '+hero.wealth);
 console.log('Purchase deck: '+hero.price(10));
 console.log('Purchase flicker: '+hero.price(14));
 console.log('Purchase blade: '+hero.price(9));
 console.log('Purchase cloak: '+hero.price(9));
-hero.buy(10);hero.buy(9);hero.buy(9);hero.buy(14);//TODO CHECK
+hero.buy(10);hero.buy(9);hero.buy(9);hero.buy(14);
 console.log('Final wealth: '+hero.wealth);

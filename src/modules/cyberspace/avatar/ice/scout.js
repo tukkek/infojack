@@ -13,10 +13,11 @@ export class Scout extends Ice{
   
   create(characterclass,occupation,level){
     super.create(characterclass,occupation,level);
-    this.character.learnskill('perceive');
-    this.character.learnability('wisdom');
-    this.character.learnfeat('improved initiative'); //TODO Alert-style feat would be better
-    this.character.speed+=this.character.level;
+    let c=this.character;
+    c.learnability('wisdom');
+    c.learnskill('perceive');
+    c.learnfeat('improved initiative'); //TODO Alert-style feat would be better
+    c.speed+=this.character.level;
   }
   
   enter(node){
@@ -30,7 +31,7 @@ export class Scout extends Ice{
     if(this.system.player.node!=this.node) return true;
     console.print(this.name+' queries you...');
     this.ap+=.5;
-    if(false) return true; //TODO opposed skill roll
+    if(false) return true; //TODO opposed skill rolls: first perception/stealth then bluff
     this.system.raisealert();
     this.path=[];
     return false;
