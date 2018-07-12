@@ -2,10 +2,6 @@ import {Avatar} from './avatar';
 import {console} from '../console';
 
 export class Alarm extends Avatar{
-  constructor(system){
-    super(system);
-  }
-  
   scan(){
     this.setimage('nodes/alarm.bmp');
     this.tooltip='Alarm';
