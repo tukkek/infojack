@@ -3,7 +3,7 @@ import {Player} from '../modules/cyberspace/avatar/player';
 import {console} from '../modules/cyberspace/console';
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {Sound} from '../modules/sound';
+import {sound} from '../modules/sound';
 import {ShowView} from '../messages';
 import environment from '../environment';
 import {hero} from '../modules/character/character';
@@ -14,9 +14,9 @@ var FADETIME=2000;
 
 var current=false;
 
-@inject(Sound,EventAggregator)
+@inject(EventAggregator)
 export class Cyberspace{
-  constructor(sound,messaging){
+  constructor(messaging){
     this.showconsole=false;
     current=this;
     let me=this;
@@ -44,14 +44,12 @@ export class Cyberspace{
   clicktile(tile){
     if(tile.tagName=='IMG') tile=tile.parentNode;
     let node=this.system.nodes[tile.nodeid];
-    let avatar=node==this.player.node&&
-      node.getavatar(tile.nodex,tile.nodey);
-    if(avatar){
-      avatar.click();
-    }else{
-      this.player.enter(node);
+    if(node==this.player.node){
+      let avatar=node.getavatar(tile.nodex,tile.nodey);
+      if(avatar&&avatar.scanned) avatar.click();
+      else this.player.wait();
+    }else if(this.player.enter(node)) 
       this.placenode(node,true);
-    }
     this.refresh();
   }
 

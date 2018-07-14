@@ -177,11 +177,13 @@ export class Character{
   }
   
   getperceive(){
-      return this.getskill(this.perceive,this.wisdom,false,0);
+      return this.getskill(
+        this.perceive,this.wisdom,false,0);
   }
   
   getmedicine(){
-      return this.getskill(this.medicine,this.wisdom,false,0);
+      return this.getskill(
+        this.medicine,this.wisdom,false,0);
   }
   
   getstealth(){

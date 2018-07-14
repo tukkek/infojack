@@ -1,14 +1,13 @@
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {Sound} from './modules/sound';
+import {sound} from './modules/sound';
 import {save} from './modules/save';
 import {ShowView} from './messages';
 import environment from './environment';
 
-@inject(Sound,EventAggregator)
+@inject(EventAggregator)
 export class MainMenu {
-    constructor(sound,messaging) {
-        this.sound=sound;
+    constructor(messaging) {
         this.show=true;
         this.messaging=messaging;
         this.hassave=save.checkload()!=false;
@@ -21,7 +20,7 @@ export class MainMenu {
     }
   
     showpending(){
-        this.sound.play(this.sound.ERROR);
+        sound.play(sound.ERROR);
         setTimeout(function(){
             alert('Operation pending!');
         },100);
@@ -41,7 +40,7 @@ export class MainMenu {
           save.load();
           this.close('CharacterScreen');
         }else{
-          this.sound.play(this.sound.ERROR);
+          sound.play(sound.ERROR);
           alert('No save found!');
         }
     }

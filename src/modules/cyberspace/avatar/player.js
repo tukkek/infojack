@@ -1,27 +1,67 @@
 import {Avatar} from './avatar';
 import {console} from '../console';
-import {hero} from '../../character/character';
+import {hero as offline} from '../../character/character';
+import {rpg} from '../../rpg';
+import {sound} from '../../sound';
+
+export var CRITICALHIT=9001;
+export var CRITICALMISS=-1;
 
 export class Player extends Avatar{
   constructor(system){
     super(system);
-    this.setname(hero.name);
-    this.setimage('characters/'+hero.image+'.png');
+    this.setname(offline.name);
+    this.setimage('characters/'+offline.image+'.png');
     this.scanned=true;
     this.target=false; //current target (ICE)
+    this.credentials=10+this.character.getforgery();
     system.player=this;
   }
   
   create(characterclass,level){
-    this.character=hero.connect();
+    this.character=offline.connect();
+  }
+  
+  roll(bonus,roll=false){
+    if(!roll) roll=rpg.r(1,20);
+    if(roll==1) return CRITICALMISS;
+    if(roll==20) return CRITICALMISS;
+    if(this.system.alert){
+      let concentration=rpg.r(1,20)+
+        this.character.getconcentration();
+      let penalty=2*this.system.alert-concentration/5;
+      bonus-=Math.max(0,penalty);
+    }
+    //TODO light/heavy deck bonus
+    return roll+bonus;
   }
   
   enter(node){
+    let first=!this.node;
     if(!super.enter(node)) return false;
+    sound.play(first?sound.CONNECT:sound.MOVE);
     node.visited=true;
-    node.scan(); //TODO passive scan using perception, roll-4
+    this.node.scan(
+      this.roll(this.character.getperceive(),10));
     return true;
   }
   
+  wait(){
+    console.print('You scan the node...');
+    this.ap+=.5;
+    this.node.scan(this.roll(this.character.getsearch()));
+  }
+  
+  click(){this.wait();}
+  
   act(){throw "Players don't act programatically!";}
+  
+  query(dc){ //ICE queries player
+    sound.play(sound.QUERY);
+    if(this.credentials>=dc) return true;
+    let bluff=this.roll(this.character.getbluff());
+    if(bluff<dc) return false;
+    this.credentials=bluff;
+    return true;
+  }
 }

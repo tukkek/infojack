@@ -69,18 +69,11 @@ export class Node{
     return false;
   }
   
-  /* scan avatars randomly
-   * return false if one fails or true if all done */
-  scan(){ //TODO skill test
-    let avatars=rpg.shuffle(this.avatars.slice());
-    for(let a of avatars){
-      if(!a) alert(JSON.stringify(avatars));
-      if(!a.scanned){
-        if(false) return false;
+  scan(roll){
+    for(let a of this.avatars)
+      if(!a.scanned&&roll>=a.scandc){
         a.scan();
         a.scanned=true;
       }
-    }
-    return true;
   }
 }

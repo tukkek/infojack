@@ -7,6 +7,7 @@ import {Interface} from './node/interface';
 import environment from '../../environment';
 import {Scout} from './avatar/ice/scout';
 import {console} from './console';
+import {sound} from '../sound';
 
 var active=false;
 
@@ -115,9 +116,14 @@ export class System{
     if(this.alert==previous) return;
     if(this.alert==0)
       console.print('The alert is cleared.');
-    else if(this.alert==1)
+    else if(this.alert==1){
       console.print('The system is now in yellow alert...');
-    else console.print('The system is now in red alert!');
+      if(this.alert>previous) sound.play(sound.ALERTYELLOW);
+    }else{
+      console.print('The system is now in red alert!');
+      if(this.alert>previous) sound.play(sound.ALERTRED);
+    }
+    if(this.alert<previous) sound.play(sound.ALERTCANCEL);
   }
   
   generateice(){

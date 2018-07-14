@@ -12,11 +12,12 @@ export class Avatar{
     this.x=-1;
     this.y=-1;
     this.scanned=false;
-    this.scandc=this.system+rpg.randomize(10);
-    if(this.scandc<1) this.scandc=1;
     this.setname('A process');
     this.create(webcrawler,occupations.adventurer,
       system.level);
+    this.scandc=this.system.level+rpg.randomize(4);
+    let stealth=10+this.character.getstealth();
+    this.scandc=Math.max(this.scandc,stealth,1);
     this.ap=-(rpg.r(1,20)+this.character.getinitiative())/20;
   }
   
