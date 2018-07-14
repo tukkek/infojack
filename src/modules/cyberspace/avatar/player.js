@@ -52,7 +52,15 @@ export class Player extends Avatar{
     this.node.scan(this.roll(this.character.getsearch()));
   }
   
-  click(){this.wait();}
+  click(){
+    //TODO maybe add % to deck and revert this to #wait()
+    let c=this.character;
+    let percent=Math.round(100*c.hp/c.maxhp);
+    let status='You currently have '+c.hp+
+      ' out of '+c.maxhp+' hit points '+
+      '('+percent+'%).';
+    console.print(status);
+  }
   
   act(){throw "Players don't act programatically!";}
   
@@ -63,5 +71,15 @@ export class Player extends Avatar{
     if(bluff<dc) return false;
     this.credentials=bluff;
     return true;
+  }
+  
+  attack(bonus,target,damage,roll=false){
+    if(!roll){
+      roll=this.roll(bonus);
+      bonus=0;
+      if(roll==CRITICALMISS) roll=1;
+      else if(roll==CRITICALHIT) roll=20;
+    }
+    return super.attack(bonus,target,damage,roll);
   }
 }

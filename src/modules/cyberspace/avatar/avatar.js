@@ -42,4 +42,32 @@ export class Avatar{
   scan(){return true;}
   
   act(){this.ap+=.5;}
+  
+  describehealth(){
+    let health=this.hp/this.maxhp;
+    if(health<=0) return 'deallocated';
+    if(health==1) return 'unharmed';
+    if(health>=.5) return 'OK';
+    if(health>=.25) return 'unstable';
+    return 'critical';
+  }
+  
+  damage(damage){
+    this.hp-=damage;
+    console.print(
+      this.name+' is '+this.describehealth()+'.');
+  }
+  
+  hit(roll,bonus){
+    if(roll==1) return false;
+    if(roll==20) return true;
+    return roll+bonus>=this.character.defence;
+  }
+  
+  attack(bonus,target,damage,roll=false){
+    if(!roll) roll=rpg.r(1,20);
+    if(!target.hit(roll,bonus)) return false;
+    target.damage(damage);
+    return true;
+  }
 }
