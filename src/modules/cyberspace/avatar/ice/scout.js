@@ -27,13 +27,13 @@ export class Scout extends Ice{
     return true;
   }
   
-  query(){ //return false on failed query
+  query(){ //return false if failed query
     let p=this.system.player;
     if(p.node!=this.node) return true;
     let c=p.character;
     let perceive=rpg.r(1,20)+this.character.getperceive();
     let stealth=p.roll(c.getstealth(),10);
-    if(perceive<stealth) return false;
+    if(perceive<stealth) return true;
     console.print(this.name+' queries you...');
     this.ap+=.5;
     let bluff=rpg.r(1,20)+this.character.getbluff();
@@ -58,14 +58,11 @@ export class Scout extends Ice{
     this.query();
   }
   
-  attack(){
-    if(this.system.alert!=2) return false;
-    this.ap+=.5;
-    return false;//TODO
-  }
-  
   act(){
-    if(this.attack()) return;
+    let ranged=this.character.getranged();
+    let damage=this.getdamage();
+    if(this.attack(ranged,this.system.player,damage))   
+      return;
     if(!this.query()) return;
     this.move();
   }

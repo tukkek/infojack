@@ -1,6 +1,7 @@
 import {Avatar} from '../avatar';
 import {console} from '../../console';
 import {rpg} from '../../../rpg';
+import {sound} from '../../../sound';
 import {refresh} from '../../../../cyberspace/infojack-cyberspace';
 
 export class Ice extends Avatar{
@@ -33,4 +34,20 @@ export class Ice extends Avatar{
   }
   
   act(){throw 'Unimplemented Ice#act() for '+this.name;}
+  
+  //returns true on attack, hit or not
+  attack(bonus,target,damage,roll=false){
+    if(this.system.alert!=2) return false;
+    console.print(this.name+' attacks!');
+    if(super.attack(bonus,target,damage))
+      sound.play(sound.ICEATTACK);
+    return true;
+  }
+  
+  getdamage(){
+    let level=Math.min(20,this.character.level);
+    for(let die of [4,6,8,10,12,20]) if(level<=die)
+      return rpg.r(1,die);
+    throw 'Unknown damage level';
+  }
 }

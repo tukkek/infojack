@@ -9,7 +9,9 @@ class Sound{
     this.ALERTRED='RedAlert.wav';
     this.ALERTYELLOW='YellowAlert.wav';
     this.CONNECT='Dialup.wav';
+    this.DISCONNECTED='EndOfLine.wav';
     this.ERROR='Computer Error Alert-SoundBible.com-783113881.mp3';
+    this.ICEATTACK='Pulse1.wav';
     this.MOVE='Move.wav';
     this.QUERY='ICEEnter.wav';
   }

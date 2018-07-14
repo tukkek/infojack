@@ -3,6 +3,7 @@ import {console} from '../console';
 import {hero as offline} from '../../character/character';
 import {rpg} from '../../rpg';
 import {sound} from '../../sound';
+import {LeaveCyberspace} from '../../../messages';
 
 export var CRITICALHIT=9001;
 export var CRITICALMISS=-1;
@@ -81,5 +82,10 @@ export class Player extends Avatar{
       else if(roll==CRITICALHIT) roll=20;
     }
     return super.attack(bonus,target,damage,roll);
+  }
+  
+  die(){
+    sound.play(sound.DISCONNECTED);
+    throw new LeaveCyberspace();
   }
 }

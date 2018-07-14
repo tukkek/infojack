@@ -44,7 +44,7 @@ export class Avatar{
   act(){this.ap+=.5;}
   
   describehealth(){
-    let health=this.hp/this.maxhp;
+    let health=this.character.hp/this.character.maxhp;
     if(health<=0) return 'deallocated';
     if(health==1) return 'unharmed';
     if(health>=.5) return 'OK';
@@ -52,10 +52,13 @@ export class Avatar{
     return 'critical';
   }
   
+  die(){this.node.remove(this);}
+  
   damage(damage){
-    this.hp-=damage;
+    this.character.hp-=damage;
     console.print(
       this.name+' is '+this.describehealth()+'.');
+    if(this.character.hp<=0) this.die();
   }
   
   hit(roll,bonus){
@@ -65,6 +68,8 @@ export class Avatar{
   }
   
   attack(bonus,target,damage,roll=false){
+    if(target.node!=this.node) return false;
+    this.ap+=.5;
     if(!roll) roll=rpg.r(1,20);
     if(!target.hit(roll,bonus)) return false;
     target.damage(damage);
