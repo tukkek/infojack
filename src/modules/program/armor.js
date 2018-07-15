@@ -3,7 +3,7 @@ import {console} from '../cyberspace/console';
 
 class Armor extends Program{
   constructor(grade){
-    super('Armor',grade,4,10,20);
+    super('Armor',grade,'armor.png',4,10,20);
     this.duration=SESSION;
     this.defence=+4+(grade-1);
   }
@@ -30,10 +30,7 @@ class Armor extends Program{
     return 'Adds +'+this.defence+' to defence';
   }
   
-  run(system){
-    console.print("Armor is already active.");
-    return false;
-  }
+  run(system){console.print("Armor is already active.");}
 }
 
 for(let armor=+4;armor<=+10;armor++)

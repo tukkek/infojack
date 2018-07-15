@@ -4,7 +4,7 @@
     <table>
       <tr repeat.for=
         'p of programs &signal:"update-program-bar"'>
-          <td><img src='../../images/software/tile000.png'
+          <td><img src.bind='p.image'
             title.bind='p.name'
             class.bind=
               'geticonclass(p) &signal:"update-program-bar"'

@@ -7,7 +7,7 @@ export var SESSION=Number.MAX_SAFE_INTEGER;
 export var PROGRAMS=new Map();
 
 export class Program{
-  constructor(name,grade,hack,buy,code){
+  constructor(name,grade,image,hack,buy,code){
     this.hackingdc=hack;
     this.purchasedc=buy;
     this.programmingdc=code;
@@ -16,6 +16,7 @@ export class Program{
     this.duration=0; //0=instantaneous SESSION=permanent
     this.basename=name;
     this.name=name;
+    this.image='../../images/software/'+image;
     this.grade=grade;
     if(grade){
       this.name+=' '+grades[grade];
@@ -23,6 +24,15 @@ export class Program{
     }
     PROGRAMS.set(this.name,this);
   }
+  
+  upgrade(ntimes){
+    this.hackingdc+=ntimes;
+    this.purchasedc+=ntimes;
+    this.programmingdc+=ntimes;
+    this.size+=ntimes/2;
+  }
+  
+  describe(){return this.name;}
   
   conflict(program){return this.basename==program.basename;}
   
@@ -41,6 +51,7 @@ export class Program{
     }
     deck.memoryused+=this.size;
     deck.loaded.push(this);
+    system.player.ap+=this.apcost;
     return true;
   }
   
@@ -52,16 +63,7 @@ export class Program{
     return true;
   }
   
-  run(system){return false;}
-  
-  upgrade(ntimes){
-    this.hackingdc+=ntimes;
-    this.purchasedc+=ntimes;
-    this.programmingdc+=ntimes;
-    this.size+=ntimes/2;
-  }
-  
-  describe(){return this.name;}
+  run(system){}
   
   compare(program){
     if(this.basename==program.basename)

@@ -8,6 +8,7 @@ class Sound{
     this.ALERTCANCEL='CancelAlert.wav';
     this.ALERTRED='RedAlert.wav';
     this.ALERTYELLOW='YellowAlert.wav';
+    this.ATTACK='9mmPistol.wav';
     this.CONNECT='Dialup.wav';
     this.DISCONNECTED='EndOfLine.wav';
     this.ERROR='Computer Error Alert-SoundBible.com-783113881.mp3';
