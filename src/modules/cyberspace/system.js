@@ -20,6 +20,7 @@ export class System{
     this.alert=0;
     this.nodes=[];
     this.ice=[];
+    this.reentry=[];
     this.entrance=null;
     this.generatemap();
     this.definenodes();

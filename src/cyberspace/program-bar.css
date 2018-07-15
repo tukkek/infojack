@@ -36,8 +36,10 @@
 #program-bar img{
   height:3.5em;
   cursor:pointer;
+  opacity:.25;
+  transition:opacity 2s ease-in-out;
 }
-img.loaded{border:.2em solid red;}
+img.loaded{opacity:1!important;}
 #program-bar .details{
   text-align:center;
   width:100%;

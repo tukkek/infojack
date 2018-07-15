@@ -38,13 +38,13 @@ export class Node{
   }
   
   remove(avatar){
+    if(avatar.node==this) avatar.node=false;
     this.avatars.splice(this.avatars.indexOf(avatar),1);
     let p=this.system.player;
     if(p==avatar) p.target=false;
-    else if(p.target==avatar){
-      p.target=false;
+    else if(p.target==avatar) p.target=false;
+    if(this==p.node&&avatar.hp>0) 
       console.print(avatar.name+' leaves the node...');
-    }
   }
   
   /* return true if found free spot 

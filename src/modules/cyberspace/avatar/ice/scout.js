@@ -28,6 +28,7 @@ export class Scout extends Ice{
   }
   
   query(){ //return false if failed query
+    if(this.system.alert==2) return true;
     let p=this.system.player;
     if(p.node!=this.node) return true;
     let c=p.character;

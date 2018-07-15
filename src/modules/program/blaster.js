@@ -8,7 +8,7 @@ class Blaster extends Program{
     super('Blaster',grade,'blaster.png',5,10,20);
     this.size=2;
     this.duration=10;
-    this.bonus=+grade;
+    this.bonus=grade-1;
   }
   
   run(system){
@@ -25,6 +25,10 @@ class Blaster extends Program{
     }
     system.raisealert(2);
   }
+  
+  describe(){
+    return 'Deals 1d6+'+this.bonus+' damage (raises alarm)';
+  }
 }
 
-for(let grade=0;grade<=10;grade++) new Blaster(grade);
+for(let grade=1;grade<=11;grade++) new Blaster(grade);

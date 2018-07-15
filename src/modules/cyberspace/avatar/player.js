@@ -31,7 +31,7 @@ export class Player extends Avatar{
       let concentration=rpg.r(1,20)+
         this.character.getconcentration();
       let penalty=2*this.system.alert-concentration/5;
-      bonus-=Math.max(0,penalty);
+      bonus-=Math.max(0,Math.round(penalty));
     }
     //TODO light/heavy deck bonus
     return roll+bonus;

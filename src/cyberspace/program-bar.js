@@ -4,6 +4,7 @@ import {console} from '../modules/cyberspace/console';
 import {inject} from 'aurelia-framework';
 import {BindingSignaler} from 'aurelia-templating-resources';
 import {refresh as refreshcyberspace} from './infojack-cyberspace';
+import {sound} from '../modules/sound';
 
 @inject(BindingSignaler)
 export class ProgramBar{
@@ -35,15 +36,17 @@ export class ProgramBar{
   }
   
   doload(program){
-    let result=program.load(this.system);
+    let load=program.load(this.system);
+    if(load) sound.play(sound.LOAD);
     this.refresh();
-    return result;
+    return load;
   }
   
   dounload(program){
-    let result=program.unload(this.system);
+    let unload=program.unload(this.system);
+    if(unload) sound.play(sound.UNLOAD);
     this.refresh();
-    return result;
+    return unload;
   }
   
   run(program){
@@ -51,8 +54,7 @@ export class ProgramBar{
     if(!this.isloaded(program)){
       console.print('Load '+program.name+' first...');
     }else if(program.run(this.system)){
-      //TODO ap cost
-      //TODO duration callback or check
+      //TODO duration callback and skill check
     }
     this.refresh();
   }

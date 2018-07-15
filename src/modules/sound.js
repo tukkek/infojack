@@ -13,8 +13,10 @@ class Sound{
     this.DISCONNECTED='EndOfLine.wav';
     this.ERROR='Computer Error Alert-SoundBible.com-783113881.mp3';
     this.ICEATTACK='Pulse1.wav';
+    this.LOAD='Misc2.wav';
     this.MOVE='Move.wav';
     this.QUERY='ICEEnter.wav';
+    this.UNLOAD='Misc5.wav';
   }
   
   process(){

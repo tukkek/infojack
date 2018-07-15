@@ -6,19 +6,27 @@ import {occupations} from '../../character/occupation';
 
 export class Avatar{
   constructor(system){
-    this.setimage('nodes/process.png');
+    this.obfuscate();
     this.system=system;
     this.node=null;
     this.x=-1;
     this.y=-1;
-    this.scanned=false;
-    this.setname('A process');
     this.create(webcrawler,occupations.adventurer,
       system.level);
     this.scandc=this.system.level+rpg.randomize(4);
     let stealth=10+this.character.getstealth();
     this.scandc=Math.max(this.scandc,stealth,1);
-    this.ap=-(rpg.r(1,20)+this.character.getinitiative())/20;
+    this.ap=-this.rollinitiative();
+  }
+  
+  rollinitiative(){
+    return (rpg.r(1,20)+this.character.getinitiative())/20;
+  }
+  
+  obfuscate(){
+    this.setname('A process');
+    this.setimage('nodes/process.png');
+    this.scanned=false;
   }
   
   create(characterclass,occupation,level){
@@ -64,12 +72,11 @@ export class Avatar{
   hit(roll,bonus){
     if(roll==1) return false;
     if(roll==20) return true;
-    return roll+bonus>=this.character.defence;
+    return roll+bonus>=this.character.getdefence();
   }
-  
+
+  //return true on hit
   attack(bonus,target,damage,roll=false){
-    if(target.node!=this.node) return false;
-    this.ap+=.5;
     if(!roll) roll=rpg.r(1,20);
     if(!target.hit(roll,bonus)) return false;
     target.damage(damage);

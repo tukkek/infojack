@@ -35,12 +35,14 @@ export class Ice extends Avatar{
   
   act(){throw 'Unimplemented Ice#act() for '+this.name;}
   
-  //returns true on attack, hit or not
+  //returns true on attempt, hit or not
   attack(bonus,target,damage,roll=false){
-    if(this.system.alert!=2) return false;
+    if(this.system.alert!=2||target.node!=this.node)
+      return false;
+    this.ap+=.5;
+    sound.play(sound.ICEATTACK);
     console.print(this.name+' attacks!');
-    if(super.attack(bonus,target,damage))
-      sound.play(sound.ICEATTACK);
+    super.attack(bonus,target,damage)
     return true;
   }
   
@@ -49,5 +51,10 @@ export class Ice extends Avatar{
     for(let die of [4,6,8,10,12,20]) if(level<=die)
       return rpg.r(1,die);
     throw 'Unknown damage level';
+  }
+  
+  die(){
+    super.die();
+    this.system.reentry.push(this);
   }
 }

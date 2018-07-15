@@ -9,7 +9,7 @@ export default {
   playeravatars:17,
   /* debug flags (false=disabled) */
   revealmap:true,
-  scannodes:false,
+  scannodes:true,
   printsave:false, 
   systemlevel:false, //override system level (1-20)
   view:false, //starting view name
