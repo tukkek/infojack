@@ -35,12 +35,18 @@ export class ProgramBar{
   //not all data needs to be update every single turn
   //prevent a cyberspace<->program bar refresh loop
   refreshdetails(){
-    this.load=deck.memoryused;
-    this.totalload=deck.memory;
     let c=this.system.player.character;
     let hp=c.hp/c.maxhp;
     this.hpcolor='color:'+this.gethpcolor(hp)+';';
     this.hp=Math.round(100*hp);
+    this.load=deck.memoryused;
+    this.totalload=deck.memory;
+    let load=deck.getload();
+    if(load==0) this.loadcolor='white';
+    else if(load==1) this.loadcolor='orange';
+    else this.loadcolor='red';
+    this.loadcolor='color:'+this.loadcolor+';';
+    this.freestorage=deck.storage-deck.storageused;
   }
   
   refresh(){

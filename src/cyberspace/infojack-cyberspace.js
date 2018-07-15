@@ -110,7 +110,7 @@ export class Cyberspace{
     console.system=this.system;
     this.placenode(this.system.entrance,true);
     this.player.enter(this.system.entrance);
-    this.refresh();
+    //this.refresh();
     this.scroll();
   }
   

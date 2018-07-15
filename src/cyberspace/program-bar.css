@@ -11,10 +11,10 @@
   align-items:stretch;
   overflow:auto;
 }
-.anchored{width:8%;}
+.anchored{width:10%;}
 .expanded{
   width:auto;
-  min-width:8%;
+  min-width:10%;
 }
 #program-bar table{
   flex:1;
@@ -50,6 +50,11 @@ img.loaded{opacity:1!important;}
 }
 #program-bar .details .hp{
   color:rgb(124,252,0);
+  transition:color 2s ease-in-out;
+  font-weight:bold;
+}
+#program-bar .details .load{
+  color:white;
   transition:color 2s ease-in-out;
   font-weight:bold;
 }

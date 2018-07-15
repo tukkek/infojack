@@ -83,6 +83,13 @@ class Deck{
     this.programs.sort((a,b)=>a.compare(b));
     this.loaded.sort((a,b)=>a.compare(b));
   }
+  
+  getload(){
+    let load=this.memoryused/this.memory;
+    if(load>=.75) return 2;
+    if(load>=.5) return 1;
+    return 0;
+  }
 }
 
 export var deck=new Deck();
