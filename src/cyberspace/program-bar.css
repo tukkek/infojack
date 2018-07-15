@@ -11,10 +11,10 @@
   align-items:stretch;
   overflow:auto;
 }
-.anchored{width:6%;}
+.anchored{width:8%;}
 .expanded{
   width:auto;
-  min-width:6%;
+  min-width:8%;
 }
 #program-bar table{
   flex:1;
@@ -46,4 +46,5 @@ img.loaded{opacity:1!important;}
 }
 #program-bar .details>*{
   width:95%;
+  white-space:nowrap;
 }

@@ -14,9 +14,11 @@ class Sound{
     this.DISCONNECTED='EndOfLine.wav';
     this.ERROR='Computer Error Alert-SoundBible.com-783113881.mp3';
     this.ICEATTACK='Pulse1.wav';
+    this.ICEENTER='ICEEnter.wav';
+    this.ICELEAVE='ICEEnter.wav';
     this.LOAD='Misc2.wav';
     this.MOVE='Move.wav';
-    this.QUERY='ICEEnter.wav';
+    this.QUERY='ICELeave.wav';
     this.UNLOAD='Misc5.wav';
   }
   
@@ -26,14 +28,16 @@ class Sound{
       return;
     }
     running=true;
-    let a=queue.shift();
+    let a=new Audio(queue.shift());
     let me=this;
     a.onended=function(){me.process();};
     a.play();
   }
     
   play(file){
-    queue.push(new Audio(PREFIX+file));
+    file=PREFIX+file;
+    if(queue.indexOf(file)>=0) return;
+    queue.push(file);
     if(!running) this.process();
   }
 }

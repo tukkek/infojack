@@ -1,6 +1,7 @@
 import {rpg} from '../../rpg';
 import environment from '../../../environment';
 import {console} from '../console';
+import {sound} from '../../sound';
 
 var TILES=[];
 
@@ -37,14 +38,18 @@ export class Node{
     return null;
   }
   
-  remove(avatar){
-    if(avatar.node==this) avatar.node=false;
-    this.avatars.splice(this.avatars.indexOf(avatar),1);
+  remove(avatar){//TODO should be called leave
+    if(avatar.node!=this)
+      throw 'Removing '+avatar.name+' from random node?';
     let p=this.system.player;
+    if(avatar!=p&&this==p.node&&avatar.character.hp>0){
+      sound.play(sound.ICELEAVE);
+      console.print(avatar.name+' leaves the node...');
+    }
+    avatar.node=false;
+    this.avatars.splice(this.avatars.indexOf(avatar),1);
     if(p==avatar) p.target=false;
     else if(p.target==avatar) p.target=false;
-    if(this==p.node&&avatar.hp>0) 
-      console.print(avatar.name+' leaves the node...');
   }
   
   /* return true if found free spot 
@@ -58,6 +63,10 @@ export class Node{
     }
     rpg.shuffle(TILES);
     for(let xy of TILES) if(!this.getavatar(xy[0],xy[1])){
+      if(this.system.player&&this==this.system.player.node){
+        sound.play(sound.ICEENTER);
+        console.print(avatar.name+' enters the node.');
+      }
       if(avatar.node) avatar.node.remove(avatar);
       avatar.x=xy[0];
       avatar.y=xy[1];
