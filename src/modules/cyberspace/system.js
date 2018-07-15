@@ -122,12 +122,14 @@ export class System{
       if(this.alert>previous) sound.play(sound.ALERTYELLOW);
     }else{
       console.print('The system is now in red alert!');
+      this.player.credentials=-1;
       if(this.alert>previous) sound.play(sound.ALERTRED);
     }
     if(this.alert<previous) sound.play(sound.ALERTCANCEL);
   }
   
   generateice(){
+    if(environment.noice) return;
     let s=new Scout(this);
     this.ice.push(s);
     s.enter(this.nodes[0]);

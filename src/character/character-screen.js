@@ -6,6 +6,7 @@ import {save} from '../modules/save';
 @inject(EventAggregator)
 export class CharacterScreen {
   constructor(messaging) {
+      this.messaging=messaging;
       this.show=false;
       this.showgeneral=true;
       this.showabilities=false;
@@ -15,8 +16,6 @@ export class CharacterScreen {
       this.showdetails=false;
       this.showdeck=false;
       this.showprograms=false;
-      this.messaging=messaging;
-      
       let me=this;
       messaging.subscribe(ShowView,function(show){
           if(show.view=='CharacterScreen') me.show=true;

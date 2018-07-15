@@ -1,0 +1,27 @@
+#win-screen{
+  z-index:2;
+  background-color:black;
+  border:.1em solid white;
+}
+#win-screen table{
+  margin-top:1em;
+}
+#win-screen .label{
+  padding-right:1em;
+}
+#win-screen .reward{
+  text-align:center;
+  color:black;
+  font-weight:bold;
+  background-color:white;
+  padding:.2em;
+}
+#win-screen button{
+  border:.1em white solid;
+  min-width:10em;
+  padding:3em;
+  margin-top:1em;
+}
+#win-screen #ending-message div{
+  margin-bottom:1em;
+}

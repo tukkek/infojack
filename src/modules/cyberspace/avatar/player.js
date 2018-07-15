@@ -3,10 +3,10 @@ import {console} from '../console';
 import {hero as offline} from '../../character/character';
 import {rpg} from '../../rpg';
 import {sound} from '../../sound';
-import {LeaveCyberspace} from '../../../messages';
+import {Disconnect} from '../../../messages';
 
 export var CRITICALHIT=9001;
-export var CRITICALMISS=-1;
+export var CRITICALMISS=-CRITICALHIT;
 
 export class Player extends Avatar{
   constructor(system){
@@ -65,8 +65,9 @@ export class Player extends Avatar{
   
   act(){throw "Players don't act programatically!";}
   
-  query(dc){ //ICE queries player
+  query(dc,source){ //ICE queries player
     sound.play(sound.QUERY);
+    console.print(source.name+' queries you...');
     if(this.credentials>=dc) return true;
     let bluff=this.roll(this.character.getbluff());
     if(bluff<dc) return false;
@@ -86,6 +87,11 @@ export class Player extends Avatar{
   
   die(){
     sound.play(sound.DISCONNECTED);
-    throw new LeaveCyberspace();
+    throw new Disconnect();
+  }
+  
+  hide(spotter){
+    return this.roll(this.character.getstealth())>=
+      10+spotter.character.getperceive();
   }
 }

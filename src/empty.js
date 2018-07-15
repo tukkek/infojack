@@ -1,4 +1,4 @@
 export class Example {
-    constructor() {
-    }
+  constructor() {
+  }
 }

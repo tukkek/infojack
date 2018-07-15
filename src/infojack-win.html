@@ -1,0 +1,40 @@
+<template>
+    <require from="./infojack-win.css"></require>
+    
+    <div class='centered center' id='win-screen' if.bind='show'>
+      <div show.bind='!end'>
+        <div class='bold'>You have completed your objective!
+          </div>
+        <div>Your stats have been updated.</div>
+        <table>
+          <tr>
+            <td class='label'>Unspent ability points</td>
+            <td class='reward' textContent.bind='abilities'>
+              </td>
+          </tr>
+          <tr>
+            <td class='label'>Unspent skill points</td>
+            <td class='reward' textContent.bind='skills'>
+              </td>
+          </tr>
+          <tr>
+            <td class='label'>Unspent feat slots</td>
+            <td class='reward' textContent.bind='feats'>
+              </td>
+          </tr>
+          <tr>
+            <td class='label'>Current wealth</td>
+            <td class='reward' textContent.bind='wealth'>
+              </td>
+          </tr>
+        </table>
+      </div>
+      <div show.bind='end' id='ending-message'>
+        <div class='bold'>Congratulations!</div>
+        <div>You have reached the end of the game's current content! Stay tuned for new updates!</div>
+        <div>By clicking the button below we'll clear up your save file so you can start again with a new character!</div>
+      </div>
+      <button click.trigger='close()' 
+        textContent.bind='nice'></button>
+    </div>
+</template> 

@@ -2,4 +2,6 @@ export class ShowView{
   constructor(view){this.view=view;}
 }
 
-export class LeaveCyberspace{}
+export class Disconnect{
+  constructor(win=false){this.win=win;}
+}

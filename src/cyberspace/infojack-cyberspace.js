@@ -7,7 +7,7 @@ import {sound} from '../modules/sound';
 import {ShowView} from '../messages';
 import environment from '../environment';
 import {hero} from '../modules/character/character';
-import {LeaveCyberspace} from '../messages';
+import {Disconnect} from '../messages';
 
 var TILESIZE=2.5;
 var SPACING=1.1;
@@ -48,8 +48,13 @@ export class Cyberspace{
     let node=this.system.nodes[tile.nodeid];
     if(node==this.player.node){
       let avatar=node.getavatar(tile.nodex,tile.nodey);
-      if(avatar&&avatar.scanned) avatar.click();
-      else this.player.wait();
+      try{
+        if(avatar&&avatar.scanned) avatar.click();
+        else this.player.wait();
+      }catch(e){
+        if(!this.disconnect(e)) throw e;
+        return;
+      }
     }else if(this.player.enter(node)) 
       this.placenode(node,true);
     this.refresh();
@@ -169,22 +174,23 @@ export class Cyberspace{
     }else t.classList.remove('target');
   }
   
-  close(e){
+  disconnect(e){
+    if(!(e instanceof Disconnect)) return;
     this.refresh(false);
     alert('You have been disconnected!');
     this.showconsole=false;
     this.map.innerHTML='';
     this.console.innerHTML='';
     this.messaging.publish(new ShowView('CharacterScreen'));
+    if(e.win) this.messaging.publish(new ShowView('Win'));
   }
   
   refresh(act=true){
     try{
       if(act) while(this.system.act()){ /* process NPCs */ }
     }catch(e){
-      if(e instanceof LeaveCyberspace){
-        this.close();
-      }else throw e;
+      this.disconnect(e);
+      return;
     }
     this.printmessages();
     if(this.system.revealed) for(let n of this.system.nodes) 

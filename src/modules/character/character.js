@@ -327,13 +327,19 @@ export class Character{
     if(!feat.validate(this)) throw 'Invalid feat: '+name;
     this.addfeat(feat);
   }
+  
+  levelup(){
+    if(this.level==10) return false; //TODO
+    webcrawler.advance(hero);
+    return true;
+  }
 }
 
 export function sign(n){return n>=0?'+'+n:n;}
 
 export var hero=new Character('Player1');
 hero.setoccupation(occupations.adventurer);
-webcrawler.advance(hero); //becomes level 1
+hero.levelup(); //becomes level 1
 
 //TODO actually buy and verify success once they're ready
 console.log('Initial wealth: '+hero.wealth);

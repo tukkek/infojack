@@ -32,13 +32,10 @@ export class Scout extends Ice{
     let p=this.system.player;
     if(p.node!=this.node) return true;
     let c=p.character;
-    let perceive=rpg.r(1,20)+this.character.getperceive();
-    let stealth=p.roll(c.getstealth(),10);
-    if(perceive<stealth) return true;
-    console.print(this.name+' queries you...');
+    if(p.hide(this)) return true;
     this.ap+=.5;
     let bluff=rpg.r(1,20)+this.character.getbluff();
-    if(p.query(bluff)) return true;
+    if(p.query(bluff,this)) return true;
     this.system.raisealert();
     this.path=[];
     return false;
