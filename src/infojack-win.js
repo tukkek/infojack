@@ -13,19 +13,19 @@ export class Win {
     this.show=false;
     let me=this;
     messaging.subscribe(ShowView,function(show){
-      if(show.view!='Win') return;
-      me.refresh();
-      me.show=true;
+      if(show.view=='Win') me.apply();
     });
   }
   
-  refresh(){
+  apply(){
     this.end=!hero.levelup();
+    save.save();
     this.abilities=hero.pointextra;
     this.skills=hero.ranks;
     this.feats=hero.newfeats;
     this.wealth=hero.wealth+'¥';
     this.nice=rpg.choose(NICE);
+    this.show=true;
   }
   
   close(){

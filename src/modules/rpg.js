@@ -1,3 +1,6 @@
+export var CRITICALHIT=9001;
+export var CRITICALMISS=-CRITICALHIT;
+
 class Rpg{
     constructor(){}
     

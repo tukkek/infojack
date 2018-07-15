@@ -1,4 +1,4 @@
-import {rpg} from '../../rpg';
+import {rpg,CRITICALMISS} from '../../rpg';
 import {console} from '../console';
 import {Character} from '../../character/character';
 import {webcrawler} from '../../character/class/webcrawler';
@@ -60,7 +60,7 @@ export class Avatar{
     return 'critical';
   }
   
-  die(){this.node.remove(this);}
+  die(){this.leave(this.node);}
   
   damage(damage){
     this.character.hp-=damage;
@@ -82,4 +82,30 @@ export class Avatar{
     target.damage(damage);
     return true;
   }
+  
+  authenticate(hackingroll){
+    let p=this.system.player;
+    let querydc=10+this.character.getbluff();
+    if(hackingroll==CRITICALMISS||
+      (!p.hide(this)&&!p.query(querydc,this))){
+        this.system.raisealert(+1);
+        return false;
+    }
+    return true;
+  }
+  
+  hack(authenticate=false){
+    let p=this.system.player;
+    p.ap+=1;
+    let c=p.character;
+    let hacking=p.roll(c.gethacking());
+    let hackingdc=this.character.getdefence();
+    if((!authenticate||this.authenticate(hacking))&&
+      hacking<hackingdc) return true;
+    let name=this.name.toLowerCase();
+    console.print('You fail to hack: '+name+'...');
+    return false;
+  }
+  
+  leave(node){node.remove(this);}
 }

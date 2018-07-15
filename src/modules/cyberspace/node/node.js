@@ -2,6 +2,7 @@ import {rpg} from '../../rpg';
 import environment from '../../../environment';
 import {console} from '../console';
 import {sound} from '../../sound';
+import {Ice} from '../avatar/ice/ice';
 
 var TILES=[];
 
@@ -42,9 +43,10 @@ export class Node{
     if(avatar.node!=this)
       throw 'Removing '+avatar.name+' from random node?';
     let p=this.system.player;
-    if(avatar!=p&&this==p.node&&avatar.character.hp>0){
-      sound.play(sound.ICELEAVE);
-      console.print(avatar.name+' leaves the node...');
+    if(avatar instanceof Ice&&this==p.node&&
+      avatar.character.hp>0){
+        sound.play(sound.ICELEAVE);
+        console.print(avatar.name+' leaves the node...');
     }
     avatar.node=false;
     this.avatars.splice(this.avatars.indexOf(avatar),1);
@@ -67,7 +69,7 @@ export class Node{
         sound.play(sound.ICEENTER);
         console.print(avatar.name+' enters the node.');
       }
-      if(avatar.node) avatar.node.remove(avatar);
+      if(avatar.node) avatar.leave(avatar.node);
       avatar.x=xy[0];
       avatar.y=xy[1];
       avatar.node=this;

@@ -11,8 +11,8 @@ export class Control extends Avatar{
   }
   
   scan(){
-    if(!this.memory&&!this.privilege) this.node.remove(this);
+    if(!this.memory&&!this.privilege) this.leave(this.node);
     this.setimage('nodes/control.png');
-    this.tooltip='Control';
+    this.setname('External device');
   }
 }

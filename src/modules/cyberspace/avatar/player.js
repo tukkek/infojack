@@ -1,12 +1,9 @@
 import {Avatar} from './avatar';
 import {console} from '../console';
 import {hero as offline} from '../../character/character';
-import {rpg} from '../../rpg';
+import {rpg,CRITICALHIT,CRITICALMISS} from '../../rpg';
 import {sound} from '../../sound';
 import {Disconnect} from '../../../messages';
-
-export var CRITICALHIT=9001;
-export var CRITICALMISS=-CRITICALHIT;
 
 export class Player extends Avatar{
   constructor(system){
@@ -39,6 +36,7 @@ export class Player extends Avatar{
   
   enter(node){
     let first=!this.node;
+    if(first) console.print('You enter the system...');
     if(!super.enter(node)) return false;
     sound.play(first?sound.CONNECT:sound.MOVE);
     node.visited=true;

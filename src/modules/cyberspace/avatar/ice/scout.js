@@ -41,19 +41,28 @@ export class Scout extends Ice{
     return false;
   }
   
+  getdestination(){
+    let ns=this.node.getneighbors();
+    if(this.system.alert){
+      let p=this.system.player;
+      let spotdc=p.roll(p.character.getstealth(),10);
+      let spot=rpg.r(1,20)+this.character.getperceive();
+      if(spot>=spotdc) for(let n of ns) if(n==p.node){
+        this.path=[];
+        return n;
+      }
+    }
+    ns=rpg.shuffle(ns);
+    for(let n of ns) if(this.path.indexOf(n)<0) return n;
+    return ns[0];
+  }
+  
   move(){
     if(this.system.alert>0&&
-      this.system.player.node==this.node) 
-        return; //don't move
-    let destinations=rpg.shuffle(this.node.getneighbors());
-    let destination=false;
-    for(let d of destinations) if(this.path.indexOf(d)<0){
-      destination=d;
-      break;
-    }
-    this.enter(destination?
-      destination:rpg.choose(destinations));
+      this.system.player.node==this.node) return false;
+    this.enter(this.getdestination());
     this.query();
+    return true;
   }
   
   act(){

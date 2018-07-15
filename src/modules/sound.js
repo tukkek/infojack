@@ -11,6 +11,7 @@ class Sound{
     this.ATTACK='9mmPistol.wav';
     this.CONNECT='Dialup.wav';
     this.CRASH='Spike.wav';
+    this.DISABLE='CancelAlert.wav';
     this.DISCONNECTED='EndOfLine.wav';
     this.ERROR='Computer Error Alert-SoundBible.com-783113881.mp3';
     this.ICEATTACK='Pulse1.wav';

@@ -24,13 +24,13 @@ export class File extends Avatar{
   
   scan(){
     if(this.worthless){
-      this.node.remove(this);
+      this.leave(this.node);
     }else if(this.protected){
       this.setimage('nodes/fileprotected.png');
-      this.tooltip='Protected data';
+      this.setname('Protected data');
     }else if(this.trap){
       this.setimage('nodes/filetrap.png');
-      this.tooltip='Trap data';
+      this.setname('Trap data');
     }else{
       this.setimage('nodes/file.png');
     }

@@ -1,15 +1,27 @@
 import {Avatar} from './avatar';
 import {rpg} from '../../rpg';
 import envinronment from '../../../environment';
+import {sound} from '../../sound';
+import {console} from '../console';
 
 export class Entry extends Avatar{
+  create(characterclass,occupation,level){
+    super.create(characterclass,occupation,level);
+    let c=this.character;
+    for(let s of ['bluff','perceive']) c.learnskill(s);
+  }
+  
   scan(){
     this.setimage('nodes/entry.png');
-    this.tooltip='ICE entry';
+    this.setname('ICE entry');
   }
   
   click(){
-    super.click();
+    if(this.hack(true)){
+      console.print('You disable the ICE re-entry point!');
+      sound.play(sound.DISABLE);
+      this.leave(this.node);
+    }
   }
   
   act(){

@@ -108,7 +108,6 @@ export class Cyberspace{
 
   draw(){
     console.system=this.system;
-    console.print('You enter the system...');
     this.placenode(this.system.entrance,true);
     this.player.enter(this.system.entrance);
     this.refresh();
@@ -177,7 +176,7 @@ export class Cyberspace{
   disconnect(e){
     if(!(e instanceof Disconnect)) return;
     this.refresh(false);
-    alert('You have been disconnected!');
+    alert(e.message);
     this.showconsole=false;
     this.map.innerHTML='';
     this.console.innerHTML='';

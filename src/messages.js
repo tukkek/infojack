@@ -3,5 +3,8 @@ export class ShowView{
 }
 
 export class Disconnect{
-  constructor(win=false){this.win=win;}
+  constructor(win=false){
+    this.win=win;
+    this.message='You have been disconnected!';
+  }
 }
