@@ -7,7 +7,7 @@ import {sound} from '../modules/sound';
 import {ShowView} from '../messages';
 import environment from '../environment';
 import {hero} from '../modules/character/character';
-import {Disconnect} from '../messages';
+import {Disconnect,Refresh} from '../messages';
 
 var TILESIZE=2.5;
 var SPACING=1.1;
@@ -142,6 +142,7 @@ export class Cyberspace{
   }
 
   printmessages(){
+    this.console.innerHTML='';
     for(let m=console.next();m;m=console.next()){
       let color=false;
       if(m.alert==0) color='white';
@@ -195,6 +196,7 @@ export class Cyberspace{
     if(this.system.revealed) for(let n of this.system.nodes) 
       this.placenode(n,false);
     for(let t of this.tiles) this.refreshtile(t);
+    this.messaging.publish(new Refresh('ProgramBar'));
   }
 }
 

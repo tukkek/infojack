@@ -48,3 +48,8 @@ img.loaded{opacity:1!important;}
   width:95%;
   white-space:nowrap;
 }
+#program-bar .details .hp{
+  color:rgb(124,252,0);
+  transition:color 2s ease-in-out;
+  font-weight:bold;
+}

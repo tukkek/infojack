@@ -8,3 +8,7 @@ export class Disconnect{
     this.message='You have been disconnected!';
   }
 }
+
+export class Refresh{
+  constructor(target){this.target=target;}
+}
