@@ -2,13 +2,10 @@ import {Ice} from './ice';
 import {rpg} from '../../../rpg';
 import {console} from '../../console';
 
-//prevents 50% of turning back into a room, on worst-case
-var PATHHISTORY=2;
-
 export class Scout extends Ice{
   constructor(system){
     super('ice/scout.png',system);
-    this.path=[];
+    this.path=[]; //prevents looping between rooms
   }
   
   create(characterclass,occupation,level){
@@ -23,7 +20,8 @@ export class Scout extends Ice{
   enter(node){
     if(!super.enter(node)) return false;
     this.path.push(node);
-    if(this.path.length>PATHHISTORY) this.path.shift();
+    let history=1+Math.round(this.character.speed/30);
+    if(this.path.length>history) this.path.shift();
     return true;
   }
   

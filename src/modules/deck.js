@@ -9,6 +9,7 @@ class Deck{
   constructor(){
     this.memory=10;
     this.memoryused=0;
+    this.memorytemporary=0;
     this.storage=20;
     this.storageused=0;
     this.deckgrade=1;
@@ -101,7 +102,11 @@ class Deck{
   
   getfreestorage(){return this.storage-this.storageused;}
   
-  disconnect(){this.storageused=0;}
+  disconnect(){
+    this.memoryused-=this.memorytemporary;
+    this.memorytemporary=0;
+    this.storageused=0;
+  }
 }
 
 export var deck=new Deck();

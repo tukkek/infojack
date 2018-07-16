@@ -4,9 +4,7 @@ export var CRITICALMISS=-CRITICALHIT;
 class Rpg{
     constructor(){}
     
-    r(min,max){
-      return Math.floor((Math.random()*(max+1))+min);
-    }
+    r(min,max){return Math.floor((Math.random()*max)+min);}
     
     d(dice,sides){
         let sum=0;
@@ -21,8 +19,7 @@ class Rpg{
     }
     
     chancein(n){
-      n=Math.floor(n);
-      return n>=1&&this.r(1,n)==1;
+      return this.r(1,n)==1;
     }
     
     shuffle(array){

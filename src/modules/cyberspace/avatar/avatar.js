@@ -33,6 +33,10 @@ export class Avatar{
   create(characterclass,occupation,level){
     this.character=new Character();
     this.character.setoccupation(occupation);
+    if(level>10){
+      console.log('Cannot raise avatar past level 10!');
+      level=10;
+    }
     for(let i=0;i<level;i++) 
       characterclass.advance(this.character);
   }
@@ -95,14 +99,14 @@ export class Avatar{
     return true;
   }
   
-  hack(authenticate=false,hacking=false){
+  hack(authenticate=false,roll=false){
     let p=this.system.player;
     p.ap+=1;
     let c=p.character;
-    if(!hacking) hacking=p.roll(c.gethacking());
+    if(!roll) roll=p.roll(c.gethacking());
     let hackingdc=this.character.getdefence();
-    if((!authenticate||this.authenticate(hacking))&&
-      hacking<hackingdc) return true;
+    if((!authenticate||this.authenticate(roll))&&
+      roll<hackingdc) return true;
     let name=this.name.toLowerCase();
     sound.play(sound.ERROR);
     console.print('You fail to hack: '+name+'...');

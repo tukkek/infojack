@@ -316,7 +316,7 @@ export class Character{
     while(this.pointextra>0){
       this[ability]+=1;
       this.pointextra-=1;
-      this.ugpraderanks(ability);
+      this.updateranks(ability);
     }
   }
   

@@ -21,7 +21,8 @@
   position:absolute;
   height:98%;
   width:93%;
-  overflow:auto;
+  overflow-x:auto;
+  overflow-y:auto;
   display:hidden;
 }
 #cyberspace{
@@ -32,7 +33,7 @@
 #cyberspace .spacer{
   position:absolute;
   height:4em;
-  width:4em;
+  width:6em;
   background:white;
   visibility:hidden;
 }
@@ -68,3 +69,7 @@
   border:.1em dashed yellow;
   z-index:1;
 }
+div.interface{border-color:orange!important;}
+div.datastore{border-color:blue!important;}
+div.cpu{border-color:red!important;}
+div.portal{border-color:purple!important;}

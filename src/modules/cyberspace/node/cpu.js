@@ -28,8 +28,6 @@ export class Cpu extends Node{
         this.enter(new Entry(this.system));
       if(rpg.chancein(FUNCTIONS)) 
         this.enter(new Map(this.system));
-      if(rpg.chancein(FUNCTIONS)) 
-        this.enter(new Terminal(this.system));
     }
   }
 }

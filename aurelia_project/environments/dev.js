@@ -11,7 +11,7 @@ export default {
   revealmap:true,
   scannodes:true,
   printsave:false, 
-  systemlevel:false, //override system level (1-20)
+  systemlevel:20, //override system level (1-20)
   view:false, //starting view name
   noice:false, //skip ICE generation
   wealth:false, //overrides starting wealth

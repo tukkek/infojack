@@ -7,7 +7,7 @@ import {Disconnect} from '../../../../messages';
 export class Terminal extends SecureAvatar{
   create(characterclass,occupation,level){
     super.create(characterclass,occupation,level+rpg.r(1,4));
-    c.defence+=this.character.level;
+    this.character.defence+=this.character.level;
   }
   
   scan(){

@@ -69,6 +69,7 @@ export class Cyberspace{
     let tile=document.createElement('div');
     this.tiles.push(tile);
     tile.classList.add('tile');
+    tile.classList.add(node.constructor.name.toLowerCase());
     tile.nodeid=node.id;
     tile.nodex=x;
     tile.nodey=y;

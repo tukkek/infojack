@@ -54,27 +54,37 @@ export class Node{
     else if(p.target==avatar) p.target=false;
   }
   
+  checkadjacent(source,avatar){
+    if(environment.debug&&avatar==this.system.player)
+      return true;
+    return source.getneighbors().indexOf(this)>=0;
+  }
+  
+  receive(avatar,xy){
+    if(this.system.player&&this==this.system.player.node){
+      sound.play(sound.ICEENTER);
+      console.print(avatar.name+' enters the node.');
+    }
+    if(avatar.node) avatar.leave(avatar.node);
+    avatar.x=xy[0];
+    avatar.y=xy[1];
+    avatar.node=this;
+    avatar.ap+=avatar.character.move();
+    this.avatars.push(avatar);
+  }
+  
   /* return true if found free spot 
    * always prefer Avatar#enter(node) */
   enter(avatar){
     let source=avatar.node;
     if(source==this) return false;
-    if(source&&source.getneighbors().indexOf(this)<0){
-      console.print("Can only move into adjacent nodes...");
+    if(source&&!this.checkadjacent(source,avatar)){
+      console.print("Can only enter adjacent nodes...");
       return false;
     }
     rpg.shuffle(TILES);
     for(let xy of TILES) if(!this.getavatar(xy[0],xy[1])){
-      if(this.system.player&&this==this.system.player.node){
-        sound.play(sound.ICEENTER);
-        console.print(avatar.name+' enters the node.');
-      }
-      if(avatar.node) avatar.leave(avatar.node);
-      avatar.x=xy[0];
-      avatar.y=xy[1];
-      avatar.node=this;
-      avatar.ap+=avatar.character.move();
-      this.avatars.push(avatar);
+      this.receive(avatar,xy);
       return true;
     }
     return false;

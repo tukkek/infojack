@@ -51,6 +51,7 @@ export class System{
     let leasty=0;
     while(this.nodes.length<size){
       let n=rpg.choose(this.nodes);
+      if(rpg.chancein(5-n.getneighbors().length)) continue;
       let x=n.x;
       let y=n.y;
       if(rpg.chancein(2)) x+=rpg.chancein(2)?+1:-1;
@@ -83,7 +84,7 @@ export class System{
   
   generatenode(){
     if(rpg.chancein(10)) return new Cpu(-1,-1,this);
-    if(rpg.chancein(4)) return new Interface(-1,-1,this);
+    if(rpg.chancein(3)) return new Interface(-1,-1,this);
     return new Datastore(-1,-1,this);
   }
   
@@ -98,7 +99,7 @@ export class System{
     for(let i=1;i<this.nodes.length;i++){
       if(i==entrancei) continue;
       let neighbors=this.nodes[i].getneighbors().length;
-      let corridor=neighbors>1&&rpg.chancein(6-neighbors);
+      let corridor=neighbors>2&&rpg.chancein(5-neighbors);
       if(corridor) continue;
       this.replacenode(this.generatenode(),i);
     }

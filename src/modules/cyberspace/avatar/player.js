@@ -4,6 +4,7 @@ import {hero as offline} from '../../character/character';
 import {rpg,CRITICALHIT,CRITICALMISS} from '../../rpg';
 import {sound} from '../../sound';
 import {Disconnect} from '../../../messages';
+import {deck} from '../../deck';
 
 export class Player extends Avatar{
   constructor(system){
@@ -13,6 +14,7 @@ export class Player extends Avatar{
     this.scanned=true;
     this.target=false; //current target (ICE)
     this.credentials=10+this.character.getforgery();
+    this.privilege=0;
     system.player=this;
   }
   
@@ -23,14 +25,14 @@ export class Player extends Avatar{
   roll(bonus,roll=false){
     if(!roll) roll=rpg.r(1,20);
     if(roll==1) return CRITICALMISS;
-    if(roll==20) return CRITICALMISS;
+    if(roll==20) return CRITICALHIT;
     if(this.system.alert){
       let concentration=rpg.r(1,20)+
         this.character.getconcentration();
       let penalty=2*this.system.alert-concentration/5;
       bonus-=Math.max(0,Math.round(penalty));
     }
-    //TODO light/heavy deck bonus
+    bonus+=this.privilege-deck.getload();
     return roll+bonus;
   }
   
@@ -65,9 +67,9 @@ export class Player extends Avatar{
   act(){throw "Players don't act programatically!";}
   
   query(dc,source){ //ICE queries player
+    if(this.credentials>=dc) return true;
     sound.play(sound.QUERY);
     console.print(source.name+' queries you...');
-    if(this.credentials>=dc) return true;
     let bluff=this.roll(this.character.getbluff());
     if(bluff<dc) return false;
     this.credentials=bluff;
