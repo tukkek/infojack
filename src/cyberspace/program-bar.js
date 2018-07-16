@@ -71,20 +71,15 @@ export class ProgramBar{
   }
   
   doload(program){
-    if(program.load(this.system)){
-      console.log(program.name+' loaded.');
-      sound.play(sound.LOAD);
-    }else sound.play(sound.ERROR);
+    sound.play(program.load(this.system)?
+      sound.LOAD:sound.ERROR);
     this.refresh();
     return load;
   }
   
   dounload(program){
     let unload=program.unload(this.system);
-    if(unload){
-      sound.play(sound.UNLOAD);
-      console.print(program.name+' unloaded.');
-    }
+    if(unload) sound.play(sound.UNLOAD);
     this.refresh();
     return unload;
   }

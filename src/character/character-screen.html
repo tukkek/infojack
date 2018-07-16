@@ -38,9 +38,10 @@
                 click.trigger='select($event)' id='character-programs'>
                 Programs</button>
             <div class='separator'></div>
-            <button
-                click.trigger='close($event)' id='character-close'>
-                Save</button>
+            <button id='character-close'
+              click.trigger='close($event)'
+              class='connect'>
+                Connect</button>
         </span>
         <span id='character-content'>
             <character-general if.bind='showgeneral' class='characterview'></character-general>

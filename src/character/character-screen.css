@@ -9,6 +9,10 @@
     width:100%;
     display:block;
 }
+#charactermenu button.connect{
+  border:.1em dotted yellow;
+  color:yellow;
+}
 .characterview{
     width:75%;
     right:0em;

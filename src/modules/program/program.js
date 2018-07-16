@@ -58,10 +58,9 @@ export class Program{
   boot(system){
     let p=system.player;
     let hack=p.roll(p.character.gethacking());
-    console.log(hack);
     if(hack>=this.hackingdc)
       return true;
-    console.print('You failed to load '+this.name);
+    console.print('You failed to load '+this.name+'...');
     return false;
   }
   
@@ -69,6 +68,7 @@ export class Program{
     if(!this.validate()) return false;
     system.player.ap+=this.apcost;
     if(!safe&&!this.boot(system)) return false;
+    console.print(this.name+' loaded.');
     deck.memoryused+=this.size;
     deck.loaded.push(this);
     return true;
@@ -77,6 +77,7 @@ export class Program{
   unload(system){
     let i=deck.loaded.indexOf(this);
     if(i<0) return false;
+    console.print(this.name+' unloaded.');
     system.player.ap+=this.apcost;
     deck.memoryused-=this.size;
     deck.loaded.splice(i,1);

@@ -152,12 +152,12 @@ export class System{
   
   connect(){
     active=this;
-    console.system=this;
-    this.raisealert(-1,true); //TODO once per day, not immediate
     this.player=new Player(this); //set by Player
+    deck.connect(this);
+    this.raisealert(-1,true); //TODO once per day, not immediate
+    console.system=this;
     this.player.connect();
     this.player.enter(this.entrance);
-    deck.connect(this);
     this.deployice();
     this.debug();
   }
