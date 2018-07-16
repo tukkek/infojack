@@ -7,11 +7,11 @@ export var SESSION=Number.MAX_SAFE_INTEGER;
 export var PROGRAMS=new Map();
 
 export class Program{
-  constructor(name,grade,image,hack,buy,code){
+  constructor(name,grade,image,size,hack,buy,code){
     this.hackingdc=hack;
     this.purchasedc=buy;
     this.programmingdc=code;
-    this.size=1; //MBs / blocks
+    this.size=size; //MBs / blocks
     this.apcost=.5;
     this.duration=0; //0=instantaneous SESSION=permanent
     this.basename=name;

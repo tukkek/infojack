@@ -14,4 +14,5 @@ export default {
   systemlevel:false, //override system level (1-20)
   view:false, //starting view name
   noice:false, //skip ICE generation
+  wealth:false, //overrides starting wealth
 };

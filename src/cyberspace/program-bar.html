@@ -14,6 +14,8 @@
             ${p.name}</td>
           <td show.bind='!collapsed' class='description'>
             ${p.describe()}.</td>
+          <td show.bind='!collapsed' class='size'>
+            ${p.size} block(s)</td>
           <td show.bind='!collapsed' class='actions'>
             <button show.bind=
               '!isloaded(p) &signal:"update-program-bar"'

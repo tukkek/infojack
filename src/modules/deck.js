@@ -1,6 +1,6 @@
 import {hero,sign} from './character/character'
-import '../modules/program/armor';
-import '../modules/program/blaster';
+import {grades as armor} from './program/armor';
+import {grades as blaster} from './program/blaster';
 
 var OK='';
 var MEMORYUPGRADE=[+10,+5,+5,+5];
@@ -90,6 +90,18 @@ class Deck{
     if(load>=.5) return 1;
     return 0;
   }
+  
+  connect(system){ //refresh effects for loaded programs
+    let loaded=this.loaded;
+    this.loaded=[];
+    for(let program of loaded){
+      program.load(system);
+    }
+  }
 }
 
 export var deck=new Deck();
+for(let program of [armor[0],blaster[0]]){
+  program.buy();
+  deck.loaded.push(program);
+}

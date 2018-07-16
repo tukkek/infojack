@@ -5,8 +5,7 @@ import {sound} from '../sound';
 
 class Blaster extends Program{
   constructor(grade){
-    super('Blaster',grade,'blaster.png',5,10,20);
-    this.size=2;
+    super('Blaster',grade,'blaster.png',2,5,10,20);
     this.duration=10;
     this.bonus=grade-1;
   }
@@ -31,4 +30,7 @@ class Blaster extends Program{
   }
 }
 
-for(let grade=1;grade<=11;grade++) new Blaster(grade);
+export var grades=[];
+
+for(let grade=1;grade<=11;grade++)
+  grades.push(new Blaster(grade));

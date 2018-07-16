@@ -8,12 +8,15 @@ import {ShowView} from '../messages';
 import environment from '../environment';
 import {hero} from '../modules/character/character';
 import {Disconnect,Refresh} from '../messages';
+import {deck} from '../modules/deck';
 
 var TILESIZE=2.5;
 var SPACING=1.1;
 var FADETIME=2000;
+var MINIMUMWAIT=environment.debug?0:1000/2;
 
 var current=false;
+var lastclick=0;
 
 @inject(EventAggregator)
 export class Cyberspace{
@@ -31,9 +34,7 @@ export class Cyberspace{
     //TODO clean previous run
     this.showconsole=true;
     this.map=document.querySelector('#cyberspace');
-    //this.map.innerHTML='';
     this.console=document.querySelector('#console');
-    //this.console.innerHTML='';
     this.system=
       new System(environment.systemlevel||hero.level);
     setactive(this.system);
@@ -41,9 +42,13 @@ export class Cyberspace{
     this.tiles=[];
     this.drawn=[];
     this.draw();
+    deck.connect(this.system);
   }
   
   clicktile(tile){
+    let now=new Date().getTime();
+    if(lastclick+MINIMUMWAIT>now) return;
+    lastclick=now;
     if(tile.tagName=='IMG') tile=tile.parentNode;
     let node=this.system.nodes[tile.nodeid];
     if(node==this.player.node){

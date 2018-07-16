@@ -38,6 +38,7 @@ export class Character{
     this.pointbuy=ABILITYPOINTS;
     this.pointextra=0;
     this.wealth=5; //average of 2d4 to prevent scumming
+    if(environment.wealth) this.wealth=environment.wealth;
     this.classskills=[];
     this.classes={};//holds levels
     this.level=0;
@@ -340,12 +341,5 @@ export function sign(n){return n>=0?'+'+n:n;}
 export var hero=new Character('Player1');
 hero.setoccupation(occupations.adventurer);
 hero.levelup(); //becomes level 1
-
-//TODO actually buy and verify success once they're ready
-console.log('Initial wealth: '+hero.wealth);
-console.log('Purchase deck: '+hero.price(10));
-console.log('Purchase flicker: '+hero.price(14));
-console.log('Purchase blade: '+hero.price(9));
-console.log('Purchase cloak: '+hero.price(9));
-hero.buy(10);hero.buy(9);hero.buy(9);hero.buy(14);
-console.log('Final wealth: '+hero.wealth);
+hero.buy(10);//basic deck
+//TODO ideal program list: flicker,blade,cloak
