@@ -1,6 +1,7 @@
 import {Avatar} from './avatar';
 import {Disconnect} from '../../../messages';
 
+//TODO at some point could link to new system
 export class Gateway extends Avatar{
   constructor(system){
     super(system);
