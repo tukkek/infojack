@@ -15,7 +15,6 @@ export class Player extends Avatar{
     this.target=false; //current target (ICE)
     this.credentials=10+this.character.getforgery();
     this.privilege=0;
-    system.player=this;
   }
   
   create(characterclass,level){
@@ -95,4 +94,12 @@ export class Player extends Avatar{
     return this.roll(this.character.getstealth())>=
       10+spotter.character.getperceive();
   }
+  
+  connect(){
+    this.system.setactive();
+    console.system=this.system;
+    deck.connect(this.system);
+  }
+  
+  disconnect(){deck.disconnect();}
 }

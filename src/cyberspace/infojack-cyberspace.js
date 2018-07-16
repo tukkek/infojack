@@ -1,5 +1,4 @@
-import {System,setactive} from '../modules/cyberspace/system';
-import {Player} from '../modules/cyberspace/avatar/player';
+import {System} from '../modules/cyberspace/system';
 import {console} from '../modules/cyberspace/console';
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
@@ -8,7 +7,6 @@ import {ShowView} from '../messages';
 import environment from '../environment';
 import {hero} from '../modules/character/character';
 import {Disconnect,Refresh} from '../messages';
-import {deck} from '../modules/deck';
 
 var TILESIZE=2.5;
 var SPACING=1.1;
@@ -37,12 +35,11 @@ export class Cyberspace{
     this.console=document.querySelector('#console');
     this.system=
       new System(environment.systemlevel||hero.level);
-    setactive(this.system);
-    this.player=new Player(this.system);
+    this.player=this.system.player;
+    this.system.player.connect();
     this.tiles=[];
     this.drawn=[];
     this.draw();
-    deck.connect(this.system);
   }
   
   clicktile(tile){
@@ -116,7 +113,6 @@ export class Cyberspace{
     console.system=this.system;
     this.placenode(this.system.entrance,true);
     this.player.enter(this.system.entrance);
-    //this.refresh();
     this.scroll();
   }
   
@@ -187,7 +183,7 @@ export class Cyberspace{
     this.showconsole=false;
     this.map.innerHTML='';
     this.console.innerHTML='';
-    deck.disconnect();
+    this.system.player.disconnect();
     this.messaging.publish(new ShowView('CharacterScreen'));
     if(e.win) this.messaging.publish(new ShowView('Win'));
   }

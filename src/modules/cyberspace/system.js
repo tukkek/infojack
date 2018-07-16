@@ -8,6 +8,8 @@ import environment from '../../environment';
 import {Scout} from './avatar/ice/scout';
 import {console} from './console';
 import {sound} from '../sound';
+import {deck} from '../deck';
+import {Player} from './avatar/player';
 
 var active=false;
 
@@ -26,7 +28,7 @@ export class System{
     this.definenodes();
     for(let n of this.nodes) n.generate();
     this.generateice();
-    this.player=false; //set by Player
+    this.player=new Player(this); //set by Player
     this.debug();
   }
   
@@ -144,7 +146,8 @@ export class System{
     next.act();
     return true;
   }
+  
+  setactive(){active=this;}
 }
 
-export function setactive(s){active=s;}
 export function getactive(){return active;}
