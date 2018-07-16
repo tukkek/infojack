@@ -157,6 +157,7 @@ export class System{
     this.raisealert(-1,true); //TODO once per day, not immediate
     this.player=new Player(this); //set by Player
     this.player.connect();
+    this.player.enter(this.entrance);
     deck.connect(this);
     this.deployice();
     this.debug();
@@ -165,6 +166,7 @@ export class System{
   disconnect(e){
     console.system=false;
     this.disconnected=false;
+    this.revealed=false;
     this.player.disconnect(e)
     for(let ice of this.reentry) this.ice.push(ice);
     this.reentry=[];

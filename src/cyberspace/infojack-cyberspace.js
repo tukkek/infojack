@@ -109,8 +109,8 @@ export class Cyberspace{
 
   draw(){
     console.system=this.system;
-    this.placenode(this.system.entrance,true);
-    this.player.enter(this.system.entrance);
+    for(let n of this.system.nodes) if(n.visited)
+      this.placenode(n,true);
     this.scroll();
   }
   
@@ -165,6 +165,7 @@ export class Cyberspace{
     if(!node.visited) return;
     if(!t.style.border) t.classList.add('visited');
     let avatar=node.getavatar(t.nodex,t.nodey);
+    if(avatar&&!avatar.show()) avatar=false;
     if(t.image&&(!avatar||
       avatar!=t.avatar||t.scanned!=avatar.scanned)) 
         this.removeimage(t);

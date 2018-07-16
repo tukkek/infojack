@@ -134,4 +134,6 @@ export class Avatar{
     this.node.hidden.push(this);
     this.leave(this.node);
   }
+  
+  show(){return true;}
 }

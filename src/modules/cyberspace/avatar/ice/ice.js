@@ -55,4 +55,14 @@ export class Ice extends Avatar{
     super.reset();
     this.leave(this.node);
   }
+  
+  show(){ //TODO with this can make stealh 'hunter' ice
+    if(this.system.revealed) return true;
+    let p=this.system.player;
+    if(this.node!=p.node) return false;
+    if(this.scanned) return true;
+    let spot=p.roll(p.character.getperceive(),10);
+    let hide=10+this.character.getstealth();
+    return spot>=hide;
+  }
 }
