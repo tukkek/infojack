@@ -127,4 +127,11 @@ export class Avatar{
       return die;
     throw 'Unknown damage level';
   }
+  
+  reset(){this.character.hp=this.character.maxhp;}
+  
+  hide(){
+    this.node.hidden.push(this);
+    this.leave(this.node);
+  }
 }

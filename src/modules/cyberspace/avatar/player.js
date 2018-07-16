@@ -37,9 +37,8 @@ export class Player extends Avatar{
   
   enter(node){
     let first=!this.node;
-    if(first) console.print('You enter the system...');
     if(!super.enter(node)) return false;
-    sound.play(first?sound.CONNECT:sound.MOVE);
+    if(!first) sound.play(sound.MOVE);
     node.visited=true;
     this.node.scan(
       this.roll(this.character.getperceive(),10));
@@ -87,7 +86,11 @@ export class Player extends Avatar{
   
   die(){
     sound.play(sound.DISCONNECTED);
-    throw new Disconnect();
+    this.system.raisealert(+2,true);
+    //TODO transfer extra damage
+    let d=new Disconnect('You have been disconnected!');
+    d.safe=true;
+    throw d;
   }
   
   hide(spotter){
@@ -95,11 +98,28 @@ export class Player extends Avatar{
       10+spotter.character.getperceive();
   }
   
-  connect(){
-    this.system.setactive();
-    console.system=this.system;
-    deck.connect(this.system);
+  login(){ //or logout
+    let login=this.roll(this.character.gethacking());
+    if(this.credentials>login) login=this.credentials;
+    if(login>=10+this.system.level) return true;
+    this.system.raisealert(+1);
+    return false;
   }
   
-  disconnect(){deck.disconnect();}
+  connect(){
+    sound.play(sound.CONNECT);
+    console.print('You enter the system...');
+    if(!this.login())
+      console.print('Your unauthorized login is detected!');
+  }
+  
+  disconnect(e){
+    this.leave(this.node);
+    let quit;
+    let logout=e.safe||this.login();
+    if(e.message) quit=e.message;
+    else if(logout) quit='You logout safely.';
+    else quit='Your non-gateway logout is detected!';
+    alert(quit);
+  }
 }

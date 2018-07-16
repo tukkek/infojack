@@ -7,9 +7,9 @@ import environment from './environment';
 
 @inject(EventAggregator)
 export class MainMenu {
-    constructor(messaging) {
+    constructor(EventAggregator) {
         this.show=true;
-        this.messaging=messaging;
+        this.messaging=EventAggregator;
         this.hassave=save.checkload()!=false;
         if(environment.view){
           let me=this;

@@ -1,4 +1,4 @@
-import {System} from '../modules/cyberspace/system';
+import {System,connect} from '../modules/cyberspace/system';
 import {console} from '../modules/cyberspace/console';
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
@@ -33,10 +33,8 @@ export class Cyberspace{
     this.showconsole=true;
     this.map=document.querySelector('#cyberspace');
     this.console=document.querySelector('#console');
-    this.system=
-      new System(environment.systemlevel||hero.level);
+    this.system=connect();
     this.player=this.system.player;
-    this.system.player.connect();
     this.tiles=[];
     this.drawn=[];
     this.draw();
@@ -54,7 +52,7 @@ export class Cyberspace{
         if(avatar&&avatar.scanned) avatar.click();
         else this.player.wait();
       }catch(e){
-        if(!this.disconnect(e)) throw e;
+        this.disconnect(e);
         return;
       }
     }else if(this.player.enter(node)) 
@@ -177,13 +175,12 @@ export class Cyberspace{
   }
   
   disconnect(e){
-    if(!(e instanceof Disconnect)) return;
+    if(!(e instanceof Disconnect)) throw e;
     this.refresh(false);
-    alert(e.message);
+    this.system.disconnect(e);
     this.showconsole=false;
     this.map.innerHTML='';
     this.console.innerHTML='';
-    this.system.player.disconnect();
     this.messaging.publish(new ShowView('CharacterScreen'));
     if(e.win) this.messaging.publish(new ShowView('Win'));
   }

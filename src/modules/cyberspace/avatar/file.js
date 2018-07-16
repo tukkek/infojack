@@ -11,7 +11,7 @@ var NOTDOWNLOADING=-1;
 export class File extends Avatar{
   constructor(system){
     super(system);
-    this.setname('Data');
+    this.setname('Unscanned data');
     this.setimage('nodes/fileunscanned.png');
     this.purchasedc=system.level+rpg.randomize(4);
     this.worthless=

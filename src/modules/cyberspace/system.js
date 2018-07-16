@@ -10,6 +10,7 @@ import {console} from './console';
 import {sound} from '../sound';
 import {deck} from '../deck';
 import {Player} from './avatar/player';
+import {hero as offlinehero} from '../character/character';
 
 var active=false;
 
@@ -24,12 +25,11 @@ export class System{
     this.ice=[];
     this.reentry=[];
     this.entrance=null;
+    this.disconnected=false; //throw this if set
     this.generatemap();
     this.definenodes();
     for(let n of this.nodes) n.generate();
     this.generateice();
-    this.player=new Player(this); //set by Player
-    this.debug();
   }
   
   debug(){
@@ -112,33 +112,32 @@ export class System{
     for(let n of this.nodes) n.visited=true;
   }
   
-  raisealert(raise=+1){
+  raisealert(raise=+1,silent=false){
     let previous=this.alert;
     this.alert+=raise;
     if(this.alert>2) this.alert=2;
-    else if (this.alert<0) this.alert=0;
-    if(this.alert==previous) return;
+    else if(this.alert<0) this.alert=0;
+    if(this.alert==2) this.player.credentials=-20;
+    if(silent||this.alert==previous) return;
+    let cancelling=this.alert<previous;
+    if(cancelling) sound.play(sound.ALERTCANCEL);
     if(this.alert==0)
       console.print('The alert is cleared.');
     else if(this.alert==1){
       console.print('The system is now in yellow alert...');
-      if(this.alert>previous) sound.play(sound.ALERTYELLOW);
+      if(!cancelling) sound.play(sound.ALERTYELLOW);
     }else{
       console.print('The system is now in red alert!');
-      this.player.credentials=-1;
-      if(this.alert>previous) sound.play(sound.ALERTRED);
+      if(!cancelling) sound.play(sound.ALERTRED);
     }
-    if(this.alert<previous) sound.play(sound.ALERTCANCEL);
   }
   
-  generateice(){
-    if(environment.noice) return;
-    let s=new Scout(this);
-    this.ice.push(s);
-    s.enter(this.nodes[0]);
+  generateice(){//TODO
+    this.ice.push(new Scout(this));
   }
   
   act(){ //return false when it's the player's turn
+    if(this.disconnected) throw this.disconnected;
     let next=this.player;
     for(let n of this.nodes) for(let a of n.avatars)
       if(a.ap<next.ap) next=a;
@@ -147,7 +146,41 @@ export class System{
     return true;
   }
   
-  setactive(){active=this;}
+  deployice(){//TODO
+    if(environment.noice) return;
+    for(let i of this.ice) i.enter(this.nodes[0]);
+  }
+  
+  connect(){
+    active=this;
+    console.system=this;
+    this.raisealert(-1,true); //TODO once per day, not immediate
+    this.player=new Player(this); //set by Player
+    this.player.connect();
+    deck.connect(this);
+    this.deployice();
+    this.debug();
+  }
+  
+  disconnect(e){
+    console.system=false;
+    this.disconnected=false;
+    this.player.disconnect(e)
+    for(let ice of this.reentry) this.ice.push(ice);
+    this.reentry=[];
+    for(let n of this.nodes) n.reset();
+    deck.disconnect();
+  }
 }
 
 export function getactive(){return active;}
+export function setactive(s){active=s;}
+
+export function connect(){
+  if(!active){
+    let level=environment.systemlevel||offlinehero.level;
+    active=new System(level);
+  }
+  active.connect();
+  return active;
+}

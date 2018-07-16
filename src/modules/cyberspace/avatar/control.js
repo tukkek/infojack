@@ -35,7 +35,7 @@ export class Control extends Avatar{
         p.privilege+'...';
       console.print(result);
     }
-    this.leave(this.node);
+    this.hide();
   }
   
   click(){

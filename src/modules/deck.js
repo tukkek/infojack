@@ -1,6 +1,7 @@
 import {hero,sign} from './character/character'
 import {grades as armor} from './program/armor';
 import {grades as blaster} from './program/blaster';
+import {eject} from './program/eject';
 
 var OK='';
 var MEMORYUPGRADE=[+10,+5,+5,+5];
@@ -100,17 +101,17 @@ class Deck{
     }
   }
   
-  getfreestorage(){return this.storage-this.storageused;}
-  
   disconnect(){
-    this.memoryused-=this.memorytemporary;
+    this.memoryused=0;
     this.memorytemporary=0;
     this.storageused=0;
   }
+  
+  getfreestorage(){return this.storage-this.storageused;}
 }
 
 export var deck=new Deck();
-for(let program of [armor[0],blaster[0]]){
-  program.buy();
+for(let program of [armor[0],blaster[0],eject]){
+  if(!program.buy()) alert('Cannot buy '+program.name);
   deck.loaded.push(program);
 }

@@ -50,4 +50,9 @@ export class Ice extends Avatar{
     super.die();
     this.system.reentry.push(this);
   }
+  
+  reset(){
+    super.reset();
+    this.leave(this.node);
+  }
 }

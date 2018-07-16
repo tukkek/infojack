@@ -3,6 +3,7 @@ import {rpg} from '../../../rpg';
 import {console} from '../../console';
 import {sound} from '../../../sound';
 import {Disconnect} from '../../../../messages';
+import {setactive as setactivesystem} from '../../system';
 
 export class Terminal extends SecureAvatar{
   create(characterclass,occupation,level){
@@ -18,8 +19,11 @@ export class Terminal extends SecureAvatar{
   click(){
     if(!super.click()) return false;
     sound.play(sound.CRASH);
-    let d=new Disconnect(true);
-    d.message='You have crashed the mainframe!';
+    this.system.raisealert(+2,true);
+    setactivesystem(false); //TODO used for alpha progression
+    let d=new Disconnect('You have crashed the mainframe!');
+    d.win=true;
+    d.safe=true;
     throw d;
   }
 }

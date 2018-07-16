@@ -20,6 +20,7 @@ class Sound{
     this.LOAD='Misc2.wav';
     this.MOVE='Move.wav';
     this.SCAN='Ping.wav';
+    this.SUCCESS='Deceive.wav';
     this.QUERY='ICELeave.wav';
     this.UNLOAD='Misc5.wav';
   }

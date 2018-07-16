@@ -18,6 +18,7 @@ export class Node{
     this.priority=0;
     this.system=system;
     this.avatars=[];
+    this.hidden=[];
     this.visited=false;
   }
   
@@ -96,5 +97,11 @@ export class Node{
         a.scan();
         a.scanned=true;
       }
+  }
+  
+  reset(){
+    for(let a of this.hidden) a.enter(this);
+    this.hidden=[];
+    for(let a of this.avatars.slice()) a.reset();
   }
 }

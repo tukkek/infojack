@@ -14,7 +14,7 @@ export class Entry extends SecureAvatar{
     if(!super.click()) return false;
     console.print('You disable the ICE re-entry point!');
     sound.play(sound.DISABLE);
-    this.leave(this.node);
+    this.hide();
   }
   
   act(){
