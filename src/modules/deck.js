@@ -1,4 +1,7 @@
 import {hero,sign} from './character/character'
+import {console} from './cyberspace/console'
+import {sound} from './sound'
+import {SESSION} from './program/program';
 import {grades as armor} from './program/armor';
 import {grades as blaster} from './program/blaster';
 import {eject} from './program/eject';
@@ -97,7 +100,7 @@ class Deck{
     let loaded=this.loaded;
     this.loaded=[];
     for(let program of loaded){
-      program.load(system);
+      program.load(system,true);
     }
   }
   
@@ -108,6 +111,24 @@ class Deck{
   }
   
   getfreestorage(){return this.storage-this.storageused;}
+  
+  act(roll,system){ //called once per turn
+    for(let program of deck.loaded.slice())
+      if(program.duration!=SESSION){
+        program.duration-=1;
+        if(program.duration>0) continue;
+        sound.play(sound.UNLOAD);
+        console.print(program.name+' expired...');
+        program.unload(system);
+      }
+    for(let program of deck.loaded.slice())
+      if(roll<program.hackingdc){
+        sound.play(sound.UNLOAD);
+        console.print('You failed to keep '+program.name+
+          ' running...');
+        program.unload(system);
+      }
+  }
 }
 
 export var deck=new Deck();

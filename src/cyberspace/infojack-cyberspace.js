@@ -32,7 +32,8 @@ export class Cyberspace{
     //TODO clean previous run
     this.showconsole=true;
     this.map=document.querySelector('#cyberspace');
-    this.console=document.querySelector('#console');
+    this.console=
+      document.querySelector('#console-constraint');
     this.system=connect();
     this.player=this.system.player;
     this.tiles=[];
@@ -112,6 +113,7 @@ export class Cyberspace{
     for(let n of this.system.nodes) if(n.visited)
       this.placenode(n,true);
     this.scroll();
+    this.refresh();
   }
   
   scroll(){
@@ -149,10 +151,10 @@ export class Cyberspace{
       else if(m.alert==1) color='yellow';
       else if(m.alert==2) color='red';
       else throw 'Unknown alert level';
-      let div=document.createElement('div');
-      div.style.color=color;
-      div.appendChild(document.createTextNode(m.text));
-      this.console.appendChild(div);
+      let message=document.createElement('span');
+      message.style.color=color;
+      message.appendChild(document.createTextNode(m.text));
+      this.console.appendChild(message);
     }
     this.console.scrollTop=this.console.scrollHeight;
   }

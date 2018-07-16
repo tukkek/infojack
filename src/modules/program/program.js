@@ -16,7 +16,7 @@ export class Program{
     this.programmingdc=code;
     this.size=size; //MBs / blocks
     this.apcost=.5;
-    this.duration=0; //0=instantaneous SESSION=permanent
+    this.duration=SESSION; //0=instantaneous
     this.basename=name;
     this.name=name;
     this.image='../../images/software/'+image;
@@ -39,7 +39,7 @@ export class Program{
   
   conflict(program){return this.basename==program.basename;}
   
-  load(system){
+  validate(){
     for(let program of deck.loaded) 
       if(this.conflict(program)){
         console.print(
@@ -52,15 +52,32 @@ export class Program{
         'This program requires '+this.size+' free blocks.');
       return false;
     }
+    return true;
+  }
+
+  boot(system){
+    let p=system.player;
+    let hack=p.roll(p.character.gethacking());
+    console.log(hack);
+    if(hack>=this.hackingdc)
+      return true;
+    console.print('You failed to load '+this.name);
+    return false;
+  }
+  
+  load(system,safe=false){
+    if(!this.validate()) return false;
+    system.player.ap+=this.apcost;
+    if(!safe&&!this.boot(system)) return false;
     deck.memoryused+=this.size;
     deck.loaded.push(this);
-    system.player.ap+=this.apcost;
     return true;
   }
   
   unload(system){
     let i=deck.loaded.indexOf(this);
     if(i<0) return false;
+    system.player.ap+=this.apcost;
     deck.memoryused-=this.size;
     deck.loaded.splice(i,1);
     return true;

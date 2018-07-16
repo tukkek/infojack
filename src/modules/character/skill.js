@@ -3,11 +3,13 @@
 Cross skills are actually implemented on character-abilities.html but disabled.*/
 
 class Skill{
-    constructor(name,ability,description){
-        this.name=name;
-        this.ability=ability; //used only as a label
-        this.description=description;
-    }
+  constructor(name,ability,description,pending=false){
+    this.name=name;
+    this.ability=ability; //used only as a label
+    this.description=description;
+    this.pending=pending;
+    if(pending) console.log('Pending: '+this.name); //TODO
+  }
 }
 
 export var skills=new Map();
@@ -16,25 +18,25 @@ for (let skill of [
     new Skill('Bluff','Charisma',
         "Convince ICE you're not an intruder"),
     new Skill('Concentration','Constitution',
-        "Focus your mind while in danger"),
+        "Ignore system alert penalties"),
     new Skill('Decryption','Intelligence',
         "Break into protected data"),
     new Skill('Electronics','Intelligence',
-        "Build and install hardware"),
+        "Install hardware"),
     new Skill('Forgery','Intelligence',
         "Forge authentication credentials"),
     new Skill('Hacking','Intelligence',
         "Act on the Web"),
     new Skill('Information','Charisma',
-        "Find more shopping items and missions"),
+        "Find more shopping items and missions",true),
     new Skill('Medicine','Wisdom',
-        "Treat your injuries"),
+        "Treat your injuries",true),
     new Skill('Perceive','Wisdom',
         "Passive node scanning."),
     new Skill('Profession','Wisdom',
         "Earn more money per contract"),
     new Skill('Research','Intelligence',
-        "Do perimeter checks on Frames"),
+        "Do perimeter checks on Frames",true),
     new Skill('Search','Intelligence',
         "Active node scanning."),
     new Skill('Stealth','Dexterity',

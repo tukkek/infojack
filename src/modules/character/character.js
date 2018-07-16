@@ -135,9 +135,11 @@ export class Character{
   addfeat(f){this.feats.push(f);}
   
   getskill(ranks,ability,feat,featbonus){
-      if(feat&&this.hasfeat(feat)) ranks+=featbonus;
-      ranks=ranks+this.getmodifier(ability);
-      return ranks;
+    if(environment.debug&&ranks===undefined)
+      throw 'Unkwnown skill!';
+    if(feat&&this.hasfeat(feat)) ranks+=featbonus;
+    ranks=ranks+this.getmodifier(ability);
+    return ranks;
   }
   
   getbluff(){
@@ -322,7 +324,7 @@ export class Character{
   
   learnfeat(name){
     let feat=feats.get(name.toLowerCase());
-    if(!feat) throw 'Unkwnon feat: '+name;
+    if(!feat) throw 'Unkwnown feat: '+name;
     if(this.newfeats==0) return false;
     if(!feat.validate(this)) throw 'Invalid feat: '+name;
     this.addfeat(feat);

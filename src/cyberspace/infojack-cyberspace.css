@@ -2,18 +2,21 @@
   position:absolute;
   width:100%;
   background:black;
-  height:20%;
+  height:15%;
   border-bottom:1px solid gray;
-  overflow:auto;
+  overflow-y:auto;
 }
-#console div{
-  padding:.25em;
+#console #console-constraint{width:95%;}
+#console span{
+  margin-top:.25em;
+  margin-right:.5em;
+  display:inline-block;
 }
 #cyberspace-lower{
   position:absolute;
-  top:20%;
+  top:15%;
+  height:85%;
   width:100%;
-  height:80%;
 }
 #cyberspace-container{
   top:2%;

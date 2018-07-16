@@ -6,6 +6,8 @@ import {sound} from '../../sound';
 import {Disconnect} from '../../../messages';
 import {deck} from '../../deck';
 
+var lastact=-9000;
+
 export class Player extends Avatar{
   constructor(system){
     super(system);
@@ -62,7 +64,14 @@ export class Player extends Avatar{
     console.print(status);
   }
   
-  act(){throw "Players don't act programatically!";}
+  act(){
+    if(this.ap<lastact+1) return;
+    lastact=this.ap;
+    let hacking=Math.max(
+      this.roll(this.character.gethacking()),
+      this.roll(this.character.gethacking(),10));
+    deck.act(hacking,this.system);
+  }
   
   query(dc,source){ //ICE queries player
     if(this.credentials>=dc) return true;

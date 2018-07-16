@@ -141,9 +141,8 @@ export class System{
     let next=this.player;
     for(let n of this.nodes) for(let a of n.avatars)
       if(a.ap<next.ap) next=a;
-    if(next==this.player) return false;
     next.act();
-    return true;
+    return next!=this.player;
   }
   
   deployice(){//TODO

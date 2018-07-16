@@ -13,15 +13,18 @@ export class ProgramBar{
   constructor(BindingSignaler,EventAggregator) {
     this.signals=BindingSignaler;
     this.messaging=EventAggregator;
-    this.collapsed=true;
-    deck.sort();
     let me=this;
     this.messaging.subscribe(Refresh,function(r){
-      if(r.target=='ProgramBar') me.refreshdetails();
+      if(r.target!='ProgramBar') return;
+      me.refresh(false);
     });
   }
   
-  attached(){this.refresh();}
+  attached(){
+    this.collapsed=true;
+    deck.sort();
+    this.refresh(false);
+  }
   
   gethpcolor(hp){
     let green=[124,252,0];
@@ -49,12 +52,12 @@ export class ProgramBar{
     this.freestorage=deck.storage-deck.storageused;
   }
   
-  refresh(){
+  refresh(turn=true){
     this.programs=deck.programs.slice();
     this.system=getsystem();
     this.refreshdetails();
-    refreshcyberspace();
     this.signals.signal('update-program-bar');
+    if(turn) refreshcyberspace();
   }
   
   toggle(){this.collapsed=!this.collapsed;}
@@ -68,15 +71,20 @@ export class ProgramBar{
   }
   
   doload(program){
-    let load=program.load(this.system);
-    if(load) sound.play(sound.LOAD);
+    if(program.load(this.system)){
+      console.log(program.name+' loaded.');
+      sound.play(sound.LOAD);
+    }else sound.play(sound.ERROR);
     this.refresh();
     return load;
   }
   
   dounload(program){
     let unload=program.unload(this.system);
-    if(unload) sound.play(sound.UNLOAD);
+    if(unload){
+      sound.play(sound.UNLOAD);
+      console.print(program.name+' unloaded.');
+    }
     this.refresh();
     return unload;
   }
