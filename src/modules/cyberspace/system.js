@@ -32,8 +32,8 @@ export class System{
   
   debug(){
     if(environment.revealmap) this.reveal();
-    if(environment.scannodes)
-      for(let n of this.nodes) for(let a of n.avatars){
+    if(environment.scannodes) for(let n of this.nodes)
+      for(let a of n.avatars.slice()){
         a.scan();
         a.scanned=true;
       }

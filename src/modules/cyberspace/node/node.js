@@ -81,7 +81,7 @@ export class Node{
   }
   
   scan(roll){
-    for(let a of this.avatars)
+    for(let a of this.avatars.slice())
       if(!a.scanned&&roll>=a.scandc){
         a.scan();
         a.scanned=true;

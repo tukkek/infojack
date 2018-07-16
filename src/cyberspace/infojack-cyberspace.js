@@ -13,7 +13,7 @@ import {deck} from '../modules/deck';
 var TILESIZE=2.5;
 var SPACING=1.1;
 var FADETIME=2000;
-var MINIMUMWAIT=environment.debug?0:1000/2;
+var MINIMUMWAIT=environment.debug?0:1000/2; //once there's realtime, this isn't necessary - can just check if AP<=0 to let a click on the map go through
 
 var current=false;
 var lastclick=0;
@@ -186,6 +186,7 @@ export class Cyberspace{
     this.showconsole=false;
     this.map.innerHTML='';
     this.console.innerHTML='';
+    deck.disconnect();
     this.messaging.publish(new ShowView('CharacterScreen'));
     if(e.win) this.messaging.publish(new ShowView('Win'));
   }

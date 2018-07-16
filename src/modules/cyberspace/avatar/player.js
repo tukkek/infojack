@@ -46,6 +46,7 @@ export class Player extends Avatar{
   }
   
   wait(){
+    sound.play(sound.SCAN);
     console.print('You scan the node...');
     this.ap+=.5;
     this.node.scan(this.roll(this.character.getsearch()));

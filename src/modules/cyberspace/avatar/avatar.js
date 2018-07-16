@@ -3,6 +3,7 @@ import {console} from '../console';
 import {Character} from '../../character/character';
 import {webcrawler} from '../../character/class/webcrawler';
 import {occupations} from '../../character/occupation';
+import {sound} from '../../sound';
 
 export class Avatar{
   constructor(system){
@@ -94,18 +95,32 @@ export class Avatar{
     return true;
   }
   
-  hack(authenticate=false){
+  hack(authenticate=false,hacking=false){
     let p=this.system.player;
     p.ap+=1;
     let c=p.character;
-    let hacking=p.roll(c.gethacking());
+    if(!hacking) hacking=p.roll(c.gethacking());
     let hackingdc=this.character.getdefence();
     if((!authenticate||this.authenticate(hacking))&&
       hacking<hackingdc) return true;
     let name=this.name.toLowerCase();
+    sound.play(sound.ERROR);
     console.print('You fail to hack: '+name+'...');
     return false;
   }
   
   leave(node){node.remove(this);}
+  
+  getserial(){
+    let serial=Number(rpg.r(0,9999)).toString();
+    while(serial.length<4) serial='0'+serial;
+    return serial;
+  }
+  
+  getscale(){ //a die size scaled to this level (d4 to d20)
+    let level=Math.min(20,this.character.level);
+    for(let die of [4,6,8,10,12,20]) if(level<=die)
+      return die;
+    throw 'Unknown damage level';
+  }
 }

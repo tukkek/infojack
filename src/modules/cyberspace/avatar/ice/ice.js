@@ -27,9 +27,7 @@ export class Ice extends Avatar{
   }
   
   scan(){
-    let serial=Number(rpg.r(0,9999)).toString();
-    while(serial.length<4) serial='0'+serial;
-    this.setname(this.constructor.name+' '+serial);
+    this.setname(this.constructor.name+' '+this.getserial());
     this.setimage(this.revealed);
   }
   
@@ -46,12 +44,7 @@ export class Ice extends Avatar{
     return true;
   }
   
-  getdamage(){
-    let level=Math.min(20,this.character.level);
-    for(let die of [4,6,8,10,12,20]) if(level<=die)
-      return rpg.r(1,die);
-    throw 'Unknown damage level';
-  }
+  getdamage(){return rpg.r(1,this.getscale());}
   
   die(){
     super.die();

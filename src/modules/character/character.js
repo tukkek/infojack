@@ -265,9 +265,8 @@ export class Character{
     return true;
   }
   
-  /*-3 for selling, -3 for illegal*/
-  sell(purchasedc){
-    let price=this.price(purchasedc-6);
+  sell(purchasedc){ /*-3 for selling, -3 for illegal*/
+    let price=this.price(purchasedc-3-3);
     this.wealth+=price;
     return price;
   }

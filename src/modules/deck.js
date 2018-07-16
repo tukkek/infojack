@@ -8,15 +8,15 @@ var MEMORYUPGRADE=[+10,+5,+5,+5];
 class Deck{
   constructor(){
     this.memory=10;
+    this.memoryused=0;
     this.storage=20;
+    this.storageused=0;
     this.deckgrade=1;
     this.memorygrade=0;
     this.storagegrade=0;
     this.stealthgrade=0;
     this.loaded=[];
     this.programs=[];
-    this.memoryused=0;
-    this.storageused=0;
   }
   
   upgrade(checkgrade,currentgrade,purchasedc,installdc,
@@ -98,6 +98,10 @@ class Deck{
       program.load(system);
     }
   }
+  
+  getfreestorage(){return this.storage-this.storageused;}
+  
+  disconnect(){this.storageused=0;}
 }
 
 export var deck=new Deck();
