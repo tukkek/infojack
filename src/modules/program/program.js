@@ -6,9 +6,7 @@ import {hero} from '../character/character';
 export var SESSION=Number.MAX_SAFE_INTEGER;
 export var PROGRAMS=new Map();
 
-/* For design parameters:
- * https://github.com/tukkek/infojack/wiki/Program-parameters-reference
- */
+//For design parameters: https://github.com/tukkek/infojack/wiki/Program-parameters-reference
 export class Program{
   constructor(name,grade,image,size,hack,buy,code){
     this.hackingdc=hack;

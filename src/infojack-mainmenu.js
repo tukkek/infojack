@@ -4,6 +4,7 @@ import {sound} from './modules/sound';
 import {save} from './modules/save';
 import {ShowView} from './messages';
 import environment from './environment';
+import './modules/world/names';
 
 @inject(EventAggregator)
 export class MainMenu {

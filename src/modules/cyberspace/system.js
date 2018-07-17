@@ -11,6 +11,7 @@ import {sound} from '../sound';
 import {deck} from '../deck';
 import {Player} from './avatar/player';
 import {hero as offlinehero} from '../character/character';
+import {name} from '../world/names';
 
 var active=false;
 
@@ -26,6 +27,7 @@ export class System{
     this.reentry=[];
     this.entrance=null;
     this.disconnected=false; //throw this if set
+    this.name=name(); //TODO this is to be taken from a business, not generated here
     this.generatemap();
     this.definenodes();
     for(let n of this.nodes) n.generate();
