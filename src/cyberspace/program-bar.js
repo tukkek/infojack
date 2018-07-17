@@ -71,8 +71,8 @@ export class ProgramBar{
   }
   
   doload(program){
-    sound.play(program.load(this.system)?
-      sound.LOAD:sound.ERROR);
+    let load=program.load(this.system);
+    sound.play(load?sound.LOAD:sound.ERROR);
     this.refresh();
     return load;
   }

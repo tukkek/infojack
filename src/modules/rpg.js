@@ -5,7 +5,7 @@ class Rpg{
     constructor(){}
     
     r(min,max){
-      return Math.floor((Math.random()*(max-min))+min);
+      return Math.floor(Math.random()*(max-min+1))+min;
     }
     
     d(dice,sides){
@@ -17,7 +17,8 @@ class Rpg{
     }
     
     choose(list){
-      return list[this.r(0,list.length-1)];
+      let index=this.r(0,list.length-1);
+      return list[index];
     }
     
     chancein(n){

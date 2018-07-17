@@ -41,7 +41,6 @@
   visibility:hidden;
 }
 #cyberspace .tile{
-  border:none;
   position:absolute;
   color:white;
   background:black;
@@ -53,7 +52,6 @@
   overflow:hidden;
 }
 #cyberspace .discovered{opacity:1;}
-#cyberspace .visited{border:0.1em dashed gray;}
 @keyframes fadein {
     from{opacity:0;}
     to{opacity:1;}
@@ -68,11 +66,14 @@
   animation:fadein 2000ms;
   transition:opacity 2s;
 }
+@keyframes target{50%{background:rgb(255,32,32);}}
 #cyberspace .target{
-  border:.1em dashed yellow;
+  border-style:solid!important;
   z-index:1;
+  animation:target 3000ms infinite;
 }
-div.interface{border-color:orange!important;}
-div.datastore{border-color:blue!important;}
-div.cpu{border-color:red!important;}
-div.portal{border-color:purple!important;}
+#cyberspace div.node{border:0.1em dashed gray;}
+#cyberspace div.interface{border:0.1em dashed orange;}
+#cyberspace div.datastore{border:0.1em dashed blue;}
+#cyberspace div.cpu{border:0.1em dashed yellow;}
+#cyberspace div.portal{border:0.1em dashed purple;}

@@ -6,6 +6,7 @@ import {Portal} from './node/portal';
 import {Interface} from './node/interface';
 import environment from '../../environment';
 import {Scout} from './avatar/ice/scout';
+import {Greeter} from './avatar/ice/greeter';
 import {console} from './console';
 import {sound} from '../sound';
 import {deck} from '../deck';
@@ -27,7 +28,7 @@ export class System{
     this.reentry=[];
     this.entrance=null;
     this.disconnected=false; //throw this if set
-    this.name=name(); //TODO this is to be taken from a business, not generated here
+    this.name=name(level); //TODO this is to be taken from a business, not generated here
     this.generatemap();
     this.definenodes();
     for(let n of this.nodes) n.generate();
@@ -135,7 +136,8 @@ export class System{
   }
   
   generateice(){//TODO
-    this.ice.push(new Scout(this));
+    //this.ice.push(new Scout(this,this.level));
+    this.ice.push(new Greeter(this,this.level));
   }
   
   act(){ //return false when it's the player's turn

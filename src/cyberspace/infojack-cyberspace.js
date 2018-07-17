@@ -65,7 +65,6 @@ export class Cyberspace{
     let tile=document.createElement('div');
     this.tiles.push(tile);
     tile.classList.add('tile');
-    tile.classList.add(node.constructor.name.toLowerCase());
     tile.nodeid=node.id;
     tile.nodex=x;
     tile.nodey=y;
@@ -165,14 +164,18 @@ export class Cyberspace{
       t.classList.add('discovered');
     },1);
     if(!node.visited) return;
-    if(!t.style.border) t.classList.add('visited');
+    if(!t.visited){
+      let type=node.constructor.name.toLowerCase();
+      t.classList.add(type);
+      t.visited=true;
+    }
     let avatar=node.getavatar(t.nodex,t.nodey);
     if(avatar&&!avatar.show()) avatar=false;
     if(t.image&&(!avatar||
       avatar!=t.avatar||t.scanned!=avatar.scanned)) 
         this.removeimage(t);
     if(avatar&&avatar!=t.avatar) this.addimage(t,avatar);
-    if(avatar&&this.player.target==t.avatar){
+    if(avatar&&this.player.target==avatar){
       t.classList.add('target');
     }else t.classList.remove('target');
   }

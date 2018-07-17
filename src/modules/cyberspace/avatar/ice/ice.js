@@ -2,11 +2,10 @@ import {Avatar} from '../avatar';
 import {console} from '../../console';
 import {rpg} from '../../../rpg';
 import {sound} from '../../../sound';
-import {refresh} from '../../../../cyberspace/infojack-cyberspace';
 
 export class Ice extends Avatar{
-  constructor(image,system){
-    super(system);
+  constructor(image,system,level){
+    super(system,level);
     this.revealed=image;
     if(this.character.ranks>0||this.character.pointextra>0||
       this.character.newfeats>0) 
@@ -23,7 +22,6 @@ export class Ice extends Avatar{
       p.target=this;
       console.print('Targeting '+this.name+'...');
     }
-    refresh();
   }
   
   scan(){
@@ -48,6 +46,7 @@ export class Ice extends Avatar{
   
   die(){
     super.die();
+    sound.play(sound.ICEDEATH);
     this.system.reentry.push(this);
   }
   

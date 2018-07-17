@@ -15,6 +15,7 @@ class Sound{
     this.DISCONNECTED='EndOfLine.wav';
     this.ERROR='Computer Error Alert-SoundBible.com-783113881.mp3';
     this.ICEATTACK='Pulse1.wav';
+    this.ICEDEATH='Error.wav';
     this.ICEENTER='ICEEnter.wav';
     this.ICELEAVE='ICEEnter.wav';
     this.LOAD='Misc2.wav';

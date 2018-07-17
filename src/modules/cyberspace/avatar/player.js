@@ -117,7 +117,7 @@ export class Player extends Avatar{
   
   connect(){
     sound.play(sound.CONNECT);
-    console.print('You enter the system...');
+    console.print('You connect to: '+this.system.name+'.');
     if(!this.login())
       console.print('Your unauthorized login is detected!');
   }

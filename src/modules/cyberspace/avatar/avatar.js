@@ -6,14 +6,13 @@ import {occupations} from '../../character/occupation';
 import {sound} from '../../sound';
 
 export class Avatar{
-  constructor(system){
+  constructor(system,level=system.level){
     this.obfuscate();
     this.system=system;
     this.node=null;
     this.x=-1;
     this.y=-1;
-    this.create(webcrawler,occupations.adventurer,
-      system.level);
+    this.create(webcrawler,occupations.adventurer,level);
     this.scandc=this.system.level+rpg.randomize(4);
     let stealth=10+this.character.getstealth();
     this.scandc=Math.max(this.scandc,stealth,1);

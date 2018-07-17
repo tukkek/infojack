@@ -3,8 +3,8 @@ import {rpg} from '../../../rpg';
 import {console} from '../../console';
 
 export class Scout extends Ice{
-  constructor(system){
-    super('ice/scout.png',system);
+  constructor(system,level){
+    super('ice/scout.png',system,level);
     this.path=[]; //prevents looping between rooms
   }
   
