@@ -10,7 +10,6 @@ export default {
   /* debug flags (false=disabled) */
   revealmap:true,
   scannodes:true,
-  printsave:false, 
   systemlevel:false, //override system level
   view:false, //starting view name
   noice:false, //skip ICE generation

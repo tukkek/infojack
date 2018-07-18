@@ -3,6 +3,8 @@ import environment from '../environment';
 import {deck} from './deck';
 import {PROGRAMS} from './program/program';
 
+var DEBUG=false&&environment.debug;
+
 class Save{
   constructor(){}
   
@@ -11,7 +13,7 @@ class Save{
   }
   
   debug(){
-    if(!environment.printsave) return;
+    if(!DEBUG) return;
     let data=this.checkload();
     if(data) alert(data);
   }
