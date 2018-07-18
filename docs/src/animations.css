@@ -1,17 +1,17 @@
 .highlightbg:not(:hover){
     animation: highlightbg 4s linear 0s infinite;
 }
-@keyframes highlightbg {
+@keyframes highlightbg{
   0% {background: black;}
   65% {background: #4CAF50;}
   70%{background:#839984;}
   95% {background: black;}
 }
 .highlight{
-    animation: highlight 3s ease 0s infinite;
+    animation:highlight 3s ease 0s infinite;
     border:.2em dashed;
 }
-@keyframes highlight {  
+@keyframes highlight{  
     0%{
         border-color:transparent;
         color:white;
