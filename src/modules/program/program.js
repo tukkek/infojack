@@ -17,7 +17,7 @@ export class Program{
     this.duration=SESSION; //0=instantaneous
     this.basename=name;
     this.name=name;
-    this.image='../../images/software/'+image;
+    this.image='./images/software/'+image;
     this.grade=grade;
     if(grade){
       this.name+=' '+grades[grade];
