@@ -26,7 +26,8 @@ export class Entry extends SecureAvatar{
     if(!ice.enter(this.node)) return;
     ice=this.system.reentry.shift();
     ice.character.hp=ice.character.maxhp;
-    ice.ap=this.ap-ice.rollinitiative();
+    ice.rollinitiative();
+    ice.ap+=this.ap;
     ice.obfuscate();
     if(envinronment.scannodes){
       ice.scan();

@@ -6,7 +6,7 @@ import {Gateway} from '../avatar/gateway';
  * - at first can even have it as "stairs down" */
 export class Portal extends Node{
   constructor(x,y,system){
-    super(x,y,system)
+    super(x,y,system,'portal');
     this.priority=2;
   }
   

@@ -9,7 +9,7 @@
       <div class='details-title'>
         <div>Avatar:</div>
         <img repeat.for='i of avatars' 
-          src='./images/characters/${i}.png'
+          src.bind='"./images/characters/"+i+".png"'
           class.bind='i==avatar?"selected":""'
           onclick.call='select(i)'></img>
       </div>

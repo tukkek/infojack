@@ -136,7 +136,7 @@ export class System{
   }
   
   generateice(){//TODO
-    //this.ice.push(new Scout(this,this.level));
+    this.ice.push(new Scout(this,this.level));
     this.ice.push(new Greeter(this,this.level));
   }
   

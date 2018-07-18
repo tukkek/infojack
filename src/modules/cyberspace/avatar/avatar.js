@@ -16,11 +16,11 @@ export class Avatar{
     this.scandc=this.system.level+rpg.randomize(4);
     let stealth=10+this.character.getstealth();
     this.scandc=Math.max(this.scandc,stealth,1);
-    this.ap=-this.rollinitiative();
+    this.rollinitiative();
   }
   
   rollinitiative(){
-    return (rpg.r(1,20)+this.character.getinitiative())/20;
+    this.ap=-(rpg.r(1,20)+this.character.getinitiative())/20;
   }
   
   obfuscate(){
@@ -127,7 +127,10 @@ export class Avatar{
     throw 'Unknown damage level';
   }
   
-  reset(){this.character.hp=this.character.maxhp;}
+  reset(){
+    this.character.hp=this.character.maxhp;
+    this.rollinitiative();
+  }
   
   hide(){
     this.node.hidden.push(this);

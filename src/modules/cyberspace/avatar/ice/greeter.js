@@ -3,7 +3,8 @@ import {Scout} from './scout';
 export class Greeter extends Scout{
   constructor(system,level){
     super(system,level+1);
-    this.revealed='ice/greeter.png';
+    this.revealedname='Greeter';
+    this.revealedimage='ice/greeter.png';
   }
   
   create(characterclass,occupation,level){

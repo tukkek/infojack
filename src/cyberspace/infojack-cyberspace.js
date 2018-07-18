@@ -165,8 +165,7 @@ export class Cyberspace{
     },1);
     if(!node.visited) return;
     if(!t.visited){
-      let type=node.constructor.name.toLowerCase();
-      t.classList.add(type);
+      t.classList.add(node.name);
       t.visited=true;
     }
     let avatar=node.getavatar(t.nodex,t.nodey);

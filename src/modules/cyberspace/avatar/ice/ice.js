@@ -4,9 +4,10 @@ import {rpg} from '../../../rpg';
 import {sound} from '../../../sound';
 
 export class Ice extends Avatar{
-  constructor(image,system,level){
+  constructor(name,image,system,level){
     super(system,level);
-    this.revealed=image;
+    this.revealedname=name;
+    this.revealedimage=image;
     if(this.character.ranks>0||this.character.pointextra>0||
       this.character.newfeats>0) 
         console.log('Unspent points for '+this.name);
@@ -25,8 +26,8 @@ export class Ice extends Avatar{
   }
   
   scan(){
-    this.setname(this.constructor.name+' '+this.getserial());
-    this.setimage(this.revealed);
+    this.setname(this.revealedname+' '+this.getserial());
+    this.setimage(this.revealedimage);
   }
   
   act(){throw 'Unimplemented Ice#act() for '+this.name;}
@@ -55,11 +56,12 @@ export class Ice extends Avatar{
     this.leave(this.node);
   }
   
-  show(){ //TODO with this can make stealh 'hunter' ice
+  show(){
     if(this.system.revealed) return true;
     let p=this.system.player;
     if(this.node!=p.node) return false;
     if(this.scanned) return true;
+    if(!this.stealth) return true; //TODO with this can make stealh 'hunter' ice
     let spot=p.roll(p.character.getperceive(),10);
     let hide=10+this.character.getstealth();
     return spot>=hide;

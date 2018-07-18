@@ -8,7 +8,7 @@ export default {
   ccskills:false, //only 1 is cross-class, so disable for now
   playeravatars:17,
   /* debug flags (false=disabled) */
-  revealmap:true,
+  revealmap:false,
   scannodes:true,
   systemlevel:false, //override system level
   view:false, //starting view name

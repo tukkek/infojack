@@ -9,7 +9,7 @@ var FUNCTIONS=4;
 
 export class Cpu extends Node{
   constructor(x,y,system){
-    super(x,y,system)
+    super(x,y,system,'cpu');
     this.priority=2;
   }
   

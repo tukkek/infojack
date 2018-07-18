@@ -11,7 +11,8 @@ for(let x=0;x<environment.nodesize;x++)
     TILES.push([x,y]);
 
 export class Node{
-  constructor(x,y,system){
+  constructor(x,y,system,name='corridor'){
+    this.name=name;
     this.x=x;
     this.y=y;
     this.id=system.nodes.length;

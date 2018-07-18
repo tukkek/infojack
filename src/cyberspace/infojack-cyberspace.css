@@ -72,8 +72,8 @@
   z-index:1;
   animation:target 3000ms infinite;
 }
-#cyberspace div.node{border:0.1em dashed gray;}
+#cyberspace div.corridor{border:0.1em dashed gray;}
 #cyberspace div.interface{border:0.1em dashed orange;}
 #cyberspace div.datastore{border:0.1em dashed blue;}
-#cyberspace div.cpu{border:0.1em dashed yellow;}
+#cyberspace div.cpu{border:0.1em dashed red;}
 #cyberspace div.portal{border:0.1em dashed purple;}

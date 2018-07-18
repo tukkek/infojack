@@ -5,7 +5,7 @@ import {rpg} from '../../rpg';
 
 export class Interface extends Node{
   constructor(x,y,system){
-    super(x,y,system)
+    super(x,y,system,'interface');
     this.priority=1;
   }
   

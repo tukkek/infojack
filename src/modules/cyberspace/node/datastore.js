@@ -4,7 +4,7 @@ import {rpg} from '../../rpg';
 
 export class Datastore extends Node{
   constructor(x,y,system){
-    super(x,y,system)
+    super(x,y,system,'datastore');
     this.priority=1;
   }
   
