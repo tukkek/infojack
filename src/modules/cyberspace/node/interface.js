@@ -1,5 +1,5 @@
 import {Node} from './node';
-import {Backdoor} from '../avatar/backdoor';
+import {Backdoor} from '../avatar/secure/backdoor';
 import {Control} from '../avatar/control';
 import {rpg} from '../../rpg';
 

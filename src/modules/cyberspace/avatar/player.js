@@ -108,6 +108,7 @@ export class Player extends Avatar{
   }
   
   login(){ //or logout
+    if(!this.node&&this.system.backdoor) return true;
     let login=this.roll(this.character.gethacking());
     if(this.credentials>login) login=this.credentials;
     if(login>=10+this.system.level) return true;

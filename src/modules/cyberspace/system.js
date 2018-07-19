@@ -27,6 +27,7 @@ export class System{
     this.ice=[];
     this.reentry=[];
     this.entrance=null;
+    this.backdoor=false;
     this.disconnected=false; //throw this if set
     this.name=name(level); //TODO this is to be taken from a business, not generated here
     this.generatemap();
@@ -161,7 +162,7 @@ export class System{
     this.raisealert(-1,true); //TODO once per day, not immediate
     console.system=this;
     this.player.connect();
-    this.player.enter(this.entrance);
+    this.player.enter(this.backdoor||this.entrance);
     this.deployice();
     this.debug();
   }
@@ -175,6 +176,7 @@ export class System{
     this.reentry=[];
     for(let n of this.nodes) n.reset();
     deck.disconnect();
+    if(rpg.chancein(30-this.level)) this.backdoor=false;
   }
 }
 
