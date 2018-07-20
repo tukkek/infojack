@@ -40,7 +40,10 @@ export class Player extends Avatar{
   enter(node){
     let first=!this.node;
     if(!super.enter(node)) return false;
-    if(!first) sound.play(sound.MOVE);
+    if(!first){
+      sound.play(sound.MOVE);
+      console.print('You enter a node...');
+    }
     node.visited=true;
     this.node.scan(
       this.roll(this.character.getperceive(),10));
@@ -126,10 +129,11 @@ export class Player extends Avatar{
   disconnect(e){
     this.leave(this.node);
     let quit;
-    let logout=e.safe||this.login();
+    let logout=this.login(); //don't inline: raises alarm
     if(e.message) quit=e.message;
-    else if(logout) quit='You logout safely.';
+    else if(e.safe) quit='You logout safely.';
     else quit='Your non-gateway logout is detected!';
     alert(quit);
+    sound.clear();
   }
 }

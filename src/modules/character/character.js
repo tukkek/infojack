@@ -43,7 +43,7 @@ export class Character{
     this.classes={};//holds levels
     this.level=0;
     this.ranks=0;
-    this.bab=0;//hold only primary BAB
+    this.bab=0;//only primary BAB
     this.edgedice=[0,0];//0d1
     this.edge=0;//current edge
     this.fort=0;
@@ -301,33 +301,36 @@ export class Character{
       this.ranks+=this.level==1?4:1;
   }
   
+  learnability(ability){
+    if(this[ability]===undefined)
+      throw 'Unknown ability '+ability;
+    if(!this.pointextra) return false;
+    this[ability]+=1;
+    this.pointextra-=1;
+    this.updateranks(ability);
+    return true;
+  }
+  
   learnskill(skill){
+    skill=skill.replace(' ','').toLowerCase();
     if(this[skill]===undefined)
       throw 'Unknown skill '+skill;
+    if(!this.ranks) return false;
     while(this[skill]<this.level+3&&this.ranks>0){
       this[skill]+=1;
       this.ranks-=1;
     }
-  }
-  
-  learnability(ability){
-    if(this.ranks==0)
-      console.log('Learn skills after abilities!');
-    if(this[ability]===undefined)
-      throw 'Unknown ability '+ability;
-    while(this.pointextra>0){
-      this[ability]+=1;
-      this.pointextra-=1;
-      this.updateranks(ability);
-    }
+    return true;
   }
   
   learnfeat(name){
     let feat=feats.get(name.toLowerCase());
     if(!feat) throw 'Unkwnown feat: '+name;
-    if(this.newfeats==0) return false;
+    if(!this.newfeats) return false;
     if(!feat.validate(this)) throw 'Invalid feat: '+name;
     this.addfeat(feat);
+    this.newfeats-=1;
+    return true;
   }
   
   levelup(){

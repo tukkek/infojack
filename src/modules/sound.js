@@ -44,6 +44,8 @@ class Sound{
     queue.push(file);
     if(!running) this.process();
   }
+  
+  clear(){queue=[];}
 }
 
 export var sound=new Sound();

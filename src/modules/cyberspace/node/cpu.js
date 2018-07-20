@@ -8,16 +8,15 @@ import {Terminal} from '../avatar/secure/terminal';
 var FUNCTIONS=4;
 
 export class Cpu extends Node{
-  constructor(x,y,system){
+  constructor(x,y,system,main=false){
     super(x,y,system,'cpu');
-    this.priority=2;
-  }
-  
-  setmain(){
-    this.enter(new Alarm(this.system));
-    this.enter(new Entry(this.system));
-    this.enter(new Map(this.system));
-    this.enter(new Terminal(this.system));
+    this.priority=main?3:2;
+    if(main){
+      this.enter(new Alarm(this.system));
+      this.enter(new Entry(this.system));
+      this.enter(new Map(this.system));
+      this.enter(new Terminal(this.system));
+    }
   }
   
   generate(){

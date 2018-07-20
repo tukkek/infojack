@@ -60,13 +60,25 @@ class ImprovedInitiative extends Feat{
     }
 }
 
+class Toughness extends Feat{
+  constructor(){
+    super('Toughness',
+      '+3 hit points (may be taken multiple times)');
+  }
+  validate(character){return true;}
+  apply(character){
+    character.maxhp+=3;
+    character.hp+=3;
+  }
+}
+
 class Windfall extends Feat{
-   constructor(){
-        super('Windfall',
-          '+3 wealth (may be taken multiple times)');
-    }
-    validate(character){return true;}
-    apply(character){character.wealth+=3;}
+  constructor(){
+    super('Windfall',
+      '+3 wealth (may be taken multiple times)');
+  }
+  validate(character){return true;}
+  apply(character){character.wealth+=3;}
 }
 
 for(let feat of [
@@ -76,6 +88,7 @@ for(let feat of [
     new Stealthy(),
     new Stealthy(),
     new Studious(),
+    new Toughness(),
     new Trustworthy(),
     new Windfall(),
 ]) feats.set(feat.name.toLowerCase(),feat);

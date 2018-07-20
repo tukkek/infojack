@@ -38,6 +38,8 @@ export class Avatar{
     }
     for(let i=0;i<level;i++) 
       characterclass.advance(this.character);
+    this.character.pointbuy=0;
+    this.character.pointextra=9;
   }
   
   setname(name){

@@ -5,9 +5,9 @@ import {Gateway} from '../avatar/gateway';
  * - make it part of the normal generation to hop to other systems
  * - at first can even have it as "stairs down" */
 export class Portal extends Node{
-  constructor(x,y,system){
+  constructor(x,y,system,entrance=false){
     super(x,y,system,'portal');
-    this.priority=2;
+    this.priority=entrance?3:2;
   }
   
   generate(){

@@ -18,7 +18,7 @@ class Console{
   
   next(){return this.messages.shift();}
   
-  log(...args){window.console.log(args);}
+  log(...args){window.console.log(...args);}
 }
 
 export var console=new Console();

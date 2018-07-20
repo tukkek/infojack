@@ -63,11 +63,13 @@ export class Node{
   }
   
   receive(avatar,xy){
-    if(this.system.player&&this==this.system.player.node){
-      sound.play(sound.ICEENTER);
-      console.print(avatar.name+' enters the node.');
+    if(avatar.node){
+      avatar.leave(avatar.node);
+      if(this.system.player&&this==this.system.player.node){
+        sound.play(sound.ICEENTER);
+        console.print(avatar.name+' enters the node.');
+      }
     }
-    if(avatar.node) avatar.leave(avatar.node);
     avatar.x=xy[0];
     avatar.y=xy[1];
     avatar.node=this;

@@ -5,8 +5,10 @@ import {Cpu} from './node/cpu';
 import {Portal} from './node/portal';
 import {Interface} from './node/interface';
 import environment from '../../environment';
+import {Ice} from './avatar/ice/ice';
 import {Scout} from './avatar/ice/scout';
 import {Greeter} from './avatar/ice/greeter';
+import {Bouncer} from './avatar/ice/bouncer';
 import {console} from './console';
 import {sound} from '../sound';
 import {deck} from '../deck';
@@ -51,7 +53,7 @@ export class System{
   }
   
   generatemap(){
-    this.nodes.push(new Cpu(0,0,this));
+    this.nodes.push(new Cpu(0,0,this,true));
     let size=rpg.r(3,7)+this.level;
     let leastx=0;
     let leasty=0;
@@ -95,12 +97,11 @@ export class System{
   }
   
   definenodes(){
-    this.nodes[0].setmain();
     let entrancei=-1;
     for(let neighbors=1;entrancei==-1;neighbors++){
       entrancei=this.findentrance(neighbors);
     }
-    this.entrance=new Portal(-1,-1,this);
+    this.entrance=new Portal(-1,-1,this,true);
     this.replacenode(this.entrance,entrancei);
     for(let i=1;i<this.nodes.length;i++){
       if(i==entrancei) continue;
@@ -136,9 +137,42 @@ export class System{
     }
   }
   
-  generateice(){//TODO
-    this.ice.push(new Scout(this,this.level));
-    this.ice.push(new Greeter(this,this.level));
+  generateice(){
+    let types=[Scout,Greeter,Bouncer];
+    let budget=this.level*4;//TODO
+    for(let pass=0;pass<4;pass++){
+      let level=this.level;
+      let quantity=1;
+      let doublings=rpg.r(1,4);
+      for(let i=1;i<doublings&&level>=3;i++){
+        level-=2;
+        quantity*=2;
+      }
+      let type=rpg.choose(types);
+      for(let i=0;i<quantity;i++){
+        this.ice.push(new type(this,level));
+      }
+    }
+  }
+  
+  //guarantees same ice placement for non-random deployment
+  deployice(){
+    let random=[];
+    for(let i of this.ice){
+      let nodes=this.nodes.slice();
+      nodes.sort((a,b)=>{
+        let na=a.avatars.filter(x=>x instanceof Ice).length;
+        let nb=b.avatars.filter(x=>x instanceof Ice).length;
+        return (b.priority-nb)-(a.priority-na);
+      });
+      for(let n of nodes) if(i.deploy(n)){
+        i.enter(n);
+        break;
+      }
+      if(!i.node) random.push(i);
+    }
+    for(let ice of random)
+      ice.enter(rpg.choose(this.nodes));
   }
   
   act(){ //return false when it's the player's turn
@@ -150,11 +184,6 @@ export class System{
     return next!=this.player;
   }
   
-  deployice(){//TODO
-    if(environment.noice) return;
-    for(let i of this.ice) i.enter(this.nodes[0]);
-  }
-  
   connect(){
     active=this;
     this.player=new Player(this); //set by Player
@@ -163,7 +192,7 @@ export class System{
     console.system=this;
     this.player.connect();
     this.player.enter(this.backdoor||this.entrance);
-    this.deployice();
+    if(!environment.noice) this.deployice();
     this.debug();
   }
   
