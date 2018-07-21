@@ -4,6 +4,7 @@ import {console} from '../console';
 import {hero as offlinehero} from '../../character/character';
 import {deck} from '../../deck';
 import {events} from './player';
+import {PROGRAMS} from '../../program/program';
 
 var NOTDOWNLOADING=-1;
 
@@ -15,33 +16,71 @@ export class File extends Avatar{
     this.setname('Unscanned data');
     this.setimage('nodes/fileunscanned.png');
     this.purchasedc=system.level+rpg.randomize(4);
-    this.worthless=
-      this.purchasedc<1||rpg.chancein(system.level+1);
-    this.trap=!this.worthless&&
-      rpg.chancein(60/system.level);
-    this.protected=!this.worthless&&!this.trap&&
-      rpg.chancein(21/system.level);
-    if(this.worthless) this.purchasedc=0;
-    else if(this.protected&&this.purchasedc<system.level) 
-      this.purchasedc=system.level;
     this.size=rpg.r(1,this.getscale());
     this.downloading=NOTDOWNLOADING;
+    this.worthless=false;
+    this.program=false; //TODO need to serialize as name?
+    this.trap=false;
+    this.protected=false;
+    this.define();
+  }
+  
+  getprogram(){
+    let eligible=[];
+    for(let p of PROGRAMS) if(p.purchasedc==this.purchasedc)
+      eligible.push(p);
+    return eligible.length==0?false:rpg.choose(eligible);
+  }
+  
+  define(){
+    if(this.purchasedc<1||rpg.chancein(system.level+1)){
+      this.worthless=true;
+      this.purchasedc=0;
+      return;
+    }
+    if(rpg.chancein(20)){
+     this.program=this.getprogram();
+     if(this.program) return;
+    }
+    if(rpg.chancein(60/system.level)){
+      this.trap=true;
+      return;
+    }
+    if(rpg.chancein(21/system.level)){
+      this.protected=true;
+      if(this.purchasedc<system.level)
+        this.purchasedc=system.level;
+      return;
+    }
+  }
+  
+  findtrap(){
+    if(!this.trap) return false
+    let p=this.system.player;
+    let perceive=p.roll(p.character.getperceive());
+    return perceive>=this.purchasedc;
   }
   
   scan(){
     this.scanned=true; //redundant (for File#setname)
     if(this.worthless){
       this.leave(this.node);
+      this.setname('Worthless data');
+    }else if(this.program){
+      this.setimage('nodes/fileprogram.png');
+      this.setname(this.program.name);
     }else if(this.protected){
       this.setimage('nodes/fileprotected.png');
       this.setname('Encrypted data');
-    }else if(this.trap&&false){ //TODO only show if player has a verification program running (plus test)
+    }else if(this.findtrap()){
       this.setimage('nodes/filetrap.png');
       this.setname('Trap data');
     }else{
       this.setimage('nodes/file.png');
       this.setname('Unencrypted data');
     }
+    if(this.node==this.system.player.node)
+      console.print('File scanned: '+this.name+'.');
   }
   
   decrypt(){
@@ -57,14 +96,30 @@ export class File extends Avatar{
     return this.hack(false,decrypt);
   }
   
+  validate(){
+    if(this.size>deck.getfreestorage())
+      return "You need "+this.size+" free storage blocks.";
+    if(this.program&&deck.programs.indexOf(this.program)>=0)
+      return 'You already have '+this.program.name+'.';
+    return false;
+  }
+  
   download(){
-    let name='File '+this.getserial();
+    let name=this.name+' '+this.getserial();
     this.setname(name);
     console.print('You start downloading '+name+
       ' ('+this.size+' blocks)...');
     this.downloading=0;
     deck.storageused+=this.size;
     this.ap=this.system.player.ap;
+  }
+  
+  spring(){
+    if(!this.trap) return false;
+    this.leave(this.node);
+    console.print('The file was a honeypot!');
+    this.system.raisealert(2);
+    return true;
   }
   
   click(){
@@ -75,29 +130,20 @@ export class File extends Avatar{
     let p=this.system.player;
     p.fireevent(events.OPENFILE);
     p.ap+=.5;
-    if(this.trap){
-      this.leave(this.node);
-      console.print('The file was a honeypot!');
-      this.system.raisealert(2);
-      return;
-    }
-    if(this.size>deck.getfreestorage()){
-      console.print("You need "+this.size+
-        " free storage blocks.");
+    if(this.spring()) return;
+    let invalid=this.validate();
+    if(invalid){
+      console.print(invalid);
       return;
     }
     p.ap+=.5;
     if(this.decrypt()) this.download();
   }
   
-  act(){ //TODO deck download speed upgrade?
-    this.ap+=.5;
-    if(this.downloading==NOTDOWNLOADING) return;
-    this.downloading+=.5;
-    if(this.downloading<this.size){
-      let done=Math.round(100*this.downloading/this.size);
-      console.print('Downloading '+this.name+'... '+
-        done+'% done.');
+  transfer(){
+    if(this.program){
+      deck.programs.push(this.program);
+      console.print('You now have '+this.program.name+'!');
       return;
     }
     let value=offlinehero.sell(this.purchasedc);
@@ -109,7 +155,21 @@ export class File extends Avatar{
       result+='It is worth '+value+'¥!';
     }
     console.print(result);
-    this.leave(this.node);
+  }
+  
+  act(){ //TODO deck download speed upgrade?
+    this.ap+=.5;
+    if(this.downloading==NOTDOWNLOADING) return;
+    this.downloading+=.5;
+    if(this.downloading<this.size){
+      let progress=
+        Math.round(100*this.downloading/this.size);
+      console.print('Downloading '+this.name+'... '+
+        '('+progress+'% done)');
+    }else{
+      this.transfer();
+      this.leave(this.node);
+    }
   }
   
   die(){

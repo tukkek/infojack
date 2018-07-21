@@ -3,8 +3,8 @@ import {grades} from '../grade';
 import {console} from '../cyberspace/console';
 import {hero} from '../character/character';
 
-export var SESSION=Number.MAX_SAFE_INTEGER;
-export var PROGRAMS=new Map();
+export const SESSION=Number.MAX_SAFE_INTEGER;
+export const PROGRAMS=new Map();
 
 //For design parameters: https://github.com/tukkek/infojack/wiki/Program-parameters-reference
 export class Program{
