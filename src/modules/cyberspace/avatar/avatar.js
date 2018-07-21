@@ -13,6 +13,7 @@ export class Avatar{
     this.x=-1;
     this.y=-1;
     this.create(webcrawler,occupations.adventurer,level);
+    this.character.enhance();
     this.scandc=this.system.level+rpg.randomize(4);
     let stealth=10+this.character.getstealth();
     this.scandc=Math.max(this.scandc,stealth,1);
@@ -81,7 +82,7 @@ export class Avatar{
     return roll+bonus>=this.character.getdefence();
   }
 
-  //return true on hit
+  //returns true on hit, false on miss
   attack(bonus,target,damage,roll=false){
     if(!roll) roll=rpg.r(1,20);
     if(!target.hit(roll,bonus)) return false;

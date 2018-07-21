@@ -8,7 +8,6 @@ class Sound{
     this.ALERTCANCEL='CancelAlert.wav';
     this.ALERTRED='RedAlert.wav';
     this.ALERTYELLOW='YellowAlert.wav';
-    this.ATTACK='9mmPistol.wav';
     this.CONNECT='Dialup.wav';
     this.CRASH='Spike.wav';
     this.DISABLE='CancelAlert.wav';

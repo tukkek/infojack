@@ -3,8 +3,10 @@ import {console} from './cyberspace/console'
 import {sound} from './sound'
 import {SESSION} from './program/program';
 import {grades as armor} from './program/armor';
-import {grades as blaster} from './program/blaster';
+import {grades as blade} from './program/weapon/blade';
+import {grades as blaster} from './program/weapon/blaster';
 import {eject} from './program/eject';
+import envinronment from '../environment';
 
 var OK='';
 var MEMORYUPGRADE=[+10,+5,+5,+5];
@@ -133,6 +135,7 @@ class Deck{
 
 export var deck=new Deck();
 for(let program of [armor[0],blaster[0],eject]){
-  if(!program.buy()) alert('Cannot buy '+program.name);
+  if(!program.buy()&&envinronment.debug)
+    throw 'Cannot buy '+program.name;
   deck.loaded.push(program);
 }

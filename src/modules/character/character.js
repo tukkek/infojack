@@ -87,26 +87,22 @@ export class Character{
   connect(){
     let avatar=new Character();
     Object.assign(avatar,this);
-    if(this.classes['Webcrawler']){
-      this.enhancecrawler(avatar);
-    }
+    if(this.classes['Webcrawler']) avatar.enhance();
     return avatar;
   }
   
-  enhancecrawler(avatar){
-    avatar.strength=Math.max(
-      avatar.strength,avatar.intelligence);
-    avatar.dexterity=Math.max(
-      avatar.dexterity,avatar.wisdom);
-    avatar.constitution=Math.max(
-      avatar.constitution,avatar.charisma);
-    for(let con=this.constitution+1;
-      con<=avatar.constitution;con++)
-        if(con%2==0) avatar.maxhp+=1;
-    avatar.hp=avatar.maxhp;
+  enhance(){
+    this.strength=Math.max(this.strength,this.intelligence);
+    this.dexterity=Math.max(this.dexterity,this.wisdom);
+    let constitution=this.constitution;
+    this.constitution=Math.max(
+      this.constitution,this.charisma);
+    for(let con=this.constitution+1;con<=constitution;con++)
+      if(con%2==0) this.maxhp+=this.level;
+    this.hp=this.maxhp;
     let level=this.classes['Webcrawler'];
-    avatar.bab-=[0,1,1,2,2,3,3,4,4,5][level-1];
-    avatar.bab+=level;
+    this.bab-=[0,1,1,2,2,3,3,4,4,5][level-1];
+    this.bab+=level;
   }
   
   getmodifier(ability){

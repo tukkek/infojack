@@ -86,6 +86,7 @@ export class Player extends Avatar{
     return true;
   }
   
+  //returns true on hit, false on miss
   attack(bonus,target,damage,roll=false){
     if(!roll){
       roll=this.roll(bonus);
