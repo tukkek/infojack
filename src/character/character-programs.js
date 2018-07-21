@@ -8,8 +8,13 @@ import {BindingSignaler} from 'aurelia-templating-resources';
 @inject(BindingSignaler)
 export class CharacterPrograms {
     constructor(BindingSignaler) {
-      this.programs=PROGRAMS;
       this.signals=BindingSignaler;
+      this.programs=new Map();
+      let keys=[];
+      for(let k of PROGRAMS.keys()) keys.push(k);
+      keys.sort();
+      for(let k of keys) 
+        this.programs.set(k,PROGRAMS.get(k));
     }
     
     attached(){this.refresh();}

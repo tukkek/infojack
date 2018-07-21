@@ -3,6 +3,7 @@ import {rpg,CRITICALMISS} from '../../rpg';
 import {console} from '../console';
 import {hero as offlinehero} from '../../character/character';
 import {deck} from '../../deck';
+import {events} from './player';
 
 var NOTDOWNLOADING=-1;
 
@@ -71,7 +72,9 @@ export class File extends Avatar{
       console.print('You are already downloading this.');
       return;
     }
-    this.system.player.ap+=.5;
+    let p=this.system.player;
+    p.fireevent(events.OPENFILE);
+    p.ap+=.5;
     if(this.trap){
       this.leave(this.node);
       console.print('The file was a honeypot!');
@@ -83,7 +86,7 @@ export class File extends Avatar{
         " free storage blocks.");
       return;
     }
-    this.system.player.ap+=.5;
+    p.ap+=.5;
     if(this.decrypt()) this.download();
   }
   

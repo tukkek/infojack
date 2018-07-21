@@ -6,6 +6,12 @@ import {sound} from '../../sound';
 import {Disconnect} from '../../../messages';
 import {deck} from '../../deck';
 
+export const events={
+  ATTACK:'ATTACK',
+  CONNECT:'CONNECT',
+  OPENFILE:'OPENFILE',
+}
+
 var lastact=-9000;
 
 export class Player extends Avatar{
@@ -88,6 +94,7 @@ export class Player extends Avatar{
   
   //returns true on hit, false on miss
   attack(bonus,target,damage,roll=false){
+    this.fireevent(events.ATTACK);
     if(!roll){
       roll=this.roll(bonus);
       bonus=0;
@@ -107,8 +114,11 @@ export class Player extends Avatar{
   }
   
   hide(spotter){
-    return this.roll(this.character.getstealth())>=
-      10+spotter.character.getperceive();
+    let roll=rpg.r(1,20);
+    if(roll==1) return true;
+    if(roll==20) return false;
+    return roll+spotter.character.getperceive()<
+      this.roll(this.character.getstealth(),10);
   }
   
   login(){ //or logout
@@ -117,6 +127,7 @@ export class Player extends Avatar{
     if(this.credentials>login) login=this.credentials;
     if(login>=10+this.system.level) return true;
     this.system.raisealert(+1);
+    this.fireevent(events.CONNECT);
     return false;
   }
   
@@ -136,5 +147,10 @@ export class Player extends Avatar{
     else quit='Your non-gateway logout is detected!';
     alert(quit);
     sound.clear();
+  }
+  
+  fireevent(e){
+    for(let program of deck.loaded.slice())
+      program.onevent(e,this.system);
   }
 }

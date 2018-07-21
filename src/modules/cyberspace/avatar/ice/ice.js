@@ -88,9 +88,7 @@ export class Ice extends Avatar{
   
   findplayer(){//return player if adjacent
     let p=this.system.player;
-    let spotdc=p.roll(p.character.getstealth(),10);
-    let spot=rpg.r(1,20)+this.character.getperceive();
-    if(spot<spotdc) return false;
+    if(p.hide(this)) return false;
     for(let n of this.node.getneighbors())
       if(n==p.node) return p;
     return false;

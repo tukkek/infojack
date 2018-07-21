@@ -95,4 +95,6 @@ export class Program{
     deck.programs.push(this);
     return true;
   }
+  
+  onevent(e){return;}
 }

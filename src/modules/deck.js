@@ -5,6 +5,7 @@ import {SESSION} from './program/program';
 import {grades as armor} from './program/armor';
 import {grades as blade} from './program/weapon/blade';
 import {grades as blaster} from './program/weapon/blaster';
+import './program/cloak';
 import {eject} from './program/eject';
 import envinronment from '../environment';
 

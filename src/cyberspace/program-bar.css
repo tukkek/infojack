@@ -56,6 +56,7 @@ img.loaded{opacity:1!important;}
   width:100%;
   white-space:nowrap;
 }
+#program-bar .programdetails{white-space:nowrap;}
 #program-bar .details .hp{
   color:rgb(124,252,0);
   transition:color 1s ease-in-out;

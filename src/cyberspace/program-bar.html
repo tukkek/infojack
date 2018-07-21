@@ -14,9 +14,10 @@
             ${p.name}</td>
           <td show.bind='!collapsed' class='description'>
             ${p.describe()}.</td>
-          <td show.bind='!collapsed' class='size'>
-            <div>${p.size} block(s)</div>
-            <div>Hack +${p.hackingdc}</div>
+          <td show.bind='!collapsed' 
+            class='size' class='programdetails'>
+              <div>${p.size} block(s)</div>
+              <div>Hack +${p.hackingdc}</div>
           </td>
           <td show.bind='!collapsed' class='actions'>
             <button show.bind=
