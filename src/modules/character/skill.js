@@ -28,7 +28,7 @@ for (let skill of [
     new Skill('Hacking','Intelligence',
         "Act on the Web"),
     new Skill('Information','Charisma',
-        "Find more shopping items and missions",true),
+        "Find more shopping items and missions"),
     new Skill('Medicine','Wisdom',
         "Treat your injuries",true),
     new Skill('Perceive','Wisdom',

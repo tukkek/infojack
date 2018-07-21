@@ -140,7 +140,8 @@ export class System{
   generateice(){
     let types=[Scout,Greeter,Bouncer];
     let budget=this.level*4;//TODO
-    for(let pass=0;pass<4;pass++){
+    let passes=Math.min(this.level,4);
+    for(let pass=0;pass<passes;pass++){
       let level=this.level;
       let quantity=1;
       let doublings=rpg.r(1,4);

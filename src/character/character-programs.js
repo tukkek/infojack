@@ -9,22 +9,29 @@ import {BindingSignaler} from 'aurelia-templating-resources';
 export class CharacterPrograms {
     constructor(BindingSignaler) {
       this.signals=BindingSignaler;
-      this.programs=new Map();
-      let keys=[];
-      for(let k of PROGRAMS.keys()) keys.push(k);
-      keys.sort();
-      for(let k of keys) 
-        this.programs.set(k,PROGRAMS.get(k));
     }
     
-    attached(){this.refresh();}
+    //returns sorted by name and filtered by Information
+    getprograms(){
+      let programs=new Map();
+      let available=[];
+      for(let [name,program] of PROGRAMS)
+        if(10+hero.getinformation()>=program.purchasedc)
+          available.push(name);
+      for(let name of available) 
+        programs.set(name,PROGRAMS.get(name));
+      return programs;
+    }
     
     refresh(){
+      this.programs=this.getprograms();
       this.name=hero.possess();
       this.wealth=hero.wealth;
       this.technology=sign(hero.gettechnology());
       this.signals.signal('update');
     }
+    
+    attached(){this.refresh();}
     
     has(program){return deck.programs.indexOf(program)>=0;}
     
