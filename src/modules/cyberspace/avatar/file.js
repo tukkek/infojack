@@ -27,29 +27,33 @@ export class File extends Avatar{
   
   getprogram(){
     let eligible=[];
-    for(let p of PROGRAMS) if(p.purchasedc==this.purchasedc)
+    for(let p of PROGRAMS.values()) if(this.purchasedc==p.purchasedc)
       eligible.push(p);
     return eligible.length==0?false:rpg.choose(eligible);
   }
   
   define(){
-    if(this.purchasedc<1||rpg.chancein(system.level+1)){
+    let level=this.system.level;
+    if(this.purchasedc<1||rpg.chancein(level+1)){
       this.worthless=true;
       this.purchasedc=0;
       return;
     }
     if(rpg.chancein(20)){
      this.program=this.getprogram();
-     if(this.program) return;
+     if(this.program){
+       this.size=this.program.size;
+       return;
+     }
     }
-    if(rpg.chancein(60/system.level)){
+    if(rpg.chancein(60/level)){
       this.trap=true;
       return;
     }
-    if(rpg.chancein(21/system.level)){
+    if(rpg.chancein(21/level)){
       this.protected=true;
-      if(this.purchasedc<system.level)
-        this.purchasedc=system.level;
+      if(this.purchasedc<level)
+        this.purchasedc=level;
       return;
     }
   }
