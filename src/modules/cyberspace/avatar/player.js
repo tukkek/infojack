@@ -19,7 +19,8 @@ export class Player extends Avatar{
     this.scanned=true;
     this.target=false; //current target (ICE)
     this.credentials=10+this.character.getforgery();
-    this.privilege=0;
+    this.privilege=0; //global roll() bonus
+    this.trace=0; //see Tracer ICE
   }
   
   create(characterclass,level){

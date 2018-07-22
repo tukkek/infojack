@@ -4,7 +4,7 @@ import {console} from '../../console';
 
 export class Scout extends Ice{
   constructor(system,level){
-    super('Scout','ice/scout.png',system,level);
+    super('Scout','scout.png',system,level);
     this.path=[]; //prevents looping between rooms
   }
   

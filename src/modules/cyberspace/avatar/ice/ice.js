@@ -8,7 +8,7 @@ export class Ice extends Avatar{
   constructor(name,image,system,level){
     super(system,level);
     this.revealedname=name;
-    this.revealedimage=image;
+    this.revealedimage='ice/'+image;
     if(environment.debug) this.checkcharacter();
   }
   
@@ -41,8 +41,6 @@ export class Ice extends Avatar{
     this.setname(this.revealedname+' '+this.getserial());
     this.setimage(this.revealedimage);
   }
-  
-  act(){throw 'Unimplemented Ice#act() for '+this.name;}
   
   //returns true on attempt, hit or not
   attack(bonus,target,damage,roll=false){

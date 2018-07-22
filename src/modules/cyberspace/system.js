@@ -9,6 +9,7 @@ import {Ice} from './avatar/ice/ice';
 import {Scout} from './avatar/ice/scout';
 import {Greeter} from './avatar/ice/greeter';
 import {Bouncer} from './avatar/ice/bouncer';
+import {Tracer} from './avatar/ice/tracer';
 import {console} from './console';
 import {sound} from '../sound';
 import {deck} from '../deck';
@@ -16,6 +17,9 @@ import {Player,events} from './avatar/player';
 import {hero as offlinehero} from '../character/character';
 import {name} from '../world/names';
 import {INITIAL as RESET} from './avatar/secure/shutdown';
+
+const ICECOMMON=[Scout,Greeter,Bouncer];
+const ICERARE=[Tracer];
 
 var active=false;
 
@@ -146,8 +150,11 @@ export class System{
   }
   
   generateice(){
-    let types=[Scout,Greeter,Bouncer];
-    let budget=this.level*4;//TODO
+    let types=ICECOMMON.slice();
+    let rarechance=Math.round(20/this.level);
+    for(let rare of ICERARE) if(rpg.chancein(rarechance))
+      types.push(rare);
+    let budget=this.level*4;//TODO alternative approach
     let passes=Math.min(this.level,4);
     for(let pass=0;pass<passes;pass++){
       let level=this.level;
