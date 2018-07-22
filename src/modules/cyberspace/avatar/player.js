@@ -7,10 +7,7 @@ import {Disconnect} from '../../../messages';
 import {deck} from '../../deck';
 
 export const events={
-  ATTACK:'ATTACK',
-  CONNECT:'CONNECT',
-  OPENFILE:'OPENFILE',
-}
+  ATTACK:'ATTACK',CONNECT:'CONNECT',MAPREVEALED:'MAPREVEALED',OPENFILE:'OPENFILE',}
 
 var lastact=-9000;
 
@@ -150,6 +147,8 @@ export class Player extends Avatar{
   }
   
   fireevent(e){
+    for(let n of this.system.nodes) for(let a of n.avatars) 
+      a.onevent(e);
     for(let program of deck.loaded.slice())
       program.onevent(e,this.system);
   }

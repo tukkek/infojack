@@ -12,9 +12,10 @@ import {Bouncer} from './avatar/ice/bouncer';
 import {console} from './console';
 import {sound} from '../sound';
 import {deck} from '../deck';
-import {Player} from './avatar/player';
+import {Player,events} from './avatar/player';
 import {hero as offlinehero} from '../character/character';
 import {name} from '../world/names';
+import {INITIAL as RESET} from './avatar/secure/shutdown';
 
 var active=false;
 
@@ -25,6 +26,7 @@ export class System{
     if(this.level<1) this.level=1;
     else if(this.level>20) this.level=20;
     this.alert=0;
+    this.shutdown=RESET; 
     this.nodes=[];
     this.ice=[];
     this.reentry=[];
@@ -115,15 +117,10 @@ export class System{
   reveal(){
     this.revealed=true;
     for(let n of this.nodes) n.visited=true;
+    this.player.fireevent(events.MAPREVEALED);
   }
   
-  raisealert(raise=+1,silent=false){
-    let previous=this.alert;
-    this.alert+=raise;
-    if(this.alert>2) this.alert=2;
-    else if(this.alert<0) this.alert=0;
-    if(this.alert==2) this.player.credentials=-20;
-    if(silent||this.alert==previous) return;
+  notifyalert(previous){
     let cancelling=this.alert<previous;
     if(cancelling) sound.play(sound.ALERTCANCEL);
     if(this.alert==0)
@@ -135,6 +132,17 @@ export class System{
       console.print('The system is now in red alert!');
       if(!cancelling) sound.play(sound.ALERTRED);
     }
+  }
+  
+  raisealert(raise=+1,silent=false){
+    let previous=this.alert;
+    this.alert+=raise;
+    if(this.alert>2) this.alert=2;
+    else if(this.alert<0) this.alert=0;
+    if(this.alert==2) this.player.credentials=-20;
+    else this.shutdown=RESET;
+    if(!silent&&this.alert!=previous)
+      this.notifyalert(previous);
   }
   
   generateice(){

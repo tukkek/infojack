@@ -1,4 +1,4 @@
-import {rpg,CRITICALMISS} from '../../rpg';
+import {rpg,CRITICALMISS,CRITICALHIT} from '../../rpg';
 import {console} from '../console';
 import {Character} from '../../character/character';
 import {webcrawler} from '../../character/class/webcrawler';
@@ -90,27 +90,26 @@ export class Avatar{
     return true;
   }
   
-  authenticate(hackingroll){
+  authenticate(){
+    let dc=10+this.character.getbluff();
     let p=this.system.player;
-    let querydc=10+this.character.getbluff();
-    if(hackingroll==CRITICALMISS||
-      (!p.hide(this)&&!p.query(querydc,this))){
-        this.system.raisealert(+1);
-        return false;
-    }
-    return true;
+    return p.hide(this)||p.query(dc,this);
   }
   
-  hack(authenticate=false,roll=false){
+  hack(authenticate=false,roll=undefined){
     let p=this.system.player;
     p.ap+=1;
-    let c=p.character;
-    if(!roll) roll=p.roll(c.gethacking());
-    let hackingdc=this.character.getdefence();
-    if((!authenticate||this.authenticate(roll))&&
-      roll<hackingdc) return true;
-    let name=this.name.toLowerCase();
+    if(roll===undefined)
+      roll=p.roll(p.character.gethacking());
+    let discovered=authenticate&&!this.authenticate();
+    if(discovered||roll==CRITICALMISS){
+      this.system.raisealert(+1);
+      return false;
+    }
+    if(roll==CRITICALHIT||
+      roll>=this.character.getdefence()) return true;
     sound.play(sound.ERROR);
+    let name=this.name.toLowerCase();
     console.print('You fail to hack: '+name+'...');
     return false;
   }
@@ -141,4 +140,6 @@ export class Avatar{
   }
   
   show(){return true;}
+  
+  onevent(e){return;}
 }

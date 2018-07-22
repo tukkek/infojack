@@ -2,6 +2,7 @@ import {Avatar} from './avatar';
 import {CRITICALMISS} from '../../rpg';
 import {console} from '../console';
 import {sound} from '../../sound';
+import {events} from './player';
 
 export class Map extends Avatar{
   scan(){
@@ -24,4 +25,6 @@ export class Map extends Avatar{
       this.system.reveal();
     }
   }
+  
+  onevent(e){if(e==events.MAPREVEALED) this.hide();}
 }

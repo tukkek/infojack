@@ -26,7 +26,7 @@ export class Backdoor extends SecureAvatar{
   }
   
   click(){
-    if(this.system.backdoor) this.deactivate();
+    if(this.system.backdoor==this.node) this.deactivate();
     else this.activate();
   }
 }

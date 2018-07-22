@@ -6,7 +6,7 @@ import {deck} from '../../deck';
 export class Control extends Avatar{
   constructor(system){
     super(system);
-    this.memory=rpg.chancein(2)?rpg.r(1,this.getscale()):0;
+    this.memory=rpg.chancein(2)?rpg.r(2,this.getscale()):0;
     this.privilege=0;
     while(rpg.chancein(2)) this.privilege+=1;
   }
