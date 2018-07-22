@@ -13,13 +13,15 @@ export class Control extends Avatar{
   
   scan(){
     if(!this.memory&&!this.privilege) this.leave(this.node);
-    this.setimage('nodes/control2.png');
-    this.setname('External device');
+    else{
+      this.setimage('nodes/control2.png');
+      this.setname('External device');
+    }
   }
   
   abuse(){
     if(this.memory){
-      console.print("You gain to access "+this.memory+
+      console.print("You gain access to "+this.memory+
         " blocks of memory!");
       deck.memorytemporary+=this.memory;
       deck.memoryused-=this.memory;

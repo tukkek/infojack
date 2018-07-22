@@ -5,6 +5,7 @@ import {rpg,CRITICALHIT,CRITICALMISS} from '../../rpg';
 import {sound} from '../../sound';
 import {Disconnect} from '../../../messages';
 import {deck} from '../../deck';
+import environment from '../../../environment';
 
 export const events={
   ATTACK:'ATTACK',CONNECT:'CONNECT',MAPREVEALED:'MAPREVEALED',OPENFILE:'OPENFILE',}
@@ -112,11 +113,13 @@ export class Player extends Avatar{
   }
   
   hide(spotter){
-    let roll=rpg.r(1,20);
-    if(roll==1) return true;
-    if(roll==20) return false;
-    return roll+spotter.character.getperceive()<
-      this.roll(this.character.getstealth(),10);
+    let perceive=10+spotter.character.getperceive();
+    let search=rpg.r(1,20)+spotter.character.getsearch()
+    let dc=Math.max(perceive,search);
+    let roll=this.roll(this.character.getstealth());
+    if(environment.debug)
+      console.print('Hide: '+roll+' DC'+dc+'.');
+    return roll>=dc;
   }
   
   login(){ //or logout

@@ -20,6 +20,7 @@ export class Win {
   apply(){
     this.end=!hero.levelup();
     save.save();
+    this.level=hero.level;
     this.abilities=hero.pointextra;
     this.skills=hero.ranks;
     this.feats=hero.newfeats;

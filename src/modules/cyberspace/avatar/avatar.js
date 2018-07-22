@@ -4,6 +4,7 @@ import {Character} from '../../character/character';
 import {webcrawler} from '../../character/class/webcrawler';
 import {occupations} from '../../character/occupation';
 import {sound} from '../../sound';
+import environment from '../../../environment';
 
 export class Avatar{
   constructor(system,level=system.level){
@@ -14,9 +15,7 @@ export class Avatar{
     this.y=-1;
     this.create(webcrawler,occupations.adventurer,level);
     this.character.enhance();
-    this.scandc=this.system.level+rpg.randomize(4);
-    let stealth=10+this.character.getstealth();
-    this.scandc=Math.max(this.scandc,stealth,1);
+    this.scandc=10+this.system.level;
     this.rollinitiative();
   }
   
@@ -106,8 +105,10 @@ export class Avatar{
       this.system.raisealert(+1);
       return false;
     }
-    if(roll==CRITICALHIT||
-      roll>=this.character.getdefence()) return true;
+    let dc=this.character.getdefence()+this.system.level;
+    if(environment.debug)
+      console.print('Hack: '+roll+' DC'+dc+'.');
+    if(roll==CRITICALHIT||roll>=dc) return true;
     sound.play(sound.ERROR);
     let name=this.name.toLowerCase();
     console.print('You fail to hack: '+name+'...');
