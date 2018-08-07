@@ -14,36 +14,33 @@ import {console} from './console';
 import {sound} from '../sound';
 import {deck} from '../deck';
 import {Player,events} from './avatar/player';
-import {hero as offlinehero} from '../character/character';
-import {name} from '../world/names';
 import {INITIAL as RESET} from './avatar/secure/shutdown';
 
 const ICECOMMON=[Scout,Greeter,Bouncer];
 const ICERARE=[Tracer];
 
-var active=false;
-
 export class System{
-  constructor(level){
-    this.revealed=false; //reveal all map
+  constructor(level,business,depth){
     this.level=level;
+    this.business=business;
+    this.depth=depth;//0=entry level
     if(this.level<1) this.level=1;
     else if(this.level>20) this.level=20;
     this.alert=0;
-    this.shutdown=RESET; 
+    this.shutdown=RESET;
     this.nodes=[];
     this.ice=[];
     this.reentry=[];
     this.entrance=null;
+    this.revealed=false; //reveal all map
     this.backdoor=false;
     this.disconnected=false; //throw this if set
-    this.name=name(level); //TODO this is to be taken from a business, not generated here
     this.generatemap();
     this.definenodes();
     for(let n of this.nodes) n.generate();
     this.generateice();
   }
-  
+
   debug(){
     if(environment.revealmap) this.reveal();
     if(environment.scannodes) for(let n of this.nodes)
@@ -52,12 +49,12 @@ export class System{
         a.scanned=true;
       }
   }
-  
+
   getnode(x,y){
     for(let n of this.nodes) if(x==n.x&&y==n.y) return n;
     return null;
   }
-  
+
   generatemap(){
     this.nodes.push(new Cpu(0,0,this,true));
     let size=rpg.r(3,7)+this.level;
@@ -80,7 +77,7 @@ export class System{
       n.y-=leasty;
     }
   }
-  
+
   replacenode(target,i){
     let original=this.nodes[i];
     target.id=original.id;
@@ -88,20 +85,20 @@ export class System{
     target.y=original.y;
     this.nodes[i]=target;
   }
-  
+
   findentrance(neighbors){
     let portals=this.nodes.filter(
-      n=>n.id!=0&&n.getneighbors().length==neighbors); 
+      n=>n.id!=0&&n.getneighbors().length==neighbors);
     if(portals.length==0) return -1;
     return this.nodes.indexOf(rpg.choose(portals));
   }
-  
+
   generatenode(){
     if(rpg.chancein(10)) return new Cpu(-1,-1,this);
     if(rpg.chancein(3)) return new Interface(-1,-1,this);
     return new Datastore(-1,-1,this);
   }
-  
+
   definenodes(){
     let entrancei=-1;
     for(let neighbors=1;entrancei==-1;neighbors++){
@@ -117,13 +114,13 @@ export class System{
       this.replacenode(this.generatenode(),i);
     }
   }
-  
+
   reveal(){
     this.revealed=true;
     for(let n of this.nodes) n.visited=true;
     this.player.fireevent(events.MAPREVEALED);
   }
-  
+
   notifyalert(previous){
     let cancelling=this.alert<previous;
     if(cancelling) sound.play(sound.ALERTCANCEL);
@@ -137,7 +134,7 @@ export class System{
       if(!cancelling) sound.play(sound.ALERTRED);
     }
   }
-  
+
   raisealert(raise=+1,silent=false){
     let previous=this.alert;
     this.alert+=raise;
@@ -148,7 +145,7 @@ export class System{
     if(!silent&&this.alert!=previous)
       this.notifyalert(previous);
   }
-  
+
   generateice(){
     let types=ICECOMMON.slice();
     let rarechance=Math.round(20/this.level);
@@ -170,7 +167,7 @@ export class System{
       }
     }
   }
-  
+
   //guarantees same ice placement for non-random deployment
   deployice(){
     let random=[];
@@ -190,7 +187,7 @@ export class System{
     for(let ice of random)
       ice.enter(rpg.choose(this.nodes));
   }
-  
+
   act(){ //return false when it's the player's turn
     if(this.disconnected) throw this.disconnected;
     let next=this.player;
@@ -199,10 +196,9 @@ export class System{
     next.act();
     return next!=this.player;
   }
-  
+
   connect(){
-    active=this;
-    this.player=new Player(this); //set by Player
+    this.player=new Player(this);
     deck.connect(this);
     this.raisealert(-1,true); //TODO once per day, not immediate
     console.system=this;
@@ -211,7 +207,7 @@ export class System{
     if(!environment.noice) this.deployice();
     this.debug();
   }
-  
+
   disconnect(e){
     console.system=false;
     this.disconnected=false;
@@ -223,16 +219,4 @@ export class System{
     deck.disconnect();
     if(rpg.chancein(30-this.level)) this.backdoor=false;
   }
-}
-
-export function getactive(){return active;}
-export function setactive(s){active=s;}
-
-export function connect(){
-  if(!active){
-    let level=environment.systemlevel||offlinehero.level;
-    active=new System(level);
-  }
-  active.connect();
-  return active;
 }

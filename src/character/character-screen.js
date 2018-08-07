@@ -1,6 +1,6 @@
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {ShowView} from '../messages';
+import {ShowView,Connect} from '../messages';
 import {save} from '../modules/save';
 
 @inject(EventAggregator)
@@ -42,7 +42,7 @@ export class CharacterScreen {
   close(){
       save.save();
       this.show=false;
-      this.messaging.publish(new ShowView('Cyberspace'));
+      this.messaging.publish(new Connect());
   }
 }
 
