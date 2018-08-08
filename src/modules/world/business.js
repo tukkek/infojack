@@ -16,7 +16,7 @@ export class Business{
   constructor(level){
     this.name=name(level);
     this.level=level;
-    this.backdoor=false;//link to System with backdoor TODO
+    this.backdoor=false;
     this.systems=[];
     this.map();
     for(let depth of this.systems) for(let system of depth) 
@@ -54,6 +54,8 @@ export function connect(){
     let level=environment.systemlevel||offlinehero.level;
     active=new Business(level);
   }
-  return active.entry;//TODO check backdoor
+  if(active.backdoor&&active.backdoor.backdoor)
+    return active.backdoor;
+  return active.entry;
 }
 
