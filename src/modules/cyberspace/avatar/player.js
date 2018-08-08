@@ -134,19 +134,17 @@ export class Player extends Avatar{
 
   connect(){
     sound.play(sound.CONNECT);
-    console.print('You connect to: '+this.system.business.name+'.');
+    console.print('You connect to: '+this.system.name+'.');
     if(!this.login())
       console.print('Your unauthorized login is detected!');
   }
 
   disconnect(e){
     this.leave(this.node);
-    let quit;
-    let logout=this.login(); //don't inline: raises alarm
-    if(e.message) quit=e.message;
-    else if(e.safe) quit='You logout safely.';
-    else quit='Your non-gateway logout is detected!';
-    alert(quit);
+    let message=e.message;
+    if(!e.safe&&!this.login())
+      message='Your disconnection is detected!'
+    if(message) window.alert(message);
     sound.clear();
   }
 

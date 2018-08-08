@@ -24,14 +24,14 @@ export class Cyberspace{
     current=this;
     let me=this;
     messaging.subscribe(Connect,function(e){
-      me.system=e.system;
-      console.system=e.system;
+      let s=e.system;
+      me.system=s;
+      console.system=s;
       me.init();
     });
   }
 
   init(){
-    //TODO clean previous run
     this.active=true;
     this.map=document.querySelector('#cyberspace');
     this.console=
@@ -186,8 +186,13 @@ export class Cyberspace{
     this.active=false;
     this.map.innerHTML='';
     this.console.innerHTML='';
-    this.messaging.publish(new ShowView('CharacterScreen'));
-    if(e.win) this.messaging.publish(new ShowView('Win'));
+    if(e.reconnect){
+      this.messaging.publish(new Connect(e.reconnect));
+    }else{
+      this.messaging.publish(
+        new ShowView('CharacterScreen'));
+      if(e.win) this.messaging.publish(new ShowView('Win'));
+    }
   }
 
   refresh(act=true){

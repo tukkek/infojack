@@ -23,8 +23,8 @@ export class Terminal extends SecureAvatar{
   click(){
     if(!super.click()) return false;
     this.system.business.crash(this.system);
-    sound.play(sound.CRASH);
     this.system.raisealert(+2,true);
+    sound.play(sound.CRASH);
     let d=new Disconnect('You have crashed the mainframe!');
     d.win=true;
     d.safe=true;

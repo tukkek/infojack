@@ -5,7 +5,10 @@ export class ShowView{
 }
 
 export class Connect{
-  constructor(){this.system=connect();}
+  constructor(system=connect()){
+    system.connect();
+    this.system=system;
+  }
 }
 
 export class Disconnect{
@@ -13,6 +16,7 @@ export class Disconnect{
     this.message=message;
     this.safe=false;
     this.win=false;
+    this.reconnect=false;//jumping between systems
   }
 }
 

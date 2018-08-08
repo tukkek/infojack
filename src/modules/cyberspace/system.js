@@ -20,7 +20,8 @@ const ICECOMMON=[Scout,Greeter,Bouncer];
 const ICERARE=[Tracer];
 
 export class System{
-  constructor(level,business,depth){
+  constructor(name,level,business,depth){
+    this.name=name;
     this.level=level;
     this.business=business;
     this.depth=depth;//0=entry level
@@ -35,6 +36,9 @@ export class System{
     this.revealed=false; //reveal all map
     this.backdoor=false;
     this.disconnected=false; //throw this if set
+  }
+  
+  generate(){
     this.generatemap();
     this.definenodes();
     for(let n of this.nodes) n.generate();
@@ -44,7 +48,7 @@ export class System{
   debug(){
     if(environment.revealmap) this.reveal();
     if(environment.scannodes) for(let n of this.nodes)
-      for(let a of n.avatars.slice()){
+      for(let a of n.avatars.slice()) if(!a.scanned){
         a.scan();
         a.scanned=true;
       }
@@ -86,11 +90,10 @@ export class System{
     this.nodes[i]=target;
   }
 
-  findentrance(neighbors){
-    let portals=this.nodes.filter(
-      n=>n.id!=0&&n.getneighbors().length==neighbors);
-    if(portals.length==0) return -1;
-    return this.nodes.indexOf(rpg.choose(portals));
+  //returns all nodes with the given number of exits
+  findportals(exits){
+    return this.nodes.filter(
+      n=>n.id!=0&&n.getneighbors().length==exits);
   }
 
   generatenode(){
@@ -99,19 +102,31 @@ export class System{
     return new Datastore(-1,-1,this);
   }
 
-  definenodes(){
-    let entrancei=-1;
-    for(let neighbors=1;entrancei==-1;neighbors++){
-      entrancei=this.findentrance(neighbors);
+  defineportals(){
+    this.entrance=new Portal(-1,-1,this);
+    let portals=[this.entrance];
+    if(this!=this.business.mainframe){
+      let branches=this.business.systems[this.depth+1];
+      for(let branch of branches)
+        portals.push(new Portal(-1,-1,this,branch));
     }
-    this.entrance=new Portal(-1,-1,this,true);
-    this.replacenode(this.entrance,entrancei);
-    for(let i=1;i<this.nodes.length;i++){
-      if(i==entrancei) continue;
-      let neighbors=this.nodes[i].getneighbors().length;
+    rpg.shuffle(portals);
+    for(let exits=1;portals.length>0;exits++){
+      let nodes=this.findportals(exits);
+      rpg.shuffle(nodes);
+      while(portals.length>0&&nodes.length>0)
+        this.replacenode(portals.pop(),nodes.pop().id);
+    }
+  }
+  
+  definenodes(){
+    this.defineportals();
+    for(let n of this.nodes){
+      if(n instanceof Portal) continue;
+      let neighbors=n.getneighbors().length;
       let corridor=neighbors>2&&rpg.chancein(5-neighbors);
       if(corridor) continue;
-      this.replacenode(this.generatenode(),i);
+      this.replacenode(this.generatenode(),n.id);
     }
   }
 
@@ -213,6 +228,7 @@ export class System{
     this.disconnected=false;
     this.revealed=false;
     this.player.disconnect(e)
+    this.player=false;
     for(let ice of this.reentry) this.ice.push(ice);
     this.reentry=[];
     for(let n of this.nodes) n.reset();
