@@ -186,4 +186,9 @@ export class File extends Avatar{
     if(this.scanned)
       this.tooltip+=' ('+this.size+' blocks)';
   }
+  
+  reset(){
+    super.reset();
+    this.downloading=NOTDOWNLOADING;
+  }
 }

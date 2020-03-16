@@ -1,4 +1,4 @@
-import {System,connect} from '../modules/cyberspace/system';
+import {connect} from '../modules/world/business';
 import {console} from '../modules/cyberspace/console';
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
@@ -6,7 +6,7 @@ import {sound} from '../modules/sound';
 import {ShowView} from '../messages';
 import environment from '../environment';
 import {hero} from '../modules/character/character';
-import {Disconnect,Refresh} from '../messages';
+import {Connect,Refresh,Disconnect} from '../messages';
 
 var TILESIZE=2.5;
 var SPACING=1.1;
@@ -20,27 +20,28 @@ var lastclick=0;
 export class Cyberspace{
   constructor(messaging){
     this.messaging=messaging;
-    this.showconsole=false;
+    this.active=false;
     current=this;
     let me=this;
-    messaging.subscribe(ShowView,function(show){
-      if(show.view=='Cyberspace') me.init();
+    messaging.subscribe(Connect,function(e){
+      let s=e.system;
+      me.system=s;
+      console.system=s;
+      me.init();
     });
   }
-  
+
   init(){
-    //TODO clean previous run
-    this.showconsole=true;
+    this.active=true;
     this.map=document.querySelector('#cyberspace');
     this.console=
       document.querySelector('#console-constraint');
-    this.system=connect();
     this.player=this.system.player;
     this.tiles=[];
     this.drawn=[];
     this.draw();
   }
-  
+
   clicktile(tile){
     let now=new Date().getTime();
     if(lastclick+MINIMUMWAIT>now) return;
@@ -56,7 +57,7 @@ export class Cyberspace{
         this.disconnect(e);
         return;
       }
-    }else if(this.player.enter(node)) 
+    }else if(this.player.enter(node))
       this.placenode(node,true);
     this.refresh();
   }
@@ -108,15 +109,14 @@ export class Cyberspace{
   }
 
   draw(){
-    console.system=this.system;
     for(let n of this.system.nodes) if(n.visited)
       this.placenode(n,true);
     this.scroll();
     this.refresh();
   }
-  
+
   scroll(){
-    for(let t of this.tiles) 
+    for(let t of this.tiles)
       if(t.nodeid==this.player.node.id&&
         t.nodex==this.player.x&&t.nodey==this.player.y){
           setTimeout(function(){t.scrollIntoView();},250);
@@ -157,7 +157,7 @@ export class Cyberspace{
     }
     this.console.scrollTop=this.console.scrollHeight;
   }
-  
+
   refreshtile(t){
     let node=this.system.nodes[t.nodeid];
     if(t.style.opacity==0) setTimeout(function(){
@@ -171,25 +171,30 @@ export class Cyberspace{
     let avatar=node.getavatar(t.nodex,t.nodey);
     if(avatar&&!avatar.show()) avatar=false;
     if(t.image&&(!avatar||
-      avatar!=t.avatar||t.scanned!=avatar.scanned)) 
+      avatar!=t.avatar||t.scanned!=avatar.scanned))
         this.removeimage(t);
     if(avatar&&avatar!=t.avatar) this.addimage(t,avatar);
     if(avatar&&this.player.target==avatar){
       t.classList.add('target');
     }else t.classList.remove('target');
   }
-  
+
   disconnect(e){
     if(!(e instanceof Disconnect)) throw e;
     this.refresh(false);
     this.system.disconnect(e);
-    this.showconsole=false;
+    this.active=false;
     this.map.innerHTML='';
     this.console.innerHTML='';
-    this.messaging.publish(new ShowView('CharacterScreen'));
-    if(e.win) this.messaging.publish(new ShowView('Win'));
+    if(e.reconnect){
+      this.messaging.publish(new Connect(e.reconnect));
+    }else{
+      this.messaging.publish(
+        new ShowView('CharacterScreen'));
+      if(e.win) this.messaging.publish(new ShowView('Win'));
+    }
   }
-  
+
   refresh(act=true){
     try{
       if(act) while(this.system.act()){ /* process NPCs */ }
@@ -198,7 +203,7 @@ export class Cyberspace{
       return;
     }
     this.printmessages();
-    if(this.system.revealed) for(let n of this.system.nodes) 
+    if(this.system.revealed) for(let n of this.system.nodes)
       this.placenode(n,false);
     for(let t of this.tiles) this.refreshtile(t);
     this.messaging.publish(new Refresh('ProgramBar'));

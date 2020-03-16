@@ -5,12 +5,10 @@ import {rpg,CRITICALHIT,CRITICALMISS} from '../../rpg';
 import {sound} from '../../sound';
 import {Disconnect} from '../../../messages';
 import {deck} from '../../deck';
+import environment from '../../../environment';
 
 export const events={
-  ATTACK:'ATTACK',
-  CONNECT:'CONNECT',
-  OPENFILE:'OPENFILE',
-}
+  ATTACK:'ATTACK',CONNECT:'CONNECT',MAPREVEALED:'MAPREVEALED',OPENFILE:'OPENFILE',}
 
 var lastact=-9000;
 
@@ -22,13 +20,14 @@ export class Player extends Avatar{
     this.scanned=true;
     this.target=false; //current target (ICE)
     this.credentials=10+this.character.getforgery();
-    this.privilege=0;
+    this.privilege=0; //global roll() bonus
+    this.trace=0; //see Tracer ICE
   }
-  
+
   create(characterclass,level){
     this.character=offline.connect();
   }
-  
+
   roll(bonus,roll=false){
     if(!roll) roll=rpg.r(1,20);
     if(roll==1) return CRITICALMISS;
@@ -42,7 +41,7 @@ export class Player extends Avatar{
     bonus+=this.privilege-deck.getload();
     return roll+bonus;
   }
-  
+
   enter(node){
     let first=!this.node;
     if(!super.enter(node)) return false;
@@ -55,14 +54,14 @@ export class Player extends Avatar{
       this.roll(this.character.getperceive(),10));
     return true;
   }
-  
+
   wait(){
     sound.play(sound.SCAN);
     console.print('You scan the node...');
     this.ap+=.5;
     this.node.scan(this.roll(this.character.getsearch()));
   }
-  
+
   click(){
     //TODO maybe add % to deck and revert this to #wait()
     let c=this.character;
@@ -72,7 +71,7 @@ export class Player extends Avatar{
       '('+percent+'%).';
     console.print(status);
   }
-  
+
   act(){
     if(this.ap<lastact+1) return;
     lastact=this.ap;
@@ -81,7 +80,7 @@ export class Player extends Avatar{
       this.roll(this.character.gethacking(),10));
     deck.act(hacking,this.system);
   }
-  
+
   query(dc,source){ //ICE queries player
     if(this.credentials>=dc) return true;
     sound.play(sound.QUERY);
@@ -91,7 +90,7 @@ export class Player extends Avatar{
     this.credentials=bluff;
     return true;
   }
-  
+
   //returns true on hit, false on miss
   attack(bonus,target,damage,roll=false){
     this.fireevent(events.ATTACK);
@@ -103,7 +102,7 @@ export class Player extends Avatar{
     }
     return super.attack(bonus,target,damage,roll);
   }
-  
+
   die(){
     sound.play(sound.DISCONNECTED);
     this.system.raisealert(+2,true);
@@ -112,15 +111,17 @@ export class Player extends Avatar{
     d.safe=true;
     throw d;
   }
-  
+
   hide(spotter){
-    let roll=rpg.r(1,20);
-    if(roll==1) return true;
-    if(roll==20) return false;
-    return roll+spotter.character.getperceive()<
-      this.roll(this.character.getstealth(),10);
+    let perceive=10+spotter.character.getperceive();
+    let search=rpg.r(1,20)+spotter.character.getsearch()
+    let dc=Math.max(perceive,search);
+    let roll=this.roll(this.character.getstealth());
+    if(environment.debug)
+      console.print('Hide: '+roll+' DC'+dc+'.');
+    return roll>=dc;
   }
-  
+
   login(){ //or logout
     if(!this.node&&this.system.backdoor) return true;
     let login=this.roll(this.character.gethacking());
@@ -130,26 +131,26 @@ export class Player extends Avatar{
     this.fireevent(events.CONNECT);
     return false;
   }
-  
+
   connect(){
     sound.play(sound.CONNECT);
     console.print('You connect to: '+this.system.name+'.');
     if(!this.login())
       console.print('Your unauthorized login is detected!');
   }
-  
+
   disconnect(e){
     this.leave(this.node);
-    let quit;
-    let logout=this.login(); //don't inline: raises alarm
-    if(e.message) quit=e.message;
-    else if(e.safe) quit='You logout safely.';
-    else quit='Your non-gateway logout is detected!';
-    alert(quit);
+    let message=e.message;
+    if(!e.safe&&!this.login())
+      message='Your disconnection is detected!'
+    if(message) window.alert(message);
     sound.clear();
   }
-  
+
   fireevent(e){
+    for(let n of this.system.nodes) for(let a of n.avatars)
+      a.onevent(e);
     for(let program of deck.loaded.slice())
       program.onevent(e,this.system);
   }

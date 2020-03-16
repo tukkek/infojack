@@ -9,21 +9,16 @@ class Rpg{
     }
     
     d(dice,sides){
-        let sum=0;
-        for(let i=0;i<dice;i++){
-            sum+=this.r(1,sides);
-        }
-        return sum;
+      let sum=0;
+      for(let i=0;i<dice;i++){
+          sum+=this.r(1,sides);
+      }
+      return sum;
     }
     
-    choose(list){
-      let index=this.r(0,list.length-1);
-      return list[index];
-    }
+    choose(list){return list[this.r(0,list.length-1)];}
     
-    chancein(n){
-      return this.r(1,n)==1;
-    }
+    chancein(n){return this.r(1,n)==1;}
     
     shuffle(array){
       for (let i=array.length-1;i>0;i--) {

@@ -2,7 +2,7 @@ import {Ice} from './ice';
 
 export class Greeter extends Ice{
   constructor(system,level){
-    super('Greeter','ice/greeter.png',system,level+1);
+    super('Greeter','greeter.png',system,level+1);
   }
   
   create(characterclass,occupation,level){

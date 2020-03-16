@@ -9,7 +9,7 @@ export const PROGRAMS=new Map();
 //For design parameters: https://github.com/tukkek/infojack/wiki/Program-parameters-reference
 export class Program{
   constructor(name,grade,image,size,hack,buy,code){
-    this.hackingdc=hack;
+    this.hackingdc=hack+10;
     this.purchasedc=buy;
     this.programmingdc=code;
     this.size=size; //MBs / blocks

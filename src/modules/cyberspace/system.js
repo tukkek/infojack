@@ -9,49 +9,56 @@ import {Ice} from './avatar/ice/ice';
 import {Scout} from './avatar/ice/scout';
 import {Greeter} from './avatar/ice/greeter';
 import {Bouncer} from './avatar/ice/bouncer';
+import {Tracer} from './avatar/ice/tracer';
 import {console} from './console';
 import {sound} from '../sound';
 import {deck} from '../deck';
-import {Player} from './avatar/player';
-import {hero as offlinehero} from '../character/character';
-import {name} from '../world/names';
+import {Player,events} from './avatar/player';
+import {INITIAL as RESET} from './avatar/secure/shutdown';
 
-var active=false;
+const ICECOMMON=[Scout,Greeter,Bouncer];
+const ICERARE=[Tracer];
 
 export class System{
-  constructor(level){
-    this.revealed=false; //reveal all map
+  constructor(name,level,business,depth){
+    this.name=name;
     this.level=level;
+    this.business=business;
+    this.depth=depth;//0=entry level
     if(this.level<1) this.level=1;
     else if(this.level>20) this.level=20;
     this.alert=0;
+    this.shutdown=RESET;
     this.nodes=[];
     this.ice=[];
     this.reentry=[];
     this.entrance=null;
+    this.revealed=false; //reveal all map
     this.backdoor=false;
     this.disconnected=false; //throw this if set
-    this.name=name(level); //TODO this is to be taken from a business, not generated here
+  }
+  
+  generate(){
     this.generatemap();
     this.definenodes();
     for(let n of this.nodes) n.generate();
     this.generateice();
   }
-  
+
   debug(){
     if(environment.revealmap) this.reveal();
     if(environment.scannodes) for(let n of this.nodes)
-      for(let a of n.avatars.slice()){
+      for(let a of n.avatars.slice()) if(!a.scanned){
         a.scan();
         a.scanned=true;
       }
   }
-  
+
   getnode(x,y){
     for(let n of this.nodes) if(x==n.x&&y==n.y) return n;
     return null;
   }
-  
+
   generatemap(){
     this.nodes.push(new Cpu(0,0,this,true));
     let size=rpg.r(3,7)+this.level;
@@ -74,7 +81,7 @@ export class System{
       n.y-=leasty;
     }
   }
-  
+
   replacenode(target,i){
     let original=this.nodes[i];
     target.id=original.id;
@@ -82,48 +89,54 @@ export class System{
     target.y=original.y;
     this.nodes[i]=target;
   }
-  
-  findentrance(neighbors){
-    let portals=this.nodes.filter(
-      n=>n.id!=0&&n.getneighbors().length==neighbors); 
-    if(portals.length==0) return -1;
-    return this.nodes.indexOf(rpg.choose(portals));
+
+  //returns all nodes with the given number of exits
+  findportals(exits){
+    return this.nodes.filter(
+      n=>n.id!=0&&n.getneighbors().length==exits);
   }
-  
+
   generatenode(){
     if(rpg.chancein(10)) return new Cpu(-1,-1,this);
     if(rpg.chancein(3)) return new Interface(-1,-1,this);
     return new Datastore(-1,-1,this);
   }
-  
-  definenodes(){
-    let entrancei=-1;
-    for(let neighbors=1;entrancei==-1;neighbors++){
-      entrancei=this.findentrance(neighbors);
+
+  defineportals(){
+    this.entrance=new Portal(-1,-1,this);
+    let portals=[this.entrance];
+    if(this!=this.business.mainframe){
+      let branches=this.business.systems[this.depth+1];
+      for(let branch of branches)
+        portals.push(new Portal(-1,-1,this,branch));
     }
-    this.entrance=new Portal(-1,-1,this,true);
-    this.replacenode(this.entrance,entrancei);
-    for(let i=1;i<this.nodes.length;i++){
-      if(i==entrancei) continue;
-      let neighbors=this.nodes[i].getneighbors().length;
-      let corridor=neighbors>2&&rpg.chancein(5-neighbors);
-      if(corridor) continue;
-      this.replacenode(this.generatenode(),i);
+    rpg.shuffle(portals);
+    for(let exits=1;portals.length>0;exits++){
+      let nodes=this.findportals(exits);
+      rpg.shuffle(nodes);
+      while(portals.length>0&&nodes.length>0)
+        this.replacenode(portals.pop(),nodes.pop().id);
     }
   }
   
+  definenodes(){
+    this.defineportals();
+    for(let n of this.nodes){
+      if(n instanceof Portal) continue;
+      let neighbors=n.getneighbors().length;
+      let corridor=neighbors>2&&rpg.chancein(5-neighbors);
+      if(corridor) continue;
+      this.replacenode(this.generatenode(),n.id);
+    }
+  }
+
   reveal(){
     this.revealed=true;
     for(let n of this.nodes) n.visited=true;
+    this.player.fireevent(events.MAPREVEALED);
   }
-  
-  raisealert(raise=+1,silent=false){
-    let previous=this.alert;
-    this.alert+=raise;
-    if(this.alert>2) this.alert=2;
-    else if(this.alert<0) this.alert=0;
-    if(this.alert==2) this.player.credentials=-20;
-    if(silent||this.alert==previous) return;
+
+  notifyalert(previous){
     let cancelling=this.alert<previous;
     if(cancelling) sound.play(sound.ALERTCANCEL);
     if(this.alert==0)
@@ -136,10 +149,24 @@ export class System{
       if(!cancelling) sound.play(sound.ALERTRED);
     }
   }
-  
+
+  raisealert(raise=+1,silent=false){
+    let previous=this.alert;
+    this.alert+=raise;
+    if(this.alert>2) this.alert=2;
+    else if(this.alert<0) this.alert=0;
+    if(this.alert==2) this.player.credentials=-20;
+    else this.shutdown=RESET;
+    if(!silent&&this.alert!=previous)
+      this.notifyalert(previous);
+  }
+
   generateice(){
-    let types=[Scout,Greeter,Bouncer];
-    let budget=this.level*4;//TODO
+    let types=ICECOMMON.slice();
+    let rarechance=Math.round(20/this.level);
+    for(let rare of ICERARE) if(rpg.chancein(rarechance))
+      types.push(rare);
+    let budget=this.level*4;//TODO alternative approach
     let passes=Math.min(this.level,4);
     for(let pass=0;pass<passes;pass++){
       let level=this.level;
@@ -155,7 +182,7 @@ export class System{
       }
     }
   }
-  
+
   //guarantees same ice placement for non-random deployment
   deployice(){
     let random=[];
@@ -175,7 +202,7 @@ export class System{
     for(let ice of random)
       ice.enter(rpg.choose(this.nodes));
   }
-  
+
   act(){ //return false when it's the player's turn
     if(this.disconnected) throw this.disconnected;
     let next=this.player;
@@ -184,10 +211,9 @@ export class System{
     next.act();
     return next!=this.player;
   }
-  
+
   connect(){
-    active=this;
-    this.player=new Player(this); //set by Player
+    this.player=new Player(this);
     deck.connect(this);
     this.raisealert(-1,true); //TODO once per day, not immediate
     console.system=this;
@@ -196,28 +222,17 @@ export class System{
     if(!environment.noice) this.deployice();
     this.debug();
   }
-  
+
   disconnect(e){
     console.system=false;
     this.disconnected=false;
     this.revealed=false;
     this.player.disconnect(e)
+    this.player=false;
     for(let ice of this.reentry) this.ice.push(ice);
     this.reentry=[];
     for(let n of this.nodes) n.reset();
     deck.disconnect();
     if(rpg.chancein(30-this.level)) this.backdoor=false;
   }
-}
-
-export function getactive(){return active;}
-export function setactive(s){active=s;}
-
-export function connect(){
-  if(!active){
-    let level=environment.systemlevel||offlinehero.level;
-    active=new System(level);
-  }
-  active.connect();
-  return active;
 }

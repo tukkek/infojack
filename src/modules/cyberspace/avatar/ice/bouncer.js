@@ -6,7 +6,7 @@ import {Portal} from '../../node/portal';
 
 export class Bouncer extends Ice{
   constructor(system,level){
-    super('Bouncer','ice/bouncer.png',system,level+1);
+    super('Bouncer','bouncer.png',system,level+1);
   }
   
   create(characterclass,occupation,level){

@@ -10,7 +10,8 @@ class Eject extends Program{
   
   run(system){
     if(window.confirm('Are you sure you want to leave?'))
-      system.disconnected=new Disconnect();
+      system.disconnected=
+        new Disconnect('Ejection successful.');
   }
 }
 

@@ -6,20 +6,22 @@ import {deck} from '../../deck';
 export class Control extends Avatar{
   constructor(system){
     super(system);
-    this.memory=rpg.chancein(2)?rpg.r(1,this.getscale()):0;
+    this.memory=rpg.chancein(2)?rpg.r(2,this.getscale()):0;
     this.privilege=0;
     while(rpg.chancein(2)) this.privilege+=1;
   }
   
   scan(){
     if(!this.memory&&!this.privilege) this.leave(this.node);
-    this.setimage('nodes/control2.png');
-    this.setname('External device');
+    else{
+      this.setimage('nodes/control2.png');
+      this.setname('External device');
+    }
   }
   
   abuse(){
     if(this.memory){
-      console.print("You gain to access "+this.memory+
+      console.print("You gain access to "+this.memory+
         " blocks of memory!");
       deck.memorytemporary+=this.memory;
       deck.memoryused-=this.memory;

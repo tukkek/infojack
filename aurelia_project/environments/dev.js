@@ -8,10 +8,10 @@ export default {
   ccskills:false, //only 1 is cross-class, so disable for now
   playeravatars:17,
   /* debug flags (false=disabled) */
-  revealmap:false,
-  scannodes:true,
+  noice:false, //skip ICE generation
+  revealmap:false, //system.reveal()
+  scannodes:false, //avatar.scan() on all nodes
   systemlevel:false, //override system level
   view:false, //starting view name
-  noice:false, //skip ICE generation
   wealth:false, //overrides starting wealth
 };

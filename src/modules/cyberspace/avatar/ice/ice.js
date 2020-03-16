@@ -8,8 +8,9 @@ export class Ice extends Avatar{
   constructor(name,image,system,level){
     super(system,level);
     this.revealedname=name;
-    this.revealedimage=image;
+    this.revealedimage='ice/'+image;
     if(environment.debug) this.checkcharacter();
+    this.scandc=10+this.character.getstealth();
   }
   
   checkcharacter(){
@@ -42,8 +43,6 @@ export class Ice extends Avatar{
     this.setimage(this.revealedimage);
   }
   
-  act(){throw 'Unimplemented Ice#act() for '+this.name;}
-  
   //returns true on attempt, hit or not
   attack(bonus,target,damage,roll=false){
     if(this.system.alert!=2||target.node!=this.node)
@@ -69,9 +68,8 @@ export class Ice extends Avatar{
   }
   
   show(){
-    if(this.system.revealed) return true;
-    if(this.node!=this.system.player.node) return false;
-    return this.scanned;
+    return this.scanned||this.system.revealed||
+      this.node==this.system.player.node;
   }
   
   query(){//return false if failed query
@@ -103,8 +101,9 @@ export class Ice extends Avatar{
   }
   
   move(){
+    let p=this.system.player;
     if(this.system.alert>0&&
-      this.system.player.node==this.node) return false;
+      p.node==this.node&&!p.hide(this)) return false;
     this.enter(this.getdestination());
     return true;
   }
